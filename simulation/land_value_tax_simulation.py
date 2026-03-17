@@ -5,14 +5,11 @@ Runs the simulation and saves results to JSON for dashboard consumption.
 
 import json
 import numpy as np
-import pandas as pd
+import microdf as mdf
 from policyengine_uk import Microsimulation, Simulation, Scenario
 
 YEAR = 2026
 OUTPUT_FILE = "data/lvt_results.json"
-
-def wavg(g, col):
-    return float(np.average(g[col], weights=g["weight"]))
 
 def run():
     results = {}
@@ -32,16 +29,27 @@ def run():
     income = baseline.calculate("household_net_income", YEAR)
     income_decile = baseline.calculate("household_income_decile", YEAR)
 
+    # Build main MicroDataFrame with all household-level variables
+    df_all = mdf.MicroDataFrame({
+        "land_value": land_value.values,
+        "hh_land": hh_land.values,
+        "corp_land": corp_land.values,
+        "property_wealth": property_wealth.values,
+        "total_wealth": total_wealth.values,
+        "income": income.values,
+        "income_decile": income_decile.values,
+    }, weights=weights.values)
+
     results["baseline"] = {
-        "total_land_tn": round(float(land_value.sum()) / 1e12, 2),
-        "household_land_tn": round(float(hh_land.sum()) / 1e12, 2),
-        "corporate_land_tn": round(float(corp_land.sum()) / 1e12, 2),
-        "total_property_wealth_tn": round(float(property_wealth.sum()) / 1e12, 2),
-        "total_wealth_tn": round(float(total_wealth.sum()) / 1e12, 2),
-        "land_pct_of_property": round(float(hh_land.sum()) / float(property_wealth.sum()) * 100, 1),
-        "land_pct_of_wealth": round(float(land_value.sum()) / float(total_wealth.sum()) * 100, 1),
-        "avg_land_per_household": round(float(land_value.mean())),
-        "median_land_value": round(float(land_value.median())),
+        "total_land_tn": round(float(df_all.land_value.sum()) / 1e12, 2),
+        "household_land_tn": round(float(df_all.hh_land.sum()) / 1e12, 2),
+        "corporate_land_tn": round(float(df_all.corp_land.sum()) / 1e12, 2),
+        "total_property_wealth_tn": round(float(df_all.property_wealth.sum()) / 1e12, 2),
+        "total_wealth_tn": round(float(df_all.total_wealth.sum()) / 1e12, 2),
+        "land_pct_of_property": round(float(df_all.hh_land.sum()) / float(df_all.property_wealth.sum()) * 100, 1),
+        "land_pct_of_wealth": round(float(df_all.land_value.sum()) / float(df_all.total_wealth.sum()) * 100, 1),
+        "avg_land_per_household": round(float(df_all.land_value.mean())),
+        "median_land_value": round(float(df_all.land_value.median())),
     }
     print(f"  Total land: £{results['baseline']['total_land_tn']}tn")
 
@@ -68,20 +76,19 @@ def run():
         ),
     )
 
-    df_hh = pd.DataFrame({
+    df_hh = mdf.MicroDataFrame({
         "land_value": land_value.values,
-        "weight": weights.values,
         "country": country.values,
         "region": region.values,
         "family_type": family_type_hh,
-    })
+    }, weights=weights.values)
 
     # By country
-    avg_by_country = [{"group": "UK", "avg_land_value": round(float(np.average(df_hh["land_value"], weights=df_hh["weight"])))}]
+    avg_by_country = [{"group": "UK", "avg_land_value": round(float(df_hh.land_value.mean()))}]
     for c in ["ENGLAND", "SCOTLAND", "WALES", "NORTHERN_IRELAND"]:
-        mask = df_hh["country"] == c
-        if mask.sum() > 0:
-            avg_val = float(np.average(df_hh.loc[mask, "land_value"], weights=df_hh.loc[mask, "weight"]))
+        subset = df_hh[df_hh["country"] == c]
+        if len(subset) > 0:
+            avg_val = float(subset.land_value.mean())
             avg_by_country.append({"group": c.replace("_", " ").title(), "avg_land_value": round(avg_val)})
 
     # By region (England regions + devolved nations)
@@ -89,9 +96,9 @@ def run():
     for r in ["NORTH_EAST", "NORTH_WEST", "YORKSHIRE", "EAST_MIDLANDS", "WEST_MIDLANDS",
               "EAST_OF_ENGLAND", "LONDON", "SOUTH_EAST", "SOUTH_WEST",
               "WALES", "SCOTLAND", "NORTHERN_IRELAND"]:
-        mask = df_hh["region"] == r
-        if mask.sum() > 0:
-            avg_val = float(np.average(df_hh.loc[mask, "land_value"], weights=df_hh.loc[mask, "weight"]))
+        subset = df_hh[df_hh["region"] == r]
+        if len(subset) > 0:
+            avg_val = float(subset.land_value.mean())
             label = r.replace("_", " ").title()
             if label == "East Of England":
                 label = "East of England"
@@ -103,9 +110,9 @@ def run():
     avg_by_family = []
     family_labels = ["Single, no children", "Couple, no children", "Lone parent", "Couple with children", "Single pensioner", "Pensioner couple"]
     for label in family_labels:
-        mask = df_hh["family_type"] == label
-        if mask.sum() > 0:
-            avg_val = float(np.average(df_hh.loc[mask, "land_value"], weights=df_hh.loc[mask, "weight"]))
+        subset = df_hh[df_hh["family_type"] == label]
+        if len(subset) > 0:
+            avg_val = float(subset.land_value.mean())
             avg_by_family.append({"group": label, "avg_land_value": round(avg_val)})
 
     results["avg_land_by_country"] = avg_by_country
@@ -141,38 +148,21 @@ def run():
     }
 
     # === Section 3: Distribution by Income Decile ===
-    df = pd.DataFrame({
-        "land_value": land_value.values,
-        "hh_land": hh_land.values,
-        "corp_land": corp_land.values,
-        "property_wealth": property_wealth.values,
-        "total_wealth": total_wealth.values,
-        "income": income.values,
-        "income_decile": income_decile.values,
-        "weight": weights.values,
-    })
-    df = df[df["income_decile"] > 0]
+    df = df_all[df_all["income_decile"] > 0]
 
-    by_decile = df.groupby("income_decile").apply(
-        lambda g: pd.Series({
-            "avg_land_value": wavg(g, "land_value"),
-            "avg_hh_land": wavg(g, "hh_land"),
-            "avg_corp_land": wavg(g, "corp_land"),
-            "avg_property_wealth": wavg(g, "property_wealth"),
-            "avg_income": wavg(g, "income"),
-            "total_land": float(np.sum(g["land_value"] * g["weight"])),
-        })
-    )
-    total_land_all = by_decile["total_land"].sum()
+    by_decile = df.groupby("income_decile")
+    decile_stats = by_decile[["land_value", "hh_land", "corp_land", "property_wealth", "income"]].mean()
+    decile_totals = by_decile[["land_value"]].sum()
+    total_land_all = float(decile_totals["land_value"].sum())
 
     results["distribution_by_decile"] = []
-    for d, row in by_decile.iterrows():
+    for d in decile_stats.index:
         results["distribution_by_decile"].append({
             "decile": int(d),
-            "avg_income": round(row["avg_income"]),
-            "avg_land_value": round(row["avg_land_value"]),
-            "avg_property_wealth": round(row["avg_property_wealth"]),
-            "share_of_land_pct": round(row["total_land"] / total_land_all * 100, 1),
+            "avg_income": round(float(decile_stats.loc[d, "income"])),
+            "avg_land_value": round(float(decile_stats.loc[d, "land_value"])),
+            "avg_property_wealth": round(float(decile_stats.loc[d, "property_wealth"])),
+            "share_of_land_pct": round(float(decile_totals.loc[d, "land_value"]) / total_land_all * 100, 1),
         })
     print("  Distribution by decile computed.")
 
@@ -209,7 +199,7 @@ def run():
     impact_rates = [required_rate] + [r for r in [0.005, 0.01, 0.015, 0.02, 0.03, 0.05] if abs(r - required_rate) > 0.0001]
     impact_rates.sort()
 
-    # Poverty and Gini helpers
+    # Poverty and Gini helpers using microdf
     # NOTE: We compute poverty directly from household_net_income rather
     # than using in_poverty_bhc, because the HBAI poverty definition only
     # subtracts official taxes and does not include LVT.
@@ -218,37 +208,19 @@ def run():
     equiv_factor = 1.0 + (hh_adults - 1) * 0.5 + hh_children * 0.3
     equiv_factor = np.where(equiv_factor > 0, equiv_factor, 1.0)
 
-    def weighted_median(values, wts):
-        """Weighted median."""
-        s = np.argsort(values)
-        sv, sw = values[s], wts[s]
-        cw = np.cumsum(sw)
-        idx = np.searchsorted(cw, cw[-1] / 2)
-        return float(sv[idx])
-
     def poverty_rate(hh_income, wts, equiv):
         """Relative poverty rate: % of households with equiv income < 60% of median."""
-        eq_inc = hh_income / equiv
-        med = weighted_median(eq_inc, wts)
-        return float(np.average(eq_inc < 0.6 * med, weights=wts)) * 100
-
-    def gini(incomes, wts):
-        """Weighted Gini coefficient."""
-        sorted_idx = np.argsort(incomes)
-        sorted_inc = incomes[sorted_idx]
-        sorted_wts = wts[sorted_idx]
-        cum_wts = np.cumsum(sorted_wts)
-        cum_inc = np.cumsum(sorted_inc * sorted_wts)
-        total_inc = cum_inc[-1]
-        total_wts = cum_wts[-1]
-        return float(1 - 2 * np.sum(cum_inc * sorted_wts) / (total_inc * total_wts) + 1 / total_wts)
+        eq_inc = mdf.MicroSeries(hh_income / equiv, weights=wts)
+        med = float(eq_inc.median())
+        in_poverty = mdf.MicroSeries((hh_income / equiv < 0.6 * med).astype(float), weights=wts)
+        return float(in_poverty.mean()) * 100
 
     wts = weights.values
     baseline_poverty_bhc = poverty_rate(baseline_net_income.values, wts, equiv_factor)
     # AHC: subtract housing costs
     housing_costs = baseline.calculate("housing_costs", YEAR).values
     baseline_poverty_ahc = poverty_rate(baseline_net_income.values - housing_costs, wts, equiv_factor)
-    baseline_gini = gini(baseline_net_income.values, wts)
+    baseline_gini = float(mdf.MicroSeries(baseline_net_income.values, weights=wts).gini())
 
     results["impact_scenarios"] = {}
     results["poverty_gini"] = {"baseline_poverty_bhc": round(baseline_poverty_bhc, 2),
@@ -275,7 +247,7 @@ def run():
         reform_poverty_rate_ahc = poverty_rate(reformed_net_income.values - reform_housing_costs, wts, equiv_factor)
 
         # Gini under reform
-        reform_gini = gini(reformed_net_income.values, wts)
+        reform_gini = float(mdf.MicroSeries(reformed_net_income.values, weights=wts).gini())
 
         results["poverty_gini"]["scenarios"][rate_label] = {
             "poverty_bhc": round(reform_poverty_rate_bhc, 2),
@@ -288,42 +260,39 @@ def run():
         }
 
         # Distributional impact by decile
-        df_impact = pd.DataFrame({
+        df_impact = mdf.MicroDataFrame({
             "income_decile": income_decile.values,
-            "weight": weights.values,
             "lvt": lvt_liability.values,
             "council_tax_saved": council_tax_baseline.values,
             "income_change": income_change,
             "baseline_income": baseline_net_income.values,
             "land_value": land_value.values,
-        })
+        }, weights=weights.values)
         df_impact = df_impact[df_impact["income_decile"] > 0]
 
-        impact_by_decile = df_impact.groupby("income_decile").apply(
-            lambda g: pd.Series({
-                "avg_lvt": wavg(g, "lvt"),
-                "avg_council_tax_saved": wavg(g, "council_tax_saved"),
-                "avg_income_change": wavg(g, "income_change"),
-                "avg_income_change_pct": wavg(g, "income_change") / max(wavg(g, "baseline_income"), 1) * 100,
-                "avg_land_value": wavg(g, "land_value"),
-                "pct_winners": float(np.average(g["income_change"] > 0, weights=g["weight"])) * 100,
-                "pct_losers": float(np.average(g["income_change"] < 0, weights=g["weight"])) * 100,
-                "pct_unchanged": float(np.average(g["income_change"] == 0, weights=g["weight"])) * 100,
-            })
-        )
+        impact_gb = df_impact.groupby("income_decile")
+        impact_means = impact_gb[["lvt", "council_tax_saved", "income_change", "baseline_income", "land_value"]].mean()
+
+        # Winners/losers/unchanged per decile
+        df_impact["is_winner"] = (df_impact["income_change"] > 0).astype(float)
+        df_impact["is_loser"] = (df_impact["income_change"] < 0).astype(float)
+        df_impact["is_unchanged"] = (df_impact["income_change"] == 0).astype(float)
+        wl_means = df_impact.groupby("income_decile")[["is_winner", "is_loser", "is_unchanged"]].mean()
 
         scenario_data = []
-        for d, row in impact_by_decile.iterrows():
+        for d in impact_means.index:
+            avg_inc_change = float(impact_means.loc[d, "income_change"])
+            avg_base_inc = float(impact_means.loc[d, "baseline_income"])
             scenario_data.append({
                 "decile": int(d),
-                "avg_lvt": round(row["avg_lvt"]),
-                "avg_council_tax_saved": round(row["avg_council_tax_saved"]),
-                "avg_net_change": round(row["avg_income_change"]),
-                "avg_income_change_pct": round(row["avg_income_change_pct"], 1),
-                "avg_land_value": round(row["avg_land_value"]),
-                "pct_winners": round(row["pct_winners"], 1),
-                "pct_losers": round(row["pct_losers"], 1),
-                "pct_unchanged": round(row["pct_unchanged"], 1),
+                "avg_lvt": round(float(impact_means.loc[d, "lvt"])),
+                "avg_council_tax_saved": round(float(impact_means.loc[d, "council_tax_saved"])),
+                "avg_net_change": round(avg_inc_change),
+                "avg_income_change_pct": round(avg_inc_change / max(avg_base_inc, 1) * 100, 1),
+                "avg_land_value": round(float(impact_means.loc[d, "land_value"])),
+                "pct_winners": round(float(wl_means.loc[d, "is_winner"]) * 100, 1),
+                "pct_losers": round(float(wl_means.loc[d, "is_loser"]) * 100, 1),
+                "pct_unchanged": round(float(wl_means.loc[d, "is_unchanged"]) * 100, 1),
             })
         results["impact_scenarios"][rate_label] = scenario_data
 
@@ -369,30 +338,26 @@ def run():
         sim_ct = Microsimulation(scenario=reform)
         lvt_vals = sim_ct.calculate("LVT", YEAR)
 
-        df_ct = pd.DataFrame({
+        df_ct = mdf.MicroDataFrame({
             "income_decile": income_decile.values,
-            "weight": weights.values,
             "council_tax": council_tax.values,
             "lvt": lvt_vals.values,
-        })
+        }, weights=weights.values)
         df_ct = df_ct[df_ct["income_decile"] > 0]
 
-        ct_by_decile = df_ct.groupby("income_decile").apply(
-            lambda g: pd.Series({
-                "avg_council_tax": wavg(g, "council_tax"),
-                "avg_lvt": wavg(g, "lvt"),
-            })
-        )
+        ct_means = df_ct.groupby("income_decile")[["council_tax", "lvt"]].mean()
 
         scenario_data = []
-        for d, row in ct_by_decile.iterrows():
-            diff = row["avg_lvt"] - row["avg_council_tax"]
+        for d in ct_means.index:
+            avg_ct = float(ct_means.loc[d, "council_tax"])
+            avg_lvt = float(ct_means.loc[d, "lvt"])
+            diff = avg_lvt - avg_ct
             scenario_data.append({
                 "decile": int(d),
-                "avg_council_tax": round(row["avg_council_tax"]),
-                "avg_lvt": round(row["avg_lvt"]),
+                "avg_council_tax": round(avg_ct),
+                "avg_lvt": round(avg_lvt),
                 "difference": round(diff),
-                "change_pct": round(diff / max(row["avg_council_tax"], 1) * 100, 1),
+                "change_pct": round(diff / max(avg_ct, 1) * 100, 1),
             })
         results["council_tax_vs_lvt_scenarios"][rate_label] = scenario_data
 
