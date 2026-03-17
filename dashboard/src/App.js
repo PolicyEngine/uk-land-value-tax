@@ -354,6 +354,7 @@ function ReformSection() {
           )}
         </div>
       </div>
+      <p className="subsection-prose finding">Figure 3 shows that at the budget-neutral rate, lower-income deciles gain on average whilst higher-income deciles lose. The bottom three deciles see average gains of over £600 per year, whilst the top decile sees an average loss of over £1,600.</p>
 
       {/* --- Subsection: Winners and losers --- */}
       <SubsectionTitle>Winners and losers</SubsectionTitle>
@@ -402,10 +403,11 @@ function ReformSection() {
           </ResponsiveContainer>
         </div>
       </div>
+      <p className="subsection-prose finding">Figure 4 shows that at the budget-neutral rate, a majority of households in every decile are better off. In the bottom three deciles, around 78-80% of households gain. In the top decile, 40% gain whilst 60% lose.</p>
 
       {/* --- Subsection: Poverty --- */}
       <SubsectionTitle>Poverty</SubsectionTitle>
-      <p className="subsection-prose">Relative poverty is measured as the share of households with equivalised income below 60% of the national median, using the modified OECD equivalence scale. BHC measures income before housing costs (rent or mortgage payments); AHC subtracts them. Table 3 reports the change in poverty rates under each LVT scenario, with the budget-neutral rate ({data.council_tax_replacement.required_lvt_rate_pct}%) highlighted.</p>
+      <p className="subsection-prose">Relative poverty is measured as the share of households with equivalised income below 60% of the national median. BHC measures income before housing costs (rent or mortgage payments); AHC subtracts them. Table 3 reports the change in poverty rates under each LVT scenario, with the budget-neutral rate ({data.council_tax_replacement.required_lvt_rate_pct}%) highlighted.</p>
       <div className="chart-row single">
         <div className="chart-card" style={{ textAlign: 'center' }}>
           <p className="fig-caption">Table 3. <span>Change in relative poverty rate (2026-27)</span></p>
@@ -433,6 +435,7 @@ function ReformSection() {
           </table>
         </div>
       </div>
+      <p className="subsection-prose finding">At the budget-neutral rate, BHC poverty falls by 0.08 percentage points and AHC poverty falls by 1.69 percentage points. The larger AHC reduction reflects that lower-income households tend to pay more council tax relative to their after-housing-costs income.</p>
       {/* --- Subsection: Inequality --- */}
       <SubsectionTitle>Inequality</SubsectionTitle>
       <p className="subsection-prose">The Gini coefficient measures income inequality on a 0 to 1 scale, where lower values indicate a more equal distribution. Table 4 reports the percentage change in the Gini coefficient under each LVT scenario, with the budget-neutral rate ({data.council_tax_replacement.required_lvt_rate_pct}%) highlighted.</p>
@@ -463,6 +466,7 @@ function ReformSection() {
           </table>
         </div>
       </div>
+      <p className="subsection-prose finding">At the budget-neutral rate, the Gini coefficient falls by 0.9%, indicating a small reduction in income inequality. Higher LVT rates produce larger reductions as the tax burden shifts further towards land-rich households.</p>
     </section>
   );
 }
