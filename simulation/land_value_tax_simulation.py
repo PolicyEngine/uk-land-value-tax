@@ -121,6 +121,8 @@ def run():
 
     # === Section 2: ONS Comparison ===
     # Source: ONS National Balance Sheet 2025, Table 2 (by asset) & Table 11 (Households)
+    # https://www.ons.gov.uk/economy/nationalaccounts/uksectoraccounts/bulletins/nationalbalancesheet/2025
+    # https://www.ons.gov.uk/economy/nationalaccounts/uksectoraccounts/datasets/thenationalbalancesheetestimates
     # Corporate = Private NFC + Public NFC + Financial corporations
     results["ons_comparison"] = {
         "ons_2020_household_tn": 4.11,
