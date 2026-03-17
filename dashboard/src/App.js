@@ -282,7 +282,7 @@ function ReformSection() {
       <p className="subsection-prose finding">At the budget-neutral rate of {data.council_tax_replacement.required_lvt_rate_pct}%, net revenue change is close to zero. Rates above this threshold generate additional revenue for government, whilst lower rates result in a net revenue loss relative to council tax.</p>
       {/* --- Subsection: Distributional impact --- */}
       <SubsectionTitle>Distributional impact</SubsectionTitle>
-      <p className="subsection-prose">Replacing council tax with LVT changes the distribution of the tax burden across income deciles. LVT is proportional to land value, whilst council tax is only loosely linked to property prices. The net effect on each household depends on how much council tax they currently pay relative to the LVT they would owe. Figure 3 shows the average net income change by decile.</p>
+      <p className="subsection-prose">Replacing council tax with LVT changes the distribution of the tax burden across income deciles. LVT is proportional to land value, whilst council tax is only loosely linked to property prices. The net effect on each household depends on how much council tax they currently pay relative to the LVT they would owe. Figure 3 shows the average annual net income change by decile.</p>
       <p className="fig-caption">Figure 3. <span>Distributional impact by income decile (2026-27)</span></p>
       <div className="chart-row single">
         <div className="chart-card wide">
