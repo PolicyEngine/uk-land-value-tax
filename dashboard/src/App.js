@@ -100,30 +100,30 @@ function AvgLandTable() {
 function BaselineSection() {
   return (
     <section className="dashboard-section">
-      <SectionTitle prose={<p>PolicyEngine <a href="https://github.com/PolicyEngine/uk-land-value-tax" target="_blank" rel="noopener noreferrer">estimates</a> UK land values and simulates tax reforms for 2026-27 (see the methodology note below for details on how land values are derived). The ONS <a href="https://www.ons.gov.uk/economy/nationalaccounts/uksectoraccounts/datasets/thenationalbalancesheetestimates" target="_blank" rel="noopener noreferrer">reports</a> total UK land at £{data.ons_comparison.ons_2024_total_tn}tn for 2024, of which £{data.ons_comparison.ons_2024_household_tn}tn is household land and £{(data.ons_comparison.ons_2024_corporate_tn + data.ons_comparison.ons_2024_government_tn).toFixed(1)}tn is non-household (corporate and government). The model estimates total UK land at £{data.baseline.total_land_tn}tn for 2026-27, {data.ons_comparison.model_vs_ons_2024_pct}% of the 2024 ONS figure. It also estimates total UK household wealth at £{data.baseline.total_wealth_tn}tn, of which land accounts for {data.baseline.land_pct_of_wealth}%. For comparison, the ONS reports UK household net worth of £10.8tn and total UK net worth of £13.1tn for <a href="https://www.ons.gov.uk/economy/nationalaccounts/uksectoraccounts/bulletins/nationalbalancesheet/2025" target="_blank" rel="noopener noreferrer">2024</a>, a narrower measure that excludes pension wealth and uses different valuation methods.</p>}>
+      <SectionTitle prose={<p>PolicyEngine <a href="https://github.com/PolicyEngine/uk-land-value-tax" target="_blank" rel="noopener noreferrer">estimates</a> UK land values and simulates tax reforms. See the <a href="#methodology">methodology note</a> below for details on how land values are derived. The ONS <a href="https://www.ons.gov.uk/economy/nationalaccounts/uksectoraccounts/datasets/thenationalbalancesheetestimates" target="_blank" rel="noopener noreferrer">reports</a> total UK land at £{Number(data.ons_comparison.ons_2024_total_tn).toFixed(1)}tn for 2024, of which £{Number(data.ons_comparison.ons_2024_household_tn).toFixed(1)}tn is household land and £{(data.ons_comparison.ons_2024_corporate_tn + data.ons_comparison.ons_2024_government_tn).toFixed(1)}tn is non-household (corporate and government). The model estimates total UK land at £{Number(data.baseline.total_land_tn).toFixed(1)}tn, and total UK household wealth at £{Number(data.baseline.total_wealth_tn).toFixed(1)}tn, of which land accounts for {Number(data.baseline.land_pct_of_wealth).toFixed(1)}%.</p>}>
         UK land and wealth overview
       </SectionTitle>
       <div className="subsections">
         <div className="subsection-block">
           <SubsectionTitle>Comparison with official statistics</SubsectionTitle>
-          <p className="subsection-prose">Table 1 compares the model's 2026 estimates with published ONS figures from the National Balance <a href="https://www.ons.gov.uk/economy/nationalaccounts/uksectoraccounts/bulletins/nationalbalancesheet/2025" target="_blank" rel="noopener noreferrer">Sheet</a>. The ONS measures land value as non-produced assets (<a href="https://www.ons.gov.uk/economy/nationalaccounts/uksectoraccounts/datasets/thenationalbalancesheetestimates" target="_blank" rel="noopener noreferrer">AN.211</a>) across all sectors. Non-household land combines corporate (private and public non-financial corporations, financial corporations) and general government. The model uprates survey-year values to 2026 using OBR per capita nominal GDP growth <a href="https://obr.uk/efo/economic-and-fiscal-outlook-march-2025/" target="_blank" rel="noopener noreferrer">projections</a>. Between 2020 and 2024, total UK land value rose from £{data.ons_comparison.ons_2020_total_tn}tn to £{data.ons_comparison.ons_2024_total_tn}tn. The model's 2026 estimate of £{data.ons_comparison.model_2026_total_tn}tn is {data.ons_comparison.model_vs_ons_2024_pct}% of the 2024 ONS figure.</p>
-          <p className="fig-caption">Table 1. <span>Land value estimates by source</span></p>
+          <p className="subsection-prose">Table 1 compares the model's estimates with published ONS figures from the National Balance <a href="https://www.ons.gov.uk/economy/nationalaccounts/uksectoraccounts/bulletins/nationalbalancesheet/2025" target="_blank" rel="noopener noreferrer">Sheet</a>. The ONS measures land value as non-produced assets (<a href="https://www.ons.gov.uk/economy/nationalaccounts/uksectoraccounts/datasets/thenationalbalancesheetestimates" target="_blank" rel="noopener noreferrer">AN.211</a>) across all sectors. Non-household land combines corporate (private and public non-financial corporations, financial corporations) and general government. The model uprates survey-year values using OBR per capita nominal GDP growth <a href="https://obr.uk/efo/economic-and-fiscal-outlook-march-2025/" target="_blank" rel="noopener noreferrer">projections</a>. Between 2020 and 2024, total UK land value rose from £{Number(data.ons_comparison.ons_2020_total_tn).toFixed(1)}tn to £{Number(data.ons_comparison.ons_2024_total_tn).toFixed(1)}tn.</p>
+          <p className="fig-caption">Table 1. <span>Land value estimates by source (2020-27)</span></p>
           <ONSComparisonTable />
-          <p className="subsection-prose">Table 1 shows that the model's 2026-27 estimate of £{data.ons_comparison.model_2026_total_tn}tn exceeds the ONS 2024 figure of £{data.ons_comparison.ons_2024_total_tn}tn by {(data.ons_comparison.model_vs_ons_2024_pct - 100).toFixed(1)} percentage points. The household share accounts for the majority of UK land in both the ONS data and the model.</p>
+          <p className="subsection-prose finding">Table 1 shows that the model's estimate of £{Number(data.ons_comparison.model_2026_total_tn).toFixed(1)}tn exceeds the ONS 2024 figure of £{Number(data.ons_comparison.ons_2024_total_tn).toFixed(1)}tn. The household share accounts for the majority of UK land in both the ONS data and the model.</p>
         </div>
         <div className="subsection-block">
           <SubsectionTitle>Average land value per household</SubsectionTitle>
-          <p className="subsection-prose">Average land value per household is the weighted mean of estimated land value across all households in a given group for 2026-27. It includes both the land component of property wealth (residential and non-residential) and corporate land (derived from shareholdings). Table 2 shows the breakdown by country, region, or household type. Household type is derived from the number of adults, dependent children (under 18), and whether adults are above state pension age. Pensioner households are those where all adults are at or above state pension age.</p>
-          <p className="fig-caption">Table 2. <span>Average land value per household</span></p>
+          <p className="subsection-prose">Average land value per household is the mean of estimated land value across all households in a given group. It includes both the land component of property wealth (residential and non-residential) and corporate land (derived from shareholdings). Table 2 shows the breakdown by country, region, or household type. Household type is derived from the number of adults, dependent children (under 18), and whether adults are above state pension age. Pensioner households are those where all adults are at or above state pension age.</p>
+          <p className="fig-caption">Table 2. <span>Average land value per household (2026-27)</span></p>
           <AvgLandTable />
-          <p className="subsection-prose">Table 2 shows that pensioner couples hold the highest average land value, followed by non-pensioner couples without children. Lone parents hold the lowest average. Regionally, southern England and the East of England show the highest values, whilst Northern Ireland and Scotland show the lowest.</p>
+          <p className="subsection-prose finding">Table 2 shows that pensioner couples hold the highest average land value, followed by non-pensioner couples without children. Lone parents hold the lowest average. Regionally, southern England and the East of England show the highest values, whilst Northern Ireland and Scotland show the lowest.</p>
         </div>
         <div className="subsection-block">
           <SubsectionTitle>Land value distribution</SubsectionTitle>
-          <p className="subsection-prose">Land ownership in the UK is unevenly distributed. Households in higher income deciles tend to own more valuable property and therefore hold a larger share of total land value. Figure 1 shows average land value by decile and each decile's share of the national total for 2026-27.</p>
-          <p className="fig-caption">Figure 1. <span>Land value by income decile</span></p>
+          <p className="subsection-prose">Land ownership in the UK is unevenly distributed. Households in higher income deciles tend to own more valuable property and therefore hold a larger share of total land value. Figure 1 shows average land value by decile and each decile's share of the national total.</p>
+          <p className="fig-caption">Figure 1. <span>Land value by income decile (2026-27)</span></p>
           <DistributionChart />
-          <p className="subsection-prose">Figure 1 shows that the top decile holds the largest share of total land value, whilst the bottom decile holds the smallest. Average land value rises with income, reflecting higher rates of home ownership and more valuable properties amongst higher-income households.</p>
+          <p className="subsection-prose finding">Figure 1 shows that the top decile holds the largest share of total land value, whilst the bottom decile holds the smallest. Average land value rises with income, reflecting higher rates of home ownership and more valuable properties amongst higher-income households.</p>
         </div>
       </div>
     </section>
@@ -256,12 +256,12 @@ function ReformSection() {
 
   return (
     <section className="dashboard-section">
-      <SectionTitle prose={`This section models a single reform for 2026-27: abolishing council tax and replacing it with a land value tax (LVT). PolicyEngine UK estimates that council tax raises £${ctBn} billion per year across the UK. The OBR estimates £50.9 billion for England alone in 2025-26. A ${data.council_tax_replacement.required_lvt_rate_pct}% LVT on all land would be budget-neutral for government, meaning it raises the same total revenue as council tax from a different tax base so there is no change to public spending. Higher rates raise additional revenue beyond replacing council tax. The charts below show how revenue and household-level impacts vary with the LVT rate.`}>
+      <SectionTitle prose={`This section models a single reform: abolishing council tax and replacing it with a land value tax (LVT). PolicyEngine UK estimates that council tax raises £${ctBn} billion per year across the UK. The OBR estimates £50.9 billion for England alone in 2025-26. A ${data.council_tax_replacement.required_lvt_rate_pct}% LVT on all land would be budget-neutral for government, meaning it raises the same total revenue as council tax from a different tax base so there is no change to public spending. Higher rates raise additional revenue beyond replacing council tax. The charts below show how revenue and household-level impacts vary with the LVT rate.`}>
         Replacing council tax with LVT
       </SectionTitle>
       <SubsectionTitle>Budgetary impact</SubsectionTitle>
-      <p className="subsection-prose">Council tax is a banded property tax that PolicyEngine UK estimates raises £{ctBn} billion annually across the UK in 2026-27. The <a href="https://obr.uk/forecasts-in-depth/tax-by-tax-spend-by-spend/council-tax/" target="_blank" rel="noopener noreferrer">OBR</a> estimates £50.9 billion for England alone in 2025-26. Under the current system, lower-value properties pay a higher effective rate relative to their value than higher-value properties. A land value tax replaces this with a flat percentage levy on land values. At the budget-neutral rate of {data.council_tax_replacement.required_lvt_rate_pct}%, LVT raises the same total revenue for government as council tax, so there is no change to public spending. Figure 2 shows net revenue at each rate.</p>
-      <p className="fig-caption">Figure 2. <span>Net revenue change by LVT rate</span></p>
+      <p className="subsection-prose">Council tax is a banded property tax that PolicyEngine UK estimates raises £{ctBn} billion annually across the UK. The <a href="https://obr.uk/forecasts-in-depth/tax-by-tax-spend-by-spend/council-tax/" target="_blank" rel="noopener noreferrer">OBR</a> estimates £50.9 billion for England alone in 2025-26. A land value tax levies a flat percentage on land values. At the budget-neutral rate of {data.council_tax_replacement.required_lvt_rate_pct}%, LVT raises the same total revenue for government as council tax, so there is no change to public spending. Figure 2 shows net revenue at each rate.</p>
+      <p className="fig-caption">Figure 2. <span>Net revenue change by LVT rate (2026-27)</span></p>
       <div className="chart-row single">
         <div className="chart-card wide">
           <ResponsiveContainer width="100%" height={320}>
@@ -279,11 +279,11 @@ function ReformSection() {
           </ResponsiveContainer>
         </div>
       </div>
-      <p className="subsection-prose">Figure 2 shows that at the budget-neutral rate of {data.council_tax_replacement.required_lvt_rate_pct}%, net revenue change is close to zero. Rates above this threshold generate additional revenue for government, whilst lower rates result in a net revenue loss relative to council tax.</p>
+      <p className="subsection-prose finding">Figure 2 shows that at the budget-neutral rate of {data.council_tax_replacement.required_lvt_rate_pct}%, net revenue change is close to zero. Rates above this threshold generate additional revenue for government, whilst lower rates result in a net revenue loss relative to council tax.</p>
       {/* --- Subsection: Distributional impact --- */}
       <SubsectionTitle>Distributional impact</SubsectionTitle>
-      <p className="subsection-prose">Replacing council tax with LVT in 2026-27 changes the distribution of the tax burden across income deciles. LVT is proportional to land value, whilst council tax is only loosely linked to property prices. The net effect on each household depends on how much council tax they currently pay relative to the LVT they would owe. Figure 3 shows the average net income change by decile.</p>
-      <p className="fig-caption">Figure 3. <span>Distributional impact by income decile</span></p>
+      <p className="subsection-prose">Replacing council tax with LVT changes the distribution of the tax burden across income deciles. LVT is proportional to land value, whilst council tax is only loosely linked to property prices. The net effect on each household depends on how much council tax they currently pay relative to the LVT they would owe. Figure 3 shows the average net income change by decile.</p>
+      <p className="fig-caption">Figure 3. <span>Distributional impact by income decile (2026-27)</span></p>
       <div className="chart-row single">
         <div className="chart-card wide">
           <div className="chart-header-row">
@@ -358,7 +358,7 @@ function ReformSection() {
       {/* --- Subsection: Winners and losers --- */}
       <SubsectionTitle>Winners and losers</SubsectionTitle>
       <p className="subsection-prose">Within each income decile, households are affected differently depending on their land holdings and current council tax bill. Figure 4 shows the share of households that are better off, worse off, or unaffected by the reform within each decile.</p>
-      <p className="fig-caption">Figure 4. <span>Winners and losers by income decile</span></p>
+      <p className="fig-caption">Figure 4. <span>Winners and losers by income decile (2026-27)</span></p>
       <div className="chart-row single">
         <div className="chart-card wide">
           <RateSelector value={impactRate} onChange={setImpactRate} rates={rates} defaultRate={defaultRate} />
@@ -405,10 +405,10 @@ function ReformSection() {
 
       {/* --- Subsection: Poverty --- */}
       <SubsectionTitle>Poverty</SubsectionTitle>
-      <p className="subsection-prose">Relative poverty is measured as the share of households in 2026-27 with equivalised income below 60% of the national median, using the modified OECD equivalence scale. BHC measures income before housing costs (rent or mortgage payments); AHC subtracts them. The budget-neutral rate ({data.council_tax_replacement.required_lvt_rate_pct}%) is highlighted. Table 3 reports the change in poverty rates under each LVT scenario.</p>
+      <p className="subsection-prose">Relative poverty is measured as the share of households with equivalised income below 60% of the national median, using the modified OECD equivalence scale. BHC measures income before housing costs (rent or mortgage payments); AHC subtracts them. The budget-neutral rate ({data.council_tax_replacement.required_lvt_rate_pct}%) is highlighted. Table 3 reports the change in poverty rates under each LVT scenario.</p>
       <div className="chart-row single">
         <div className="chart-card" style={{ textAlign: 'center' }}>
-          <p className="fig-caption">Table 3. <span>Change in relative poverty rate</span></p>
+          <p className="fig-caption">Table 3. <span>Change in relative poverty rate (2026-27)</span></p>
           <RateSelectorWithAll value={povertyRate} onChange={setPovertyRate} rates={rates} defaultRate={defaultRate} />
           <table className="impact-table">
             <thead>
@@ -435,10 +435,10 @@ function ReformSection() {
       </div>
       {/* --- Subsection: Inequality --- */}
       <SubsectionTitle>Inequality</SubsectionTitle>
-      <p className="subsection-prose">The Gini coefficient measures income inequality in 2026-27 on a 0 to 1 scale, where lower values indicate a more equal distribution. The budget-neutral rate ({data.council_tax_replacement.required_lvt_rate_pct}%) is highlighted. Table 4 reports the percentage change in the Gini coefficient under each LVT scenario.</p>
+      <p className="subsection-prose">The Gini coefficient measures income inequality on a 0 to 1 scale, where lower values indicate a more equal distribution. The budget-neutral rate ({data.council_tax_replacement.required_lvt_rate_pct}%) is highlighted. Table 4 reports the percentage change in the Gini coefficient under each LVT scenario.</p>
       <div className="chart-row single">
         <div className="chart-card" style={{ textAlign: 'center' }}>
-          <p className="fig-caption">Table 4. <span>Change in Gini coefficient</span></p>
+          <p className="fig-caption">Table 4. <span>Change in Gini coefficient (2026-27)</span></p>
           <RateSelectorWithAll value={giniRate} onChange={setGiniRate} rates={rates} defaultRate={defaultRate} />
           <table className="impact-table">
             <thead>
@@ -479,7 +479,7 @@ function App() {
       <main className="main">
         <BaselineSection />
         <ReformSection />
-        <section className="dashboard-section methodology-section">
+        <section id="methodology" className="dashboard-section methodology-section">
           <details className="methodology-note" open={false}>
             <summary><h2 style={{ display: 'inline', fontSize: '22px' }}>Methodology note</h2></summary>
             <div className="methodology-content">

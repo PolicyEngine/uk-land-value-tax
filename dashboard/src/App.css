@@ -528,6 +528,10 @@ body {
   color: var(--gray-500);
 }
 
+.subsection-prose.finding {
+  margin-top: 20px;
+}
+
 .subsection-block .ons-table {
   max-width: 640px;
   margin-left: auto;
