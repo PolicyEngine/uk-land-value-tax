@@ -256,7 +256,7 @@ function ReformSection() {
 
   return (
     <section className="dashboard-section">
-      <SectionTitle prose={{`This section models a single reform: abolishing council tax and replacing it with a land value tax (LVT). A ${data.council_tax_replacement.required_lvt_rate_pct}% LVT on all land would be budget-neutral for government, meaning it raises the same total revenue as council tax from a different tax base so there is no change to public spending. Higher rates raise additional revenue beyond replacing council tax. The charts below show how revenue and household-level impacts vary with the LVT rate.`}}>
+      <SectionTitle prose={`This section models a single reform: abolishing council tax and replacing it with a land value tax (LVT). A ${data.council_tax_replacement.required_lvt_rate_pct}% LVT on all land would be budget-neutral for government, meaning it raises the same total revenue as council tax from a different tax base so there is no change to public spending. Higher rates raise additional revenue beyond replacing council tax. The charts below show how revenue and household-level impacts vary with the LVT rate.`}>
         Replacing council tax with LVT
       </SectionTitle>
       <SubsectionTitle>Budgetary impact</SubsectionTitle>
