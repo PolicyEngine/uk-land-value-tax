@@ -120,7 +120,7 @@ function BaselineSection() {
         </div>
         <div className="subsection-block">
           <SubsectionTitle>Land value distribution</SubsectionTitle>
-          <p className="subsection-prose">Land ownership in the UK is unevenly distributed. Households in higher income deciles tend to own more valuable property and therefore hold a larger share of total land value. Figure 1 shows average land value by decile and each decile's share of the national total.</p>
+          <p className="subsection-prose">Figure 1 shows average land value by income decile and each decile's share of the national total.</p>
           <p className="fig-caption">Figure 1. <span>Land value by income decile (2026-27)</span></p>
           <DistributionChart />
           <p className="subsection-prose finding">The top decile holds the largest share of total land value, whilst the bottom decile holds the smallest. Average land value rises with income, reflecting higher rates of home ownership and more valuable properties amongst higher-income households.</p>
