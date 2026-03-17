@@ -109,21 +109,21 @@ function BaselineSection() {
           <p className="subsection-prose">The ONS measures land value as non-produced assets (<a href="https://www.ons.gov.uk/economy/nationalaccounts/uksectoraccounts/datasets/thenationalbalancesheetestimates" target="_blank" rel="noopener noreferrer">AN.211</a>) across all sectors. Non-household land combines corporate (private and public non-financial corporations, financial corporations) and general government. The model uprates survey-year values using OBR per capita nominal GDP growth <a href="https://obr.uk/efo/economic-and-fiscal-outlook-march-2025/" target="_blank" rel="noopener noreferrer">projections</a>. Table 1 compares the model's estimates with published ONS figures from the National Balance <a href="https://www.ons.gov.uk/economy/nationalaccounts/uksectoraccounts/bulletins/nationalbalancesheet/2025" target="_blank" rel="noopener noreferrer">Sheet</a>.</p>
           <p className="fig-caption">Table 1. <span>Land value estimates by source (2020-27)</span></p>
           <ONSComparisonTable />
-          <p className="subsection-prose finding">Table 1 shows that the model's estimate of £{Number(data.ons_comparison.model_2026_total_tn).toFixed(1)}tn exceeds the ONS 2024 figure of £{Number(data.ons_comparison.ons_2024_total_tn).toFixed(1)}tn. The household share accounts for the majority of UK land in both the ONS data and the model.</p>
+          <p className="subsection-prose finding">The model's estimate of £{Number(data.ons_comparison.model_2026_total_tn).toFixed(1)}tn exceeds the ONS 2024 figure of £{Number(data.ons_comparison.ons_2024_total_tn).toFixed(1)}tn. The household share accounts for the majority of UK land in both the ONS data and the model.</p>
         </div>
         <div className="subsection-block">
           <SubsectionTitle>Average land value per household</SubsectionTitle>
           <p className="subsection-prose">Average land value per household is the mean of estimated land value across all households in a given group. It includes both the land component of property wealth (residential and non-residential) and corporate land (derived from shareholdings). Household type is derived from the number of adults, dependent children (under 18), and whether adults are above state pension age. Pensioner households are those where all adults are at or above state pension age. Table 2 shows the breakdown by country, region, or household type.</p>
           <p className="fig-caption">Table 2. <span>Average land value per household (2026-27)</span></p>
           <AvgLandTable />
-          <p className="subsection-prose finding">Table 2 shows that pensioner couples hold the highest average land value, followed by non-pensioner couples without children. Lone parents hold the lowest average. Regionally, southern England and the East of England show the highest values, whilst Northern Ireland and Scotland show the lowest.</p>
+          <p className="subsection-prose finding">Pensioner couples hold the highest average land value, followed by non-pensioner couples without children. Lone parents hold the lowest average. Regionally, southern England and the East of England show the highest values, whilst Northern Ireland and Scotland show the lowest.</p>
         </div>
         <div className="subsection-block">
           <SubsectionTitle>Land value distribution</SubsectionTitle>
           <p className="subsection-prose">Land ownership in the UK is unevenly distributed. Households in higher income deciles tend to own more valuable property and therefore hold a larger share of total land value. Figure 1 shows average land value by decile and each decile's share of the national total.</p>
           <p className="fig-caption">Figure 1. <span>Land value by income decile (2026-27)</span></p>
           <DistributionChart />
-          <p className="subsection-prose finding">Figure 1 shows that the top decile holds the largest share of total land value, whilst the bottom decile holds the smallest. Average land value rises with income, reflecting higher rates of home ownership and more valuable properties amongst higher-income households.</p>
+          <p className="subsection-prose finding">The top decile holds the largest share of total land value, whilst the bottom decile holds the smallest. Average land value rises with income, reflecting higher rates of home ownership and more valuable properties amongst higher-income households.</p>
         </div>
       </div>
     </section>
@@ -279,7 +279,7 @@ function ReformSection() {
           </ResponsiveContainer>
         </div>
       </div>
-      <p className="subsection-prose finding">Figure 2 shows that at the budget-neutral rate of {data.council_tax_replacement.required_lvt_rate_pct}%, net revenue change is close to zero. Rates above this threshold generate additional revenue for government, whilst lower rates result in a net revenue loss relative to council tax.</p>
+      <p className="subsection-prose finding">At the budget-neutral rate of {data.council_tax_replacement.required_lvt_rate_pct}%, net revenue change is close to zero. Rates above this threshold generate additional revenue for government, whilst lower rates result in a net revenue loss relative to council tax.</p>
       {/* --- Subsection: Distributional impact --- */}
       <SubsectionTitle>Distributional impact</SubsectionTitle>
       <p className="subsection-prose">Replacing council tax with LVT changes the distribution of the tax burden across income deciles. LVT is proportional to land value, whilst council tax is only loosely linked to property prices. The net effect on each household depends on how much council tax they currently pay relative to the LVT they would owe. Figure 3 shows the average net income change by decile.</p>
@@ -354,7 +354,7 @@ function ReformSection() {
           )}
         </div>
       </div>
-      <p className="subsection-prose finding">Figure 3 shows that at the budget-neutral rate, lower-income deciles gain on average whilst higher-income deciles lose. The bottom three deciles see average gains of over £600 per year, whilst the top decile sees an average loss of over £1,600.</p>
+      <p className="subsection-prose finding">At the budget-neutral rate, lower-income deciles gain on average whilst higher-income deciles lose. The bottom three deciles see average gains of over £600 per year, whilst the top decile sees an average loss of over £1,600.</p>
 
       {/* --- Subsection: Winners and losers --- */}
       <SubsectionTitle>Winners and losers</SubsectionTitle>
@@ -403,7 +403,7 @@ function ReformSection() {
           </ResponsiveContainer>
         </div>
       </div>
-      <p className="subsection-prose finding">Figure 4 shows that at the budget-neutral rate, a majority of households in every decile are better off. In the bottom three deciles, around 78-80% of households gain. In the top decile, 40% gain whilst 60% lose.</p>
+      <p className="subsection-prose finding">At the budget-neutral rate, a majority of households in every decile are better off. In the bottom three deciles, around 78-80% of households gain. In the top decile, 40% gain whilst 60% lose.</p>
 
       {/* --- Subsection: Poverty --- */}
       <SubsectionTitle>Poverty</SubsectionTitle>
