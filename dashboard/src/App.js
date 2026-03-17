@@ -53,16 +53,6 @@ function CustomTooltip({ active, payload, label, formatter }) {
   );
 }
 
-function StatCard({ label, value, sub, color = C.teal500 }) {
-  return (
-    <div className="stat-card">
-      <div className="stat-value" style={{ color }}>{value}</div>
-      <div className="stat-label">{label}</div>
-      {sub && <div className="stat-sub">{sub}</div>}
-    </div>
-  );
-}
-
 function SectionTitle({ children, prose }) {
   return (
     <div className="section-title">
@@ -108,8 +98,6 @@ function AvgLandTable() {
 }
 
 function BaselineSection() {
-  const b = data.baseline;
-
   return (
     <section className="dashboard-section">
       <SectionTitle prose={<p>PolicyEngine <a href="https://github.com/PolicyEngine/uk-land-value-tax" target="_blank" rel="noopener noreferrer">estimates</a> UK land values and simulates tax reforms for 2026-27 (see the methodology note below for details on how land values are derived). The ONS <a href="https://www.ons.gov.uk/economy/nationalaccounts/uksectoraccounts/datasets/thenationalbalancesheetestimates" target="_blank" rel="noopener noreferrer">reports</a> total UK land at £{data.ons_comparison.ons_2024_total_tn}tn for 2024, of which £{data.ons_comparison.ons_2024_household_tn}tn is household land and £{(data.ons_comparison.ons_2024_corporate_tn + data.ons_comparison.ons_2024_government_tn).toFixed(1)}tn is non-household (corporate and government). The model estimates total UK land at £{data.baseline.total_land_tn}tn for 2026-27, {data.ons_comparison.model_vs_ons_2024_pct}% of the 2024 ONS figure. It also estimates total UK household wealth at £{data.baseline.total_wealth_tn}tn, of which land accounts for {data.baseline.land_pct_of_wealth}%. For comparison, the ONS reports UK household net worth of £10.8tn and total UK net worth of £13.1tn for <a href="https://www.ons.gov.uk/economy/nationalaccounts/uksectoraccounts/bulletins/nationalbalancesheet/2025" target="_blank" rel="noopener noreferrer">2024</a>, a narrower measure that excludes pension wealth and uses different valuation methods.</p>}>
