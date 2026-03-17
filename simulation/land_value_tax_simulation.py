@@ -199,28 +199,10 @@ def run():
     impact_rates = [required_rate] + [r for r in [0.005, 0.01, 0.015, 0.02, 0.03, 0.05] if abs(r - required_rate) > 0.0001]
     impact_rates.sort()
 
-    # Poverty and Gini helpers using microdf
-    # NOTE: We compute poverty directly from household_net_income rather
-    # than using in_poverty_bhc, because the HBAI poverty definition only
-    # subtracts official taxes and does not include LVT.
-    # We use the modified OECD equivalence scale: 1 for the first adult,
-    # 0.5 for each additional adult, 0.3 for each child.
-    equiv_factor = 1.0 + (hh_adults - 1) * 0.5 + hh_children * 0.3
-    equiv_factor = np.where(equiv_factor > 0, equiv_factor, 1.0)
-
-    def poverty_rate(hh_income, wts, equiv):
-        """Relative poverty rate: % of households with equiv income < 60% of median."""
-        eq_inc = mdf.MicroSeries(hh_income / equiv, weights=wts)
-        med = float(eq_inc.median())
-        in_poverty = mdf.MicroSeries((hh_income / equiv < 0.6 * med).astype(float), weights=wts)
-        return float(in_poverty.mean()) * 100
-
-    wts = weights.values
-    baseline_poverty_bhc = poverty_rate(baseline_net_income.values, wts, equiv_factor)
-    # AHC: subtract housing costs
-    housing_costs = baseline.calculate("housing_costs", YEAR).values
-    baseline_poverty_ahc = poverty_rate(baseline_net_income.values - housing_costs, wts, equiv_factor)
-    baseline_gini = float(mdf.MicroSeries(baseline_net_income.values, weights=wts).gini())
+    # Poverty and Gini from PolicyEngine's native variables
+    baseline_poverty_bhc = float(baseline.calculate("in_poverty_bhc", YEAR).mean()) * 100
+    baseline_poverty_ahc = float(baseline.calculate("in_poverty_ahc", YEAR).mean()) * 100
+    baseline_gini = float(baseline.calculate("household_net_income", YEAR).gini())
 
     results["impact_scenarios"] = {}
     results["poverty_gini"] = {"baseline_poverty_bhc": round(baseline_poverty_bhc, 2),
@@ -241,13 +223,10 @@ def run():
         reformed_net_income = sim_reform.calculate("household_net_income", YEAR)
         income_change = reformed_net_income.values - baseline_net_income.values
 
-        # Poverty rates under reform (computed from household_net_income)
-        reform_poverty_rate_bhc = poverty_rate(reformed_net_income.values, wts, equiv_factor)
-        reform_housing_costs = sim_reform.calculate("housing_costs", YEAR).values
-        reform_poverty_rate_ahc = poverty_rate(reformed_net_income.values - reform_housing_costs, wts, equiv_factor)
-
-        # Gini under reform
-        reform_gini = float(mdf.MicroSeries(reformed_net_income.values, weights=wts).gini())
+        # Poverty and Gini under reform from PE's native variables
+        reform_poverty_rate_bhc = float(sim_reform.calculate("in_poverty_bhc", YEAR).mean()) * 100
+        reform_poverty_rate_ahc = float(sim_reform.calculate("in_poverty_ahc", YEAR).mean()) * 100
+        reform_gini = float(reformed_net_income.gini())
 
         results["poverty_gini"]["scenarios"][rate_label] = {
             "poverty_bhc": round(reform_poverty_rate_bhc, 2),
