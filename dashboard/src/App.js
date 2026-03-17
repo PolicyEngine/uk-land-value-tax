@@ -106,14 +106,14 @@ function BaselineSection() {
       <div className="subsections">
         <div className="subsection-block">
           <SubsectionTitle>Comparison with official statistics</SubsectionTitle>
-          <p className="subsection-prose">Table 1 compares the model's estimates with published ONS figures from the National Balance <a href="https://www.ons.gov.uk/economy/nationalaccounts/uksectoraccounts/bulletins/nationalbalancesheet/2025" target="_blank" rel="noopener noreferrer">Sheet</a>. The ONS measures land value as non-produced assets (<a href="https://www.ons.gov.uk/economy/nationalaccounts/uksectoraccounts/datasets/thenationalbalancesheetestimates" target="_blank" rel="noopener noreferrer">AN.211</a>) across all sectors. Non-household land combines corporate (private and public non-financial corporations, financial corporations) and general government. The model uprates survey-year values using OBR per capita nominal GDP growth <a href="https://obr.uk/efo/economic-and-fiscal-outlook-march-2025/" target="_blank" rel="noopener noreferrer">projections</a>. Between 2020 and 2024, total UK land value rose from £{Number(data.ons_comparison.ons_2020_total_tn).toFixed(1)}tn to £{Number(data.ons_comparison.ons_2024_total_tn).toFixed(1)}tn.</p>
+          <p className="subsection-prose">The ONS measures land value as non-produced assets (<a href="https://www.ons.gov.uk/economy/nationalaccounts/uksectoraccounts/datasets/thenationalbalancesheetestimates" target="_blank" rel="noopener noreferrer">AN.211</a>) across all sectors. Non-household land combines corporate (private and public non-financial corporations, financial corporations) and general government. The model uprates survey-year values using OBR per capita nominal GDP growth <a href="https://obr.uk/efo/economic-and-fiscal-outlook-march-2025/" target="_blank" rel="noopener noreferrer">projections</a>. Table 1 compares the model's estimates with published ONS figures from the National Balance <a href="https://www.ons.gov.uk/economy/nationalaccounts/uksectoraccounts/bulletins/nationalbalancesheet/2025" target="_blank" rel="noopener noreferrer">Sheet</a>.</p>
           <p className="fig-caption">Table 1. <span>Land value estimates by source (2020-27)</span></p>
           <ONSComparisonTable />
           <p className="subsection-prose finding">Table 1 shows that the model's estimate of £{Number(data.ons_comparison.model_2026_total_tn).toFixed(1)}tn exceeds the ONS 2024 figure of £{Number(data.ons_comparison.ons_2024_total_tn).toFixed(1)}tn. The household share accounts for the majority of UK land in both the ONS data and the model.</p>
         </div>
         <div className="subsection-block">
           <SubsectionTitle>Average land value per household</SubsectionTitle>
-          <p className="subsection-prose">Average land value per household is the mean of estimated land value across all households in a given group. It includes both the land component of property wealth (residential and non-residential) and corporate land (derived from shareholdings). Table 2 shows the breakdown by country, region, or household type. Household type is derived from the number of adults, dependent children (under 18), and whether adults are above state pension age. Pensioner households are those where all adults are at or above state pension age.</p>
+          <p className="subsection-prose">Average land value per household is the mean of estimated land value across all households in a given group. It includes both the land component of property wealth (residential and non-residential) and corporate land (derived from shareholdings). Household type is derived from the number of adults, dependent children (under 18), and whether adults are above state pension age. Pensioner households are those where all adults are at or above state pension age. Table 2 shows the breakdown by country, region, or household type.</p>
           <p className="fig-caption">Table 2. <span>Average land value per household (2026-27)</span></p>
           <AvgLandTable />
           <p className="subsection-prose finding">Table 2 shows that pensioner couples hold the highest average land value, followed by non-pensioner couples without children. Lone parents hold the lowest average. Regionally, southern England and the East of England show the highest values, whilst Northern Ireland and Scotland show the lowest.</p>
@@ -405,7 +405,7 @@ function ReformSection() {
 
       {/* --- Subsection: Poverty --- */}
       <SubsectionTitle>Poverty</SubsectionTitle>
-      <p className="subsection-prose">Relative poverty is measured as the share of households with equivalised income below 60% of the national median, using the modified OECD equivalence scale. BHC measures income before housing costs (rent or mortgage payments); AHC subtracts them. The budget-neutral rate ({data.council_tax_replacement.required_lvt_rate_pct}%) is highlighted. Table 3 reports the change in poverty rates under each LVT scenario.</p>
+      <p className="subsection-prose">Relative poverty is measured as the share of households with equivalised income below 60% of the national median, using the modified OECD equivalence scale. BHC measures income before housing costs (rent or mortgage payments); AHC subtracts them. Table 3 reports the change in poverty rates under each LVT scenario, with the budget-neutral rate ({data.council_tax_replacement.required_lvt_rate_pct}%) highlighted.</p>
       <div className="chart-row single">
         <div className="chart-card" style={{ textAlign: 'center' }}>
           <p className="fig-caption">Table 3. <span>Change in relative poverty rate (2026-27)</span></p>
@@ -435,7 +435,7 @@ function ReformSection() {
       </div>
       {/* --- Subsection: Inequality --- */}
       <SubsectionTitle>Inequality</SubsectionTitle>
-      <p className="subsection-prose">The Gini coefficient measures income inequality on a 0 to 1 scale, where lower values indicate a more equal distribution. The budget-neutral rate ({data.council_tax_replacement.required_lvt_rate_pct}%) is highlighted. Table 4 reports the percentage change in the Gini coefficient under each LVT scenario.</p>
+      <p className="subsection-prose">The Gini coefficient measures income inequality on a 0 to 1 scale, where lower values indicate a more equal distribution. Table 4 reports the percentage change in the Gini coefficient under each LVT scenario, with the budget-neutral rate ({data.council_tax_replacement.required_lvt_rate_pct}%) highlighted.</p>
       <div className="chart-row single">
         <div className="chart-card" style={{ textAlign: 'center' }}>
           <p className="fig-caption">Table 4. <span>Change in Gini coefficient (2026-27)</span></p>
