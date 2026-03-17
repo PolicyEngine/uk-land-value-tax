@@ -7,7 +7,6 @@ import json
 import numpy as np
 import pandas as pd
 from policyengine_uk import Microsimulation, Simulation, Scenario
-from policyengine_uk.data import UKSingleYearDataset
 
 YEAR = 2026
 OUTPUT_FILE = "data/lvt_results.json"
@@ -20,12 +19,8 @@ def run():
 
     # Load data
     print("Loading dataset...")
-    dataset = UKSingleYearDataset(
-        file_path="/Users/janansadeqian/policyengine-uk-data/policyengine_uk_data/storage/enhanced_frs_2023_24.h5"
-    )
-
     print("Creating baseline microsimulation...")
-    baseline = Microsimulation(dataset=dataset)
+    baseline = Microsimulation()
 
     # === Section 1: Baseline Land Values ===
     land_value = baseline.calculate("land_value", YEAR)
@@ -191,7 +186,7 @@ def run():
         reform = Scenario(parameter_changes={
             "gov.contrib.ubi_center.land_value_tax.rate": rate
         })
-        sim = Microsimulation(dataset=dataset, scenario=reform)
+        sim = Microsimulation(scenario=reform)
         lvt_rev = float(sim.calculate("LVT", YEAR).sum()) / 1e9
         avg_lvt = float(sim.calculate("LVT", YEAR).mean())
         net_rev = lvt_rev - ct_rev_bn
@@ -268,7 +263,7 @@ def run():
             "gov.contrib.abolish_council_tax": True,
             "gov.contrib.ubi_center.land_value_tax.rate": rate,
         })
-        sim_reform = Microsimulation(dataset=dataset, scenario=reform)
+        sim_reform = Microsimulation(scenario=reform)
 
         lvt_liability = sim_reform.calculate("LVT", YEAR)
         reformed_net_income = sim_reform.calculate("household_net_income", YEAR)
@@ -343,7 +338,7 @@ def run():
     results["revenue_by_scope"] = []
     for name, params in scope_scenarios.items():
         reform = Scenario(parameter_changes=params)
-        sim = Microsimulation(dataset=dataset, scenario=reform)
+        sim = Microsimulation(scenario=reform)
         rev = float(sim.calculate("LVT", YEAR).sum()) / 1e9
         avg = float(sim.calculate("LVT", YEAR).mean())
         results["revenue_by_scope"].append({
@@ -371,7 +366,7 @@ def run():
         reform = Scenario(parameter_changes={
             "gov.contrib.ubi_center.land_value_tax.rate": rate
         })
-        sim_ct = Microsimulation(dataset=dataset, scenario=reform)
+        sim_ct = Microsimulation(scenario=reform)
         lvt_vals = sim_ct.calculate("LVT", YEAR)
 
         df_ct = pd.DataFrame({
