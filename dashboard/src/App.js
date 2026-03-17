@@ -119,7 +119,7 @@ function BaselineSection() {
         </div>
         <div className="subsection-block">
           <SubsectionTitle>Land value distribution</SubsectionTitle>
-          <p className="subsection-prose">Figure 1 shows average land value by income decile and each decile's share of the national total.</p>
+          <p className="subsection-prose">Figure 1 shows average land value by income decile and each decile's share of the national total. Income deciles rank households from lowest (1) to highest (10) equivalised net income. Land value includes both the land component of property wealth and corporate land attributed to the household through shareholdings.</p>
           <p className="fig-caption">Figure 1. <span>Land value by income decile (2026-27)</span></p>
           <DistributionChart />
           <p className="subsection-prose finding">The top decile holds the largest share of total land value, whilst the bottom decile holds the smallest. Average land value rises with income, reflecting higher rates of home ownership and more valuable properties amongst higher-income households.</p>
