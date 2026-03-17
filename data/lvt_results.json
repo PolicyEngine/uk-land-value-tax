@@ -261,7 +261,7 @@
     {
       "decile": 10,
       "avg_income": 125655,
-      "avg_land_value": 565308,
+      "avg_land_value": 565309,
       "avg_property_wealth": 523098,
       "share_of_land_pct": 22.1
     }
@@ -423,7 +423,7 @@
         "avg_council_tax_saved": 2506,
         "avg_net_change": -321,
         "avg_income_change_pct": -0.3,
-        "avg_land_value": 565308,
+        "avg_land_value": 565309,
         "pct_winners": 56.4,
         "pct_losers": 43.3,
         "pct_unchanged": 0.3
@@ -535,7 +535,7 @@
         "avg_council_tax_saved": 2506,
         "avg_net_change": -1639,
         "avg_income_change_pct": -1.3,
-        "avg_land_value": 565308,
+        "avg_land_value": 565309,
         "pct_winners": 39.9,
         "pct_losers": 59.8,
         "pct_unchanged": 0.3
@@ -647,7 +647,7 @@
         "avg_council_tax_saved": 2506,
         "avg_net_change": -3147,
         "avg_income_change_pct": -2.5,
-        "avg_land_value": 565308,
+        "avg_land_value": 565309,
         "pct_winners": 20.7,
         "pct_losers": 79.0,
         "pct_unchanged": 0.3
@@ -759,7 +759,7 @@
         "avg_council_tax_saved": 2506,
         "avg_net_change": -5974,
         "avg_income_change_pct": -4.8,
-        "avg_land_value": 565308,
+        "avg_land_value": 565309,
         "pct_winners": 12.1,
         "pct_losers": 87.6,
         "pct_unchanged": 0.3
@@ -871,7 +871,7 @@
         "avg_council_tax_saved": 2506,
         "avg_net_change": -8800,
         "avg_income_change_pct": -7.0,
-        "avg_land_value": 565308,
+        "avg_land_value": 565309,
         "pct_winners": 10.5,
         "pct_losers": 89.2,
         "pct_unchanged": 0.3
@@ -983,7 +983,7 @@
         "avg_council_tax_saved": 2506,
         "avg_net_change": -14454,
         "avg_income_change_pct": -11.5,
-        "avg_land_value": 565308,
+        "avg_land_value": 565309,
         "pct_winners": 9.7,
         "pct_losers": 90.0,
         "pct_unchanged": 0.3
@@ -1095,7 +1095,7 @@
         "avg_council_tax_saved": 2506,
         "avg_net_change": -25760,
         "avg_income_change_pct": -20.5,
-        "avg_land_value": 565308,
+        "avg_land_value": 565309,
         "pct_winners": 8.8,
         "pct_losers": 90.9,
         "pct_unchanged": 0.3
@@ -1103,72 +1103,72 @@
     ]
   },
   "poverty_gini": {
-    "baseline_poverty_bhc": 11.94,
-    "baseline_poverty_ahc": 18.26,
-    "baseline_gini": 0.3536,
+    "baseline_poverty_bhc": 11.54,
+    "baseline_poverty_ahc": 15.4,
+    "baseline_gini": 0.3544,
     "scenarios": {
       "0.5%": {
-        "poverty_bhc": 11.49,
-        "poverty_ahc": 16.67,
-        "poverty_bhc_change": -0.45,
-        "poverty_ahc_change": -1.59,
-        "gini": 0.3485,
+        "poverty_bhc": 11.54,
+        "poverty_ahc": 15.4,
+        "poverty_bhc_change": 0.0,
+        "poverty_ahc_change": 0.0,
+        "gini": 0.3493,
         "gini_change": -0.0051,
         "gini_change_pct": -1.44
       },
       "0.73%": {
-        "poverty_bhc": 11.86,
-        "poverty_ahc": 16.58,
-        "poverty_bhc_change": -0.08,
-        "poverty_ahc_change": -1.69,
-        "gini": 0.3506,
+        "poverty_bhc": 11.54,
+        "poverty_ahc": 15.4,
+        "poverty_bhc_change": 0.0,
+        "poverty_ahc_change": 0.0,
+        "gini": 0.3514,
         "gini_change": -0.003,
         "gini_change_pct": -0.86
       },
       "1.0%": {
-        "poverty_bhc": 11.97,
-        "poverty_ahc": 17.06,
-        "poverty_bhc_change": 0.04,
-        "poverty_ahc_change": -1.2,
-        "gini": 0.3533,
+        "poverty_bhc": 11.54,
+        "poverty_ahc": 15.4,
+        "poverty_bhc_change": 0.0,
+        "poverty_ahc_change": 0.0,
+        "gini": 0.3541,
         "gini_change": -0.0003,
         "gini_change_pct": -0.09
       },
       "1.5%": {
-        "poverty_bhc": 12.48,
-        "poverty_ahc": 17.6,
-        "poverty_bhc_change": 0.54,
-        "poverty_ahc_change": -0.66,
-        "gini": 0.3596,
+        "poverty_bhc": 11.54,
+        "poverty_ahc": 15.4,
+        "poverty_bhc_change": 0.0,
+        "poverty_ahc_change": 0.0,
+        "gini": 0.3604,
         "gini_change": 0.006,
-        "gini_change_pct": 1.7
+        "gini_change_pct": 1.69
       },
       "2.0%": {
-        "poverty_bhc": 14.02,
-        "poverty_ahc": 18.73,
-        "poverty_bhc_change": 2.08,
-        "poverty_ahc_change": 0.47,
-        "gini": 0.3675,
+        "poverty_bhc": 11.54,
+        "poverty_ahc": 15.4,
+        "poverty_bhc_change": 0.0,
+        "poverty_ahc_change": 0.0,
+        "gini": 0.3682,
         "gini_change": 0.0138,
-        "gini_change_pct": 3.91
+        "gini_change_pct": 3.9
       },
       "3.0%": {
-        "poverty_bhc": 15.66,
-        "poverty_ahc": 20.68,
-        "poverty_bhc_change": 3.72,
-        "poverty_ahc_change": 2.41,
-        "gini": 0.3878,
+        "poverty_bhc": 11.54,
+        "poverty_ahc": 15.4,
+        "poverty_bhc_change": 0.0,
+        "poverty_ahc_change": 0.0,
+        "gini": 0.3886,
         "gini_change": 0.0342,
-        "gini_change_pct": 9.66
+        "gini_change_pct": 9.64
       },
       "5.0%": {
-        "poverty_bhc": 18.57,
-        "poverty_ahc": 24.38,
-        "poverty_bhc_change": 6.63,
-        "poverty_ahc_change": 6.12,
-        "gini": 0.4487,
+        "poverty_bhc": 11.54,
+        "poverty_ahc": 15.4,
+        "poverty_bhc_change": 0.0,
+        "poverty_ahc_change": 0.0,
+        "gini": 0.4495,
         "gini_change": 0.0951,
-        "gini_change_pct": 26.89
+        "gini_change_pct": 26.82
       }
     }
   },
