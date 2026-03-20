@@ -247,11 +247,10 @@ function ReformSection() {
     net_label: r.net_revenue_bn >= 0 ? `+${fmtBn(r.net_revenue_bn)}` : fmtBn(r.net_revenue_bn),
   }));
   const ctBn = data.council_tax_replacement.council_tax_revenue_bn;
-  const defaultRate = `${data.council_tax_replacement.required_lvt_rate_pct}%`;
-
-  // Impact / poverty / Gini state
   const scenarios = data.impact_scenarios;
   const rates = Object.keys(scenarios);
+  const rawRate = data.council_tax_replacement.required_lvt_rate_pct;
+  const defaultRate = rates.find(r => r === `${rawRate}%`) || rates.find(r => r === `${rawRate.toFixed(2)}%`) || rates[0];
   const [impactRate, setImpactRate] = useState(defaultRate);
   const impactData = scenarios[impactRate] || scenarios[rates[0]];
   const [impactView, setImpactView] = useState('net');
