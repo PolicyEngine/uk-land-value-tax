@@ -31,32 +31,6 @@ FAMILY_TYPE_ORDER = (
     "Pensioner couple",
 )
 
-ONS_COMPARISON = {
-    "ons_2020_household_tn": 4.11,
-    "ons_2020_corporate_tn": 1.94,
-    "ons_2020_government_tn": 0.39,
-    "ons_2020_total_tn": 6.5,
-    "ons_2024_household_tn": 4.56,
-    "ons_2024_corporate_tn": 2.12,
-    "ons_2024_government_tn": 0.38,
-    "ons_2024_total_tn": 7.12,
-    "ons_time_series": [
-        {"year": y, "household": h, "corporate": c, "government": g, "total": t}
-        for y, h, c, g, t in [
-            (2015, 3.24, 1.58, 0.29, 5.15),
-            (2016, 3.47, 1.64, 0.30, 5.44),
-            (2017, 3.65, 1.71, 0.33, 5.73),
-            (2018, 3.70, 1.83, 0.39, 5.97),
-            (2019, 3.74, 1.84, 0.38, 6.02),
-            (2020, 4.11, 1.94, 0.39, 6.50),
-            (2021, 4.37, 2.18, 0.48, 7.11),
-            (2022, 4.67, 2.06, 0.35, 7.14),
-            (2023, 4.38, 2.00, 0.33, 6.76),
-            (2024, 4.56, 2.12, 0.38, 7.12),
-        ]
-    ],
-}
-
 
 def weighted_sum(values: pd.Series, weights: pd.Series) -> float:
     return float(np.sum(values.astype(float) * weights.astype(float)))
@@ -128,20 +102,29 @@ def build_baseline_summary(df: pd.DataFrame) -> dict:
     }
 
 
-def build_ons_comparison(baseline: dict) -> dict:
-    comparison = dict(ONS_COMPARISON)
-    comparison.update(
-        {
-            "model_2026_total_tn": baseline["total_land_tn"],
-            "model_2026_household_tn": baseline["household_land_tn"],
-            "model_2026_corporate_tn": baseline["corporate_land_tn"],
-            "model_vs_ons_2024_pct": round(
-                baseline["total_land_tn"] / ONS_COMPARISON["ons_2024_total_tn"] * 100,
-                1,
-            ),
-        }
-    )
-    return comparison
+def build_ons_comparison(
+    baseline: dict,
+    target_year: int,
+    target_household_tn: float,
+    target_corporate_tn: float,
+    target_total_tn: float,
+    reference_url: str | None = None,
+) -> dict:
+    return {
+        "target_year": target_year,
+        "target_label": f"{target_year}-{str(target_year + 1)[-2:]}",
+        "target_household_tn": round(target_household_tn, 2),
+        "target_corporate_tn": round(target_corporate_tn, 2),
+        "target_total_tn": round(target_total_tn, 2),
+        "reference_url": reference_url,
+        "model_2026_total_tn": baseline["total_land_tn"],
+        "model_2026_household_tn": baseline["household_land_tn"],
+        "model_2026_corporate_tn": baseline["corporate_land_tn"],
+        "model_vs_target_pct": round(
+            baseline["total_land_tn"] / target_total_tn * 100,
+            1,
+        ),
+    }
 
 
 def build_average_land_tables(df: pd.DataFrame) -> tuple[list[dict], list[dict], list[dict]]:
@@ -307,4 +290,3 @@ def build_revenue_by_scope(scope_rows: Iterable[dict]) -> list[dict]:
         }
         for row in scope_rows
     ]
-

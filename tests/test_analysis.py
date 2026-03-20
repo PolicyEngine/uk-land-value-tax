@@ -6,6 +6,7 @@ from uk_land_value_tax.analysis import (
     build_council_tax_vs_lvt_table,
     build_distribution_by_decile,
     build_impact_scenario_table,
+    build_ons_comparison,
     classify_family_type,
     format_rate_label,
     make_rate_grid,
@@ -178,3 +179,30 @@ def test_make_rate_grid_deduplicates_and_formats_budget_neutral_rate():
     assert format_rate_label(0.01, 0.01) == "1.00%"
     assert format_rate_label(0.0073, 0.0073) == "0.73%"
 
+
+def test_build_ons_comparison_uses_upstream_targets():
+    comparison = build_ons_comparison(
+        baseline={
+            "total_land_tn": 8.61,
+            "household_land_tn": 5.99,
+            "corporate_land_tn": 2.62,
+        },
+        target_year=2024,
+        target_household_tn=5.04,
+        target_corporate_tn=2.06,
+        target_total_tn=7.10,
+        reference_url="https://example.com/ons",
+    )
+
+    assert comparison == {
+        "target_year": 2024,
+        "target_label": "2024-25",
+        "target_household_tn": 5.04,
+        "target_corporate_tn": 2.06,
+        "target_total_tn": 7.1,
+        "reference_url": "https://example.com/ons",
+        "model_2026_total_tn": 8.61,
+        "model_2026_household_tn": 5.99,
+        "model_2026_corporate_tn": 2.62,
+        "model_vs_target_pct": 121.3,
+    }

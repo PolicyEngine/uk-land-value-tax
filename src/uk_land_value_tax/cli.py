@@ -27,6 +27,11 @@ def build_parser() -> argparse.ArgumentParser:
         type=Path,
         default=DEFAULT_DASHBOARD_OUTPUT_PATH,
     )
+    parser.add_argument(
+        "--uk-data-root",
+        type=Path,
+        help="Optional path to a local policyengine-uk-data checkout.",
+    )
     return parser
 
 
@@ -38,6 +43,7 @@ def main(argv: list[str] | None = None) -> int:
         output_path=args.output,
         sync_dashboard=args.sync_dashboard,
         dashboard_output_path=args.dashboard_output,
+        uk_data_root=args.uk_data_root,
     )
     print(f"Results saved to {args.output}")
     if args.sync_dashboard:
@@ -52,4 +58,3 @@ def main(argv: list[str] | None = None) -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
-

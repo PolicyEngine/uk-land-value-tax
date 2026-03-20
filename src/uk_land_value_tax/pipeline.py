@@ -1,7 +1,12 @@
 from __future__ import annotations
 
+import importlib
+import importlib.util
 import json
+import os
 import shutil
+import sys
+import types
 from pathlib import Path
 
 import numpy as np
@@ -25,6 +30,7 @@ from .analysis import (
 DEFAULT_YEAR = 2026
 DEFAULT_OUTPUT_PATH = Path("data/lvt_results.json")
 DEFAULT_DASHBOARD_OUTPUT_PATH = Path("dashboard/src/lvt_results.json")
+DEFAULT_TARGET_YEAR = 2024
 
 
 def _policyengine_classes():
@@ -38,11 +44,122 @@ def _policyengine_classes():
     return Microsimulation, Scenario, Simulation
 
 
+def _import_uk_data_module(module_name: str, uk_data_root: Path | None = None):
+    try:
+        return importlib.import_module(module_name)
+    except ImportError as import_error:
+        candidate_roots: list[Path] = []
+        env_root = os.getenv("POLICYENGINE_UK_DATA_ROOT")
+        if uk_data_root is not None:
+            candidate_roots.append(uk_data_root.expanduser().resolve())
+        if env_root:
+            candidate_roots.append(Path(env_root).expanduser().resolve())
+
+        for root in candidate_roots:
+            if not (root / "policyengine_uk_data").exists():
+                continue
+            sys.path.insert(0, str(root))
+            try:
+                return importlib.import_module(module_name)
+            except ImportError:
+                sys.path.pop(0)
+                continue
+
+        if module_name == "policyengine_uk_data.targets.sources.ons_land_values":
+            for root in candidate_roots:
+                module = _load_uk_data_target_module_from_checkout(module_name, root)
+                if module is not None:
+                    return module
+
+        raise RuntimeError(
+            "Loading land targets requires policyengine-uk-data. "
+            "Install the package or pass --uk-data-root / set POLICYENGINE_UK_DATA_ROOT."
+        ) from import_error
+
+
+def _load_module_from_path(module_name: str, module_path: Path):
+    spec = importlib.util.spec_from_file_location(module_name, module_path)
+    if spec is None or spec.loader is None:
+        raise RuntimeError(f"Unable to load module spec for {module_path}")
+
+    module = importlib.util.module_from_spec(spec)
+    sys.modules[module_name] = module
+    spec.loader.exec_module(module)
+    return module
+
+
+def _ensure_namespace_package(module_name: str, package_path: Path) -> None:
+    if module_name in sys.modules:
+        return
+    package = types.ModuleType(module_name)
+    package.__path__ = [str(package_path)]
+    sys.modules[module_name] = package
+
+
+def _load_uk_data_target_module_from_checkout(module_name: str, root: Path):
+    package_root = root / "policyengine_uk_data"
+    schema_path = package_root / "targets" / "schema.py"
+    target_module_path = package_root / "targets" / "sources" / "ons_land_values.py"
+    if not schema_path.exists() or not target_module_path.exists():
+        return None
+
+    _ensure_namespace_package("policyengine_uk_data", package_root)
+    _ensure_namespace_package("policyengine_uk_data.targets", package_root / "targets")
+    _ensure_namespace_package(
+        "policyengine_uk_data.targets.sources",
+        package_root / "targets" / "sources",
+    )
+    if "policyengine_uk_data.targets.schema" not in sys.modules:
+        _load_module_from_path("policyengine_uk_data.targets.schema", schema_path)
+    return _load_module_from_path(module_name, target_module_path)
+
+
+def _load_ons_land_targets(
+    target_year: int = DEFAULT_TARGET_YEAR,
+    uk_data_root: Path | None = None,
+) -> dict:
+    ons_land_values = _import_uk_data_module(
+        "policyengine_uk_data.targets.sources.ons_land_values",
+        uk_data_root=uk_data_root,
+    )
+    targets = {target.name: target for target in ons_land_values.get_targets()}
+
+    required_names = (
+        "ons/household_land_value",
+        "ons/corporate_land_value",
+        "ons/land_value",
+    )
+    missing_names = [
+        target_name
+        for target_name in required_names
+        if target_name not in targets or target_year not in targets[target_name].values
+    ]
+    if missing_names:
+        raise RuntimeError(
+            "Missing required land targets in policyengine-uk-data for "
+            f"{target_year}: {', '.join(missing_names)}"
+        )
+
+    household_target = targets["ons/household_land_value"]
+    corporate_target = targets["ons/corporate_land_value"]
+    total_target = targets["ons/land_value"]
+    return {
+        "target_year": target_year,
+        "target_household_tn": household_target.values[target_year] / 1e12,
+        "target_corporate_tn": corporate_target.values[target_year] / 1e12,
+        "target_total_tn": total_target.values[target_year] / 1e12,
+        "reference_url": total_target.reference_url,
+    }
+
+
 def _values(result) -> np.ndarray:
     return np.asarray(result.values)
 
 
-def build_results(year: int = DEFAULT_YEAR) -> dict:
+def build_results(
+    year: int = DEFAULT_YEAR,
+    uk_data_root: Path | None = None,
+) -> dict:
     Microsimulation, Scenario, Simulation = _policyengine_classes()
 
     results: dict = {}
@@ -110,7 +227,10 @@ def build_results(year: int = DEFAULT_YEAR) -> dict:
         results["avg_land_by_family_type"],
     ) = build_average_land_tables(household_df)
 
-    results["ons_comparison"] = build_ons_comparison(results["baseline"])
+    results["ons_comparison"] = build_ons_comparison(
+        results["baseline"],
+        **_load_ons_land_targets(uk_data_root=uk_data_root),
+    )
     results["distribution_by_decile"] = build_distribution_by_decile(baseline_df)
 
     council_tax_revenue_bn = float(baseline.calculate("council_tax", year).sum()) / 1e9
@@ -321,10 +441,10 @@ def generate_results_file(
     output_path: Path = DEFAULT_OUTPUT_PATH,
     sync_dashboard: bool = False,
     dashboard_output_path: Path = DEFAULT_DASHBOARD_OUTPUT_PATH,
+    uk_data_root: Path | None = None,
 ) -> dict:
-    results = build_results(year=year)
+    results = build_results(year=year, uk_data_root=uk_data_root)
     written_output = write_results(results, output_path)
     if sync_dashboard:
         sync_dashboard_results(written_output, dashboard_output_path)
     return results
-

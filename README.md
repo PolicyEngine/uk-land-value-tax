@@ -11,7 +11,7 @@ The dashboard estimates UK land values for 2026-27 and simulates what would happ
 
 All estimates are produced by [PolicyEngine UK](https://github.com/PolicyEngine/policyengine-uk) using the [Enhanced FRS 2023-24](https://github.com/PolicyEngine/policyengine-uk-data) microdata, uprated to 2026-27 with OBR per capita nominal GDP growth projections.
 
-The current generated outputs are not yet recalibrated to the ONS land totals added in `policyengine-uk-data`, so the model should be read as a live microsimulation estimate rather than an ONS-aligned land baseline.
+The comparison figures in this repo should come from two sources only: upstream land targets from `policyengine-uk-data`, and generated model outputs from the microsimulation script in this repo.
 
 ## Data sources
 
@@ -56,18 +56,20 @@ npm start
 
 ### Simulation
 
-The data pipeline now lives in a regular Python package with unit tests. The full simulation still requires access to the Enhanced FRS dataset through `policyengine-uk`, and currently requires Python 3.13+ because of the `policyengine-uk` dependency.
+The data pipeline now lives in a regular Python package with unit tests. The full simulation still requires access to the Enhanced FRS dataset through `policyengine-uk`, currently requires Python 3.13+ because of the `policyengine-uk` dependency, and expects access to a `policyengine-uk-data` checkout or installed package to load the upstream land targets.
 
 ```bash
 uv sync --extra simulation --extra dev
 uv run pytest
-uv run uk-land-value-tax-build --sync-dashboard
+POLICYENGINE_UK_DATA_ROOT=/path/to/policyengine-uk-data \
+  uv run uk-land-value-tax-build --sync-dashboard
 ```
 
 If you prefer the legacy entrypoint, this wrapper still works:
 
 ```bash
-python simulation/land_value_tax_simulation.py --sync-dashboard
+POLICYENGINE_UK_DATA_ROOT=/path/to/policyengine-uk-data \
+  python simulation/land_value_tax_simulation.py --sync-dashboard
 ```
 
 The dashboard reads `data/lvt_results.json`, and `--sync-dashboard` also updates `dashboard/src/lvt_results.json`.
@@ -86,3 +88,4 @@ The dashboard is deployed on [Vercel](https://vercel.com) and updates automatica
 - The dashboard repo should not use notebooks for production data processing.
 - Keep transformation logic in `src/uk_land_value_tax/analysis.py` so it can be tested without the full microsimulation environment.
 - Treat `data/lvt_results.json` as a generated artifact from the Python package, not as hand-edited analysis output.
+- Pull land targets from `policyengine-uk-data` at build time rather than duplicating ONS constants in this repo.

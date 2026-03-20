@@ -106,8 +106,8 @@ function BaselineSection() {
       <div className="subsections">
         <div className="subsection-block">
           <SubsectionTitle>Comparison with official statistics</SubsectionTitle>
-          <p className="subsection-prose">The ONS <a href="https://www.ons.gov.uk/economy/nationalaccounts/uksectoraccounts/datasets/thenationalbalancesheetestimates" target="_blank" rel="noopener noreferrer">reports</a> total UK land at £{Number(data.ons_comparison.ons_2024_total_tn).toFixed(1)}tn for 2024, of which £{Number(data.ons_comparison.ons_2024_household_tn).toFixed(1)}tn is household land and £{(data.ons_comparison.ons_2024_corporate_tn + data.ons_comparison.ons_2024_government_tn).toFixed(1)}tn is non-household (corporate and government), measured as non-produced assets (<a href="https://www.ons.gov.uk/economy/nationalaccounts/uksectoraccounts/datasets/thenationalbalancesheetestimates" target="_blank" rel="noopener noreferrer">AN.211</a>) in the National Balance <a href="https://www.ons.gov.uk/economy/nationalaccounts/uksectoraccounts/bulletins/nationalbalancesheet/2025" target="_blank" rel="noopener noreferrer">Sheet</a>. The model uprates survey-year values using OBR per capita nominal GDP growth <a href="https://obr.uk/efo/economic-and-fiscal-outlook-march-2025/" target="_blank" rel="noopener noreferrer">projections</a> and estimates total UK land at £{Number(data.baseline.total_land_tn).toFixed(1)}tn and total UK household wealth at £{Number(data.baseline.total_wealth_tn).toFixed(1)}tn, of which land accounts for {Number(data.baseline.land_pct_of_wealth).toFixed(1)}%. These figures are not yet recalibrated to the ONS land targets, so the gap in Table 1 reflects a live model estimate rather than an ONS-aligned baseline.</p>
-          <p className="fig-caption">Table 1. <span>Land value estimates by source (2020-27)</span></p>
+          <p className="subsection-prose">PolicyEngine UK Data defines upstream land calibration targets from the ONS National Balance Sheet. The comparison below uses those upstream household, corporate, and total land targets directly from <a href="https://github.com/PolicyEngine/policyengine-uk-data" target="_blank" rel="noopener noreferrer">policyengine-uk-data</a>, while the PolicyEngine figures come from this repo&apos;s microsimulation build script. The model uprates survey-year values using OBR per capita nominal GDP growth <a href="https://obr.uk/efo/economic-and-fiscal-outlook-march-2025/" target="_blank" rel="noopener noreferrer">projections</a> and estimates total UK land at £{Number(data.baseline.total_land_tn).toFixed(1)}tn and total UK household wealth at £{Number(data.baseline.total_wealth_tn).toFixed(1)}tn, of which land accounts for {Number(data.baseline.land_pct_of_wealth).toFixed(1)}%.</p>
+          <p className="fig-caption">Table 1. <span>Land value targets and model estimates (2024-27)</span></p>
           <ONSComparisonTable />
         </div>
         <div className="subsection-block">
@@ -136,26 +136,19 @@ function ONSComparisonTable() {
       <thead>
         <tr>
           <th>Source</th>
-          <th>Year</th>
+          <th>Period</th>
           <th>Household</th>
-          <th>Non-household</th>
+          <th>Corporate</th>
           <th>Total</th>
         </tr>
       </thead>
       <tbody>
         <tr>
-          <td>ONS</td>
-          <td>2020-21</td>
-          <td>{fmtTn(c.ons_2020_household_tn)}</td>
-          <td>{fmtTn(c.ons_2020_corporate_tn + c.ons_2020_government_tn)}</td>
-          <td>{fmtTn(c.ons_2020_total_tn)}</td>
-        </tr>
-        <tr>
-          <td>ONS</td>
-          <td>2024-25</td>
-          <td>{fmtTn(c.ons_2024_household_tn)}</td>
-          <td>{fmtTn(c.ons_2024_corporate_tn + c.ons_2024_government_tn)}</td>
-          <td>{fmtTn(c.ons_2024_total_tn)}</td>
+          <td>Upstream target</td>
+          <td>{c.target_label}</td>
+          <td>{fmtTn(c.target_household_tn)}</td>
+          <td>{fmtTn(c.target_corporate_tn)}</td>
+          <td>{fmtTn(c.target_total_tn)}</td>
         </tr>
         <tr className="model-row">
           <td>PE</td>

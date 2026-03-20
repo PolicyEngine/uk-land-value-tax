@@ -109,90 +109,16 @@
     }
   ],
   "ons_comparison": {
-    "ons_2020_household_tn": 4.11,
-    "ons_2020_corporate_tn": 1.94,
-    "ons_2020_government_tn": 0.39,
-    "ons_2020_total_tn": 6.5,
-    "ons_2024_household_tn": 4.56,
-    "ons_2024_corporate_tn": 2.12,
-    "ons_2024_government_tn": 0.38,
-    "ons_2024_total_tn": 7.12,
-    "ons_time_series": [
-      {
-        "year": 2015,
-        "household": 3.24,
-        "corporate": 1.58,
-        "government": 0.29,
-        "total": 5.15
-      },
-      {
-        "year": 2016,
-        "household": 3.47,
-        "corporate": 1.64,
-        "government": 0.3,
-        "total": 5.44
-      },
-      {
-        "year": 2017,
-        "household": 3.65,
-        "corporate": 1.71,
-        "government": 0.33,
-        "total": 5.73
-      },
-      {
-        "year": 2018,
-        "household": 3.7,
-        "corporate": 1.83,
-        "government": 0.39,
-        "total": 5.97
-      },
-      {
-        "year": 2019,
-        "household": 3.74,
-        "corporate": 1.84,
-        "government": 0.38,
-        "total": 6.02
-      },
-      {
-        "year": 2020,
-        "household": 4.11,
-        "corporate": 1.94,
-        "government": 0.39,
-        "total": 6.5
-      },
-      {
-        "year": 2021,
-        "household": 4.37,
-        "corporate": 2.18,
-        "government": 0.48,
-        "total": 7.11
-      },
-      {
-        "year": 2022,
-        "household": 4.67,
-        "corporate": 2.06,
-        "government": 0.35,
-        "total": 7.14
-      },
-      {
-        "year": 2023,
-        "household": 4.38,
-        "corporate": 2.0,
-        "government": 0.33,
-        "total": 6.76
-      },
-      {
-        "year": 2024,
-        "household": 4.56,
-        "corporate": 2.12,
-        "government": 0.38,
-        "total": 7.12
-      }
-    ],
+    "target_year": 2024,
+    "target_label": "2024-25",
+    "target_household_tn": 5.04,
+    "target_corporate_tn": 2.06,
+    "target_total_tn": 7.1,
+    "reference_url": "https://www.ons.gov.uk/economy/nationalaccounts/uksectoraccounts/bulletins/nationalbalancesheet/2025",
     "model_2026_total_tn": 8.61,
     "model_2026_household_tn": 5.87,
     "model_2026_corporate_tn": 2.73,
-    "model_vs_ons_2024_pct": 120.9
+    "model_vs_target_pct": 121.3
   },
   "distribution_by_decile": [
     {
