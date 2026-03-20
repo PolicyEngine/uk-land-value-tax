@@ -1,111 +1,111 @@
 {
   "baseline": {
-    "total_land_tn": 10.76,
-    "household_land_tn": 7.24,
-    "corporate_land_tn": 3.52,
-    "total_property_wealth_tn": 10.56,
-    "total_wealth_tn": 23.5,
-    "land_pct_of_property": 68.6,
-    "land_pct_of_wealth": 45.8,
-    "avg_land_per_household": 337177,
-    "median_land_value": 201607
+    "total_land_tn": 8.61,
+    "household_land_tn": 5.87,
+    "corporate_land_tn": 2.73,
+    "total_property_wealth_tn": 8.64,
+    "total_wealth_tn": 18.48,
+    "land_pct_of_property": 68.0,
+    "land_pct_of_wealth": 46.6,
+    "avg_land_per_household": 270781,
+    "median_land_value": 161931
   },
   "avg_land_by_country": [
     {
       "group": "UK",
-      "avg_land_value": 337177
+      "avg_land_value": 270781
     },
     {
       "group": "England",
-      "avg_land_value": 354057
+      "avg_land_value": 287805
     },
     {
       "group": "Scotland",
-      "avg_land_value": 243599
+      "avg_land_value": 181934
     },
     {
       "group": "Wales",
-      "avg_land_value": 299134
+      "avg_land_value": 207930
     },
     {
       "group": "Northern Ireland",
-      "avg_land_value": 154790
+      "avg_land_value": 117111
     }
   ],
   "avg_land_by_region": [
     {
       "group": "North East",
-      "avg_land_value": 327509
+      "avg_land_value": 248829
     },
     {
       "group": "North West",
-      "avg_land_value": 285812
+      "avg_land_value": 224789
     },
     {
       "group": "Yorkshire and the Humber",
-      "avg_land_value": 260902
+      "avg_land_value": 222729
     },
     {
       "group": "East Midlands",
-      "avg_land_value": 293989
+      "avg_land_value": 250579
     },
     {
       "group": "West Midlands",
-      "avg_land_value": 294521
+      "avg_land_value": 243280
     },
     {
       "group": "East of England",
-      "avg_land_value": 440850
+      "avg_land_value": 347502
     },
     {
       "group": "London",
-      "avg_land_value": 381425
+      "avg_land_value": 295914
     },
     {
       "group": "South East",
-      "avg_land_value": 388007
+      "avg_land_value": 318243
     },
     {
       "group": "South West",
-      "avg_land_value": 465987
+      "avg_land_value": 400427
     },
     {
       "group": "Wales",
-      "avg_land_value": 299134
+      "avg_land_value": 207930
     },
     {
       "group": "Scotland",
-      "avg_land_value": 243599
+      "avg_land_value": 181934
     },
     {
       "group": "Northern Ireland",
-      "avg_land_value": 154790
+      "avg_land_value": 117111
     }
   ],
   "avg_land_by_family_type": [
     {
       "group": "Single, no children",
-      "avg_land_value": 145984
+      "avg_land_value": 112324
     },
     {
       "group": "Couple, no children",
-      "avg_land_value": 431537
+      "avg_land_value": 346299
     },
     {
       "group": "Lone parent",
-      "avg_land_value": 76866
+      "avg_land_value": 65212
     },
     {
       "group": "Couple with children",
-      "avg_land_value": 312153
+      "avg_land_value": 276912
     },
     {
       "group": "Single pensioner",
-      "avg_land_value": 267786
+      "avg_land_value": 201156
     },
     {
       "group": "Pensioner couple",
-      "avg_land_value": 675037
+      "avg_land_value": 500427
     }
   ],
   "ons_comparison": {
@@ -189,1514 +189,1514 @@
         "total": 7.12
       }
     ],
-    "model_2026_total_tn": 10.76,
-    "model_2026_household_tn": 7.24,
-    "model_2026_corporate_tn": 3.52,
-    "model_vs_ons_2024_pct": 151.1
+    "model_2026_total_tn": 8.61,
+    "model_2026_household_tn": 5.87,
+    "model_2026_corporate_tn": 2.73,
+    "model_vs_ons_2024_pct": 120.9
   },
   "distribution_by_decile": [
     {
       "decile": 1,
-      "avg_income": 20062,
-      "avg_land_value": 167959,
-      "avg_property_wealth": 180182,
-      "share_of_land_pct": 6.1
+      "avg_income": 19980,
+      "avg_land_value": 131738,
+      "avg_property_wealth": 148200,
+      "share_of_land_pct": 5.9
     },
     {
       "decile": 2,
-      "avg_income": 30545,
-      "avg_land_value": 232788,
-      "avg_property_wealth": 233885,
-      "share_of_land_pct": 7.3
+      "avg_income": 30747,
+      "avg_land_value": 152084,
+      "avg_property_wealth": 163979,
+      "share_of_land_pct": 5.7
     },
     {
       "decile": 3,
-      "avg_income": 37370,
-      "avg_land_value": 217855,
-      "avg_property_wealth": 243545,
-      "share_of_land_pct": 6.3
+      "avg_income": 36848,
+      "avg_land_value": 154987,
+      "avg_property_wealth": 166142,
+      "share_of_land_pct": 5.6
     },
     {
       "decile": 4,
-      "avg_income": 42246,
-      "avg_land_value": 205493,
-      "avg_property_wealth": 216551,
-      "share_of_land_pct": 5.8
+      "avg_income": 41518,
+      "avg_land_value": 160968,
+      "avg_property_wealth": 171044,
+      "share_of_land_pct": 5.7
     },
     {
       "decile": 5,
-      "avg_income": 46272,
-      "avg_land_value": 326416,
-      "avg_property_wealth": 320852,
-      "share_of_land_pct": 9.2
+      "avg_income": 43868,
+      "avg_land_value": 246282,
+      "avg_property_wealth": 247425,
+      "share_of_land_pct": 9.0
     },
     {
       "decile": 6,
-      "avg_income": 52214,
-      "avg_land_value": 331128,
-      "avg_property_wealth": 331267,
-      "share_of_land_pct": 9.2
+      "avg_income": 51268,
+      "avg_land_value": 247984,
+      "avg_property_wealth": 255797,
+      "share_of_land_pct": 8.8
     },
     {
       "decile": 7,
-      "avg_income": 55108,
-      "avg_land_value": 377469,
-      "avg_property_wealth": 376787,
-      "share_of_land_pct": 11.3
+      "avg_income": 54278,
+      "avg_land_value": 284233,
+      "avg_property_wealth": 290034,
+      "share_of_land_pct": 10.9
     },
     {
       "decile": 8,
-      "avg_income": 66041,
-      "avg_land_value": 421361,
-      "avg_property_wealth": 414289,
-      "share_of_land_pct": 11.5
+      "avg_income": 69245,
+      "avg_land_value": 358936,
+      "avg_property_wealth": 364829,
+      "share_of_land_pct": 11.8
     },
     {
       "decile": 9,
-      "avg_income": 76182,
-      "avg_land_value": 421712,
-      "avg_property_wealth": 418563,
-      "share_of_land_pct": 12.2
+      "avg_income": 75241,
+      "avg_land_value": 402142,
+      "avg_property_wealth": 402960,
+      "share_of_land_pct": 14.2
     },
     {
       "decile": 10,
-      "avg_income": 122547,
-      "avg_land_value": 705325,
-      "avg_property_wealth": 603690,
-      "share_of_land_pct": 21.1
+      "avg_income": 126555,
+      "avg_land_value": 609374,
+      "avg_property_wealth": 546933,
+      "share_of_land_pct": 22.4
     }
   ],
   "revenue_by_rate": [
     {
       "rate": 0.005,
       "rate_pct": "0.5%",
-      "lvt_revenue_bn": 53.8,
-      "council_tax_bn": 60.8,
-      "net_revenue_bn": -6.9,
-      "avg_per_household": 1686
+      "lvt_revenue_bn": 43.0,
+      "council_tax_bn": 60.3,
+      "net_revenue_bn": -17.3,
+      "avg_per_household": 1354
     },
     {
       "rate": 0.01,
       "rate_pct": "1.0%",
-      "lvt_revenue_bn": 107.6,
-      "council_tax_bn": 60.8,
-      "net_revenue_bn": 46.9,
-      "avg_per_household": 3372
+      "lvt_revenue_bn": 86.1,
+      "council_tax_bn": 60.3,
+      "net_revenue_bn": 25.7,
+      "avg_per_household": 2708
     },
     {
       "rate": 0.015,
       "rate_pct": "1.5%",
-      "lvt_revenue_bn": 161.5,
-      "council_tax_bn": 60.8,
-      "net_revenue_bn": 100.7,
-      "avg_per_household": 5058
+      "lvt_revenue_bn": 129.1,
+      "council_tax_bn": 60.3,
+      "net_revenue_bn": 68.8,
+      "avg_per_household": 4062
     },
     {
       "rate": 0.02,
       "rate_pct": "2.0%",
-      "lvt_revenue_bn": 215.3,
-      "council_tax_bn": 60.8,
-      "net_revenue_bn": 154.5,
-      "avg_per_household": 6744
+      "lvt_revenue_bn": 172.1,
+      "council_tax_bn": 60.3,
+      "net_revenue_bn": 111.8,
+      "avg_per_household": 5416
     },
     {
       "rate": 0.03,
       "rate_pct": "3.0%",
-      "lvt_revenue_bn": 322.9,
-      "council_tax_bn": 60.8,
-      "net_revenue_bn": 262.1,
-      "avg_per_household": 10115
+      "lvt_revenue_bn": 258.2,
+      "council_tax_bn": 60.3,
+      "net_revenue_bn": 197.9,
+      "avg_per_household": 8123
     },
     {
       "rate": 0.05,
       "rate_pct": "5.0%",
-      "lvt_revenue_bn": 538.2,
-      "council_tax_bn": 60.8,
-      "net_revenue_bn": 477.4,
-      "avg_per_household": 16859
+      "lvt_revenue_bn": 430.3,
+      "council_tax_bn": 60.3,
+      "net_revenue_bn": 370.0,
+      "avg_per_household": 13539
     }
   ],
   "impact_scenarios": {
     "0.5%": [
       {
         "decile": 1,
-        "avg_lvt": 840,
-        "avg_council_tax_saved": 1591,
-        "avg_net_change": 751,
-        "avg_income_change_pct": 3.7,
-        "avg_land_value": 167959,
-        "pct_winners": 86.5,
-        "pct_losers": 10.4,
-        "pct_unchanged": 3.1
+        "avg_lvt": 659,
+        "avg_council_tax_saved": 1626,
+        "avg_net_change": 967,
+        "avg_income_change_pct": 4.8,
+        "avg_land_value": 131738,
+        "pct_winners": 88.9,
+        "pct_losers": 7.4,
+        "pct_unchanged": 3.7
       },
       {
         "decile": 2,
-        "avg_lvt": 1164,
-        "avg_council_tax_saved": 1690,
-        "avg_net_change": 526,
-        "avg_income_change_pct": 1.7,
-        "avg_land_value": 232788,
-        "pct_winners": 79.3,
-        "pct_losers": 19.4,
-        "pct_unchanged": 1.2
+        "avg_lvt": 760,
+        "avg_council_tax_saved": 1695,
+        "avg_net_change": 935,
+        "avg_income_change_pct": 3.0,
+        "avg_land_value": 152084,
+        "pct_winners": 86.4,
+        "pct_losers": 12.4,
+        "pct_unchanged": 1.3
       },
       {
         "decile": 3,
-        "avg_lvt": 1089,
-        "avg_council_tax_saved": 1616,
-        "avg_net_change": 527,
-        "avg_income_change_pct": 1.4,
-        "avg_land_value": 217855,
-        "pct_winners": 77.6,
-        "pct_losers": 19.4,
-        "pct_unchanged": 2.9
+        "avg_lvt": 775,
+        "avg_council_tax_saved": 1638,
+        "avg_net_change": 863,
+        "avg_income_change_pct": 2.3,
+        "avg_land_value": 154987,
+        "pct_winners": 83.3,
+        "pct_losers": 13.5,
+        "pct_unchanged": 3.2
       },
       {
         "decile": 4,
-        "avg_lvt": 1027,
-        "avg_council_tax_saved": 1761,
-        "avg_net_change": 734,
-        "avg_income_change_pct": 1.7,
-        "avg_land_value": 205493,
-        "pct_winners": 80.6,
-        "pct_losers": 17.9,
-        "pct_unchanged": 1.5
+        "avg_lvt": 805,
+        "avg_council_tax_saved": 1753,
+        "avg_net_change": 949,
+        "avg_income_change_pct": 2.3,
+        "avg_land_value": 160968,
+        "pct_winners": 84.3,
+        "pct_losers": 13.9,
+        "pct_unchanged": 1.8
       },
       {
         "decile": 5,
-        "avg_lvt": 1632,
-        "avg_council_tax_saved": 1822,
-        "avg_net_change": 190,
-        "avg_income_change_pct": 0.4,
-        "avg_land_value": 326416,
-        "pct_winners": 64.8,
-        "pct_losers": 34.1,
-        "pct_unchanged": 1.1
+        "avg_lvt": 1231,
+        "avg_council_tax_saved": 1771,
+        "avg_net_change": 540,
+        "avg_income_change_pct": 1.2,
+        "avg_land_value": 246282,
+        "pct_winners": 75.6,
+        "pct_losers": 23.6,
+        "pct_unchanged": 0.8
       },
       {
         "decile": 6,
-        "avg_lvt": 1656,
-        "avg_council_tax_saved": 1956,
-        "avg_net_change": 300,
-        "avg_income_change_pct": 0.6,
-        "avg_land_value": 331128,
-        "pct_winners": 67.8,
-        "pct_losers": 31.8,
+        "avg_lvt": 1240,
+        "avg_council_tax_saved": 1927,
+        "avg_net_change": 687,
+        "avg_income_change_pct": 1.3,
+        "avg_land_value": 247984,
+        "pct_winners": 77.5,
+        "pct_losers": 22.1,
         "pct_unchanged": 0.4
       },
       {
         "decile": 7,
-        "avg_lvt": 1887,
-        "avg_council_tax_saved": 1960,
-        "avg_net_change": 73,
-        "avg_income_change_pct": 0.1,
-        "avg_land_value": 377469,
-        "pct_winners": 65.2,
-        "pct_losers": 34.3,
-        "pct_unchanged": 0.5
+        "avg_lvt": 1421,
+        "avg_council_tax_saved": 1954,
+        "avg_net_change": 532,
+        "avg_income_change_pct": 1.0,
+        "avg_land_value": 284233,
+        "pct_winners": 77.2,
+        "pct_losers": 22.2,
+        "pct_unchanged": 0.6
       },
       {
         "decile": 8,
-        "avg_lvt": 2107,
-        "avg_council_tax_saved": 2073,
-        "avg_net_change": -34,
-        "avg_income_change_pct": -0.1,
-        "avg_land_value": 421361,
-        "pct_winners": 61.0,
-        "pct_losers": 37.7,
-        "pct_unchanged": 1.2
+        "avg_lvt": 1795,
+        "avg_council_tax_saved": 2060,
+        "avg_net_change": 266,
+        "avg_income_change_pct": 0.4,
+        "avg_land_value": 358936,
+        "pct_winners": 62.9,
+        "pct_losers": 36.0,
+        "pct_unchanged": 1.1
       },
       {
         "decile": 9,
-        "avg_lvt": 2109,
-        "avg_council_tax_saved": 2164,
-        "avg_net_change": 55,
-        "avg_income_change_pct": 0.1,
-        "avg_land_value": 421712,
-        "pct_winners": 63.8,
-        "pct_losers": 36.1,
-        "pct_unchanged": 0.2
+        "avg_lvt": 2011,
+        "avg_council_tax_saved": 2160,
+        "avg_net_change": 149,
+        "avg_income_change_pct": 0.2,
+        "avg_land_value": 402142,
+        "pct_winners": 67.3,
+        "pct_losers": 32.6,
+        "pct_unchanged": 0.1
       },
       {
         "decile": 10,
-        "avg_lvt": 3527,
+        "avg_lvt": 3047,
         "avg_council_tax_saved": 2487,
-        "avg_net_change": -1040,
-        "avg_income_change_pct": -0.8,
-        "avg_land_value": 705325,
-        "pct_winners": 44.8,
-        "pct_losers": 54.9,
-        "pct_unchanged": 0.3
+        "avg_net_change": -560,
+        "avg_income_change_pct": -0.4,
+        "avg_land_value": 609374,
+        "pct_winners": 53.0,
+        "pct_losers": 46.1,
+        "pct_unchanged": 0.8
       }
     ],
-    "0.56%": [
+    "0.70%": [
       {
         "decile": 1,
-        "avg_lvt": 948,
-        "avg_council_tax_saved": 1591,
-        "avg_net_change": 643,
-        "avg_income_change_pct": 3.2,
-        "avg_land_value": 167959,
-        "pct_winners": 84.3,
-        "pct_losers": 12.6,
-        "pct_unchanged": 3.1
+        "avg_lvt": 924,
+        "avg_council_tax_saved": 1626,
+        "avg_net_change": 702,
+        "avg_income_change_pct": 3.5,
+        "avg_land_value": 131738,
+        "pct_winners": 78.3,
+        "pct_losers": 18.1,
+        "pct_unchanged": 3.7
       },
       {
         "decile": 2,
-        "avg_lvt": 1314,
-        "avg_council_tax_saved": 1690,
-        "avg_net_change": 376,
-        "avg_income_change_pct": 1.2,
-        "avg_land_value": 232788,
-        "pct_winners": 76.7,
-        "pct_losers": 22.1,
-        "pct_unchanged": 1.2
+        "avg_lvt": 1066,
+        "avg_council_tax_saved": 1695,
+        "avg_net_change": 629,
+        "avg_income_change_pct": 2.0,
+        "avg_land_value": 152084,
+        "pct_winners": 76.2,
+        "pct_losers": 22.5,
+        "pct_unchanged": 1.3
       },
       {
         "decile": 3,
-        "avg_lvt": 1230,
-        "avg_council_tax_saved": 1616,
-        "avg_net_change": 387,
-        "avg_income_change_pct": 1.0,
-        "avg_land_value": 217855,
-        "pct_winners": 76.7,
-        "pct_losers": 20.4,
-        "pct_unchanged": 2.9
+        "avg_lvt": 1087,
+        "avg_council_tax_saved": 1638,
+        "avg_net_change": 551,
+        "avg_income_change_pct": 1.5,
+        "avg_land_value": 154987,
+        "pct_winners": 78.1,
+        "pct_losers": 18.7,
+        "pct_unchanged": 3.2
       },
       {
         "decile": 4,
-        "avg_lvt": 1160,
-        "avg_council_tax_saved": 1761,
-        "avg_net_change": 601,
-        "avg_income_change_pct": 1.4,
-        "avg_land_value": 205493,
-        "pct_winners": 77.5,
-        "pct_losers": 20.9,
-        "pct_unchanged": 1.5
+        "avg_lvt": 1129,
+        "avg_council_tax_saved": 1753,
+        "avg_net_change": 625,
+        "avg_income_change_pct": 1.5,
+        "avg_land_value": 160968,
+        "pct_winners": 75.3,
+        "pct_losers": 22.9,
+        "pct_unchanged": 1.8
       },
       {
         "decile": 5,
-        "avg_lvt": 1843,
-        "avg_council_tax_saved": 1822,
-        "avg_net_change": -20,
-        "avg_income_change_pct": -0.0,
-        "avg_land_value": 326416,
-        "pct_winners": 62.0,
-        "pct_losers": 36.9,
-        "pct_unchanged": 1.1
+        "avg_lvt": 1727,
+        "avg_council_tax_saved": 1771,
+        "avg_net_change": 44,
+        "avg_income_change_pct": 0.1,
+        "avg_land_value": 246282,
+        "pct_winners": 62.8,
+        "pct_losers": 36.4,
+        "pct_unchanged": 0.8
       },
       {
         "decile": 6,
-        "avg_lvt": 1869,
-        "avg_council_tax_saved": 1956,
-        "avg_net_change": 87,
-        "avg_income_change_pct": 0.2,
-        "avg_land_value": 331128,
-        "pct_winners": 63.9,
-        "pct_losers": 35.7,
+        "avg_lvt": 1739,
+        "avg_council_tax_saved": 1927,
+        "avg_net_change": 189,
+        "avg_income_change_pct": 0.4,
+        "avg_land_value": 247984,
+        "pct_winners": 57.8,
+        "pct_losers": 41.8,
         "pct_unchanged": 0.4
       },
       {
         "decile": 7,
-        "avg_lvt": 2131,
-        "avg_council_tax_saved": 1960,
-        "avg_net_change": -171,
-        "avg_income_change_pct": -0.3,
-        "avg_land_value": 377469,
-        "pct_winners": 56.7,
-        "pct_losers": 42.7,
-        "pct_unchanged": 0.5
+        "avg_lvt": 1993,
+        "avg_council_tax_saved": 1954,
+        "avg_net_change": -39,
+        "avg_income_change_pct": -0.1,
+        "avg_land_value": 284233,
+        "pct_winners": 60.4,
+        "pct_losers": 39.1,
+        "pct_unchanged": 0.6
       },
       {
         "decile": 8,
-        "avg_lvt": 2379,
-        "avg_council_tax_saved": 2073,
-        "avg_net_change": -306,
-        "avg_income_change_pct": -0.5,
-        "avg_land_value": 421361,
-        "pct_winners": 48.4,
-        "pct_losers": 50.4,
-        "pct_unchanged": 1.2
+        "avg_lvt": 2517,
+        "avg_council_tax_saved": 2060,
+        "avg_net_change": -457,
+        "avg_income_change_pct": -0.7,
+        "avg_land_value": 358936,
+        "pct_winners": 45.6,
+        "pct_losers": 53.3,
+        "pct_unchanged": 1.1
       },
       {
         "decile": 9,
-        "avg_lvt": 2381,
-        "avg_council_tax_saved": 2164,
-        "avg_net_change": -217,
-        "avg_income_change_pct": -0.3,
-        "avg_land_value": 421712,
-        "pct_winners": 58.2,
-        "pct_losers": 41.7,
-        "pct_unchanged": 0.2
+        "avg_lvt": 2820,
+        "avg_council_tax_saved": 2160,
+        "avg_net_change": -660,
+        "avg_income_change_pct": -0.9,
+        "avg_land_value": 402142,
+        "pct_winners": 50.8,
+        "pct_losers": 49.1,
+        "pct_unchanged": 0.1
       },
       {
         "decile": 10,
-        "avg_lvt": 3982,
+        "avg_lvt": 4273,
         "avg_council_tax_saved": 2487,
-        "avg_net_change": -1495,
-        "avg_income_change_pct": -1.2,
-        "avg_land_value": 705325,
-        "pct_winners": 39.0,
-        "pct_losers": 60.7,
-        "pct_unchanged": 0.3
+        "avg_net_change": -1785,
+        "avg_income_change_pct": -1.4,
+        "avg_land_value": 609374,
+        "pct_winners": 37.6,
+        "pct_losers": 61.6,
+        "pct_unchanged": 0.8
       }
     ],
     "1.0%": [
       {
         "decile": 1,
-        "avg_lvt": 1680,
-        "avg_council_tax_saved": 1591,
-        "avg_net_change": -89,
-        "avg_income_change_pct": -0.4,
-        "avg_land_value": 167959,
-        "pct_winners": 63.0,
-        "pct_losers": 33.9,
-        "pct_unchanged": 3.1
+        "avg_lvt": 1317,
+        "avg_council_tax_saved": 1626,
+        "avg_net_change": 308,
+        "avg_income_change_pct": 1.5,
+        "avg_land_value": 131738,
+        "pct_winners": 69.2,
+        "pct_losers": 27.1,
+        "pct_unchanged": 3.7
       },
       {
         "decile": 2,
-        "avg_lvt": 2328,
-        "avg_council_tax_saved": 1690,
-        "avg_net_change": -638,
-        "avg_income_change_pct": -2.1,
-        "avg_land_value": 232788,
-        "pct_winners": 55.7,
-        "pct_losers": 43.1,
-        "pct_unchanged": 1.2
+        "avg_lvt": 1521,
+        "avg_council_tax_saved": 1695,
+        "avg_net_change": 174,
+        "avg_income_change_pct": 0.6,
+        "avg_land_value": 152084,
+        "pct_winners": 66.3,
+        "pct_losers": 32.5,
+        "pct_unchanged": 1.3
       },
       {
         "decile": 3,
-        "avg_lvt": 2179,
-        "avg_council_tax_saved": 1616,
-        "avg_net_change": -562,
-        "avg_income_change_pct": -1.5,
-        "avg_land_value": 217855,
-        "pct_winners": 58.5,
-        "pct_losers": 38.6,
-        "pct_unchanged": 2.9
+        "avg_lvt": 1550,
+        "avg_council_tax_saved": 1638,
+        "avg_net_change": 88,
+        "avg_income_change_pct": 0.2,
+        "avg_land_value": 154987,
+        "pct_winners": 67.6,
+        "pct_losers": 29.2,
+        "pct_unchanged": 3.2
       },
       {
         "decile": 4,
-        "avg_lvt": 2055,
-        "avg_council_tax_saved": 1761,
-        "avg_net_change": -293,
-        "avg_income_change_pct": -0.7,
-        "avg_land_value": 205493,
-        "pct_winners": 62.4,
-        "pct_losers": 36.1,
-        "pct_unchanged": 1.5
+        "avg_lvt": 1610,
+        "avg_council_tax_saved": 1753,
+        "avg_net_change": 144,
+        "avg_income_change_pct": 0.3,
+        "avg_land_value": 160968,
+        "pct_winners": 66.0,
+        "pct_losers": 32.2,
+        "pct_unchanged": 1.8
       },
       {
         "decile": 5,
-        "avg_lvt": 3264,
-        "avg_council_tax_saved": 1822,
-        "avg_net_change": -1442,
-        "avg_income_change_pct": -3.1,
-        "avg_land_value": 326416,
-        "pct_winners": 42.4,
-        "pct_losers": 56.5,
-        "pct_unchanged": 1.1
+        "avg_lvt": 2463,
+        "avg_council_tax_saved": 1771,
+        "avg_net_change": -692,
+        "avg_income_change_pct": -1.6,
+        "avg_land_value": 246282,
+        "pct_winners": 48.6,
+        "pct_losers": 50.6,
+        "pct_unchanged": 0.8
       },
       {
         "decile": 6,
-        "avg_lvt": 3311,
-        "avg_council_tax_saved": 1956,
-        "avg_net_change": -1355,
-        "avg_income_change_pct": -2.6,
-        "avg_land_value": 331128,
-        "pct_winners": 42.8,
-        "pct_losers": 56.8,
+        "avg_lvt": 2480,
+        "avg_council_tax_saved": 1927,
+        "avg_net_change": -552,
+        "avg_income_change_pct": -1.1,
+        "avg_land_value": 247984,
+        "pct_winners": 48.8,
+        "pct_losers": 50.7,
         "pct_unchanged": 0.4
       },
       {
         "decile": 7,
-        "avg_lvt": 3775,
-        "avg_council_tax_saved": 1960,
-        "avg_net_change": -1815,
-        "avg_income_change_pct": -3.3,
-        "avg_land_value": 377469,
-        "pct_winners": 41.6,
-        "pct_losers": 57.9,
-        "pct_unchanged": 0.5
+        "avg_lvt": 2842,
+        "avg_council_tax_saved": 1954,
+        "avg_net_change": -889,
+        "avg_income_change_pct": -1.6,
+        "avg_land_value": 284233,
+        "pct_winners": 50.6,
+        "pct_losers": 48.8,
+        "pct_unchanged": 0.6
       },
       {
         "decile": 8,
-        "avg_lvt": 4214,
-        "avg_council_tax_saved": 2073,
-        "avg_net_change": -2141,
-        "avg_income_change_pct": -3.2,
-        "avg_land_value": 421361,
-        "pct_winners": 30.2,
-        "pct_losers": 68.5,
-        "pct_unchanged": 1.2
+        "avg_lvt": 3589,
+        "avg_council_tax_saved": 2060,
+        "avg_net_change": -1529,
+        "avg_income_change_pct": -2.2,
+        "avg_land_value": 358936,
+        "pct_winners": 37.0,
+        "pct_losers": 61.9,
+        "pct_unchanged": 1.1
       },
       {
         "decile": 9,
-        "avg_lvt": 4217,
-        "avg_council_tax_saved": 2164,
-        "avg_net_change": -2053,
-        "avg_income_change_pct": -2.7,
-        "avg_land_value": 421712,
-        "pct_winners": 36.1,
-        "pct_losers": 63.7,
-        "pct_unchanged": 0.2
+        "avg_lvt": 4021,
+        "avg_council_tax_saved": 2160,
+        "avg_net_change": -1862,
+        "avg_income_change_pct": -2.5,
+        "avg_land_value": 402142,
+        "pct_winners": 35.0,
+        "pct_losers": 64.9,
+        "pct_unchanged": 0.1
       },
       {
         "decile": 10,
-        "avg_lvt": 7053,
+        "avg_lvt": 6094,
         "avg_council_tax_saved": 2487,
-        "avg_net_change": -4567,
-        "avg_income_change_pct": -3.7,
-        "avg_land_value": 705325,
-        "pct_winners": 16.2,
-        "pct_losers": 83.5,
-        "pct_unchanged": 0.3
+        "avg_net_change": -3606,
+        "avg_income_change_pct": -2.8,
+        "avg_land_value": 609374,
+        "pct_winners": 22.5,
+        "pct_losers": 76.7,
+        "pct_unchanged": 0.8
       }
     ],
     "1.5%": [
       {
         "decile": 1,
-        "avg_lvt": 2519,
-        "avg_council_tax_saved": 1591,
-        "avg_net_change": -929,
-        "avg_income_change_pct": -4.6,
-        "avg_land_value": 167959,
-        "pct_winners": 55.9,
-        "pct_losers": 40.9,
-        "pct_unchanged": 3.1
+        "avg_lvt": 1976,
+        "avg_council_tax_saved": 1626,
+        "avg_net_change": -350,
+        "avg_income_change_pct": -1.8,
+        "avg_land_value": 131738,
+        "pct_winners": 59.9,
+        "pct_losers": 36.5,
+        "pct_unchanged": 3.7
       },
       {
         "decile": 2,
-        "avg_lvt": 3492,
-        "avg_council_tax_saved": 1690,
-        "avg_net_change": -1802,
-        "avg_income_change_pct": -5.9,
-        "avg_land_value": 232788,
-        "pct_winners": 47.5,
-        "pct_losers": 51.3,
-        "pct_unchanged": 1.2
+        "avg_lvt": 2281,
+        "avg_council_tax_saved": 1695,
+        "avg_net_change": -586,
+        "avg_income_change_pct": -1.9,
+        "avg_land_value": 152084,
+        "pct_winners": 57.6,
+        "pct_losers": 41.1,
+        "pct_unchanged": 1.3
       },
       {
         "decile": 3,
-        "avg_lvt": 3268,
-        "avg_council_tax_saved": 1616,
-        "avg_net_change": -1651,
-        "avg_income_change_pct": -4.4,
-        "avg_land_value": 217855,
-        "pct_winners": 49.0,
-        "pct_losers": 48.1,
-        "pct_unchanged": 2.9
+        "avg_lvt": 2325,
+        "avg_council_tax_saved": 1638,
+        "avg_net_change": -687,
+        "avg_income_change_pct": -1.9,
+        "avg_land_value": 154987,
+        "pct_winners": 56.6,
+        "pct_losers": 40.2,
+        "pct_unchanged": 3.2
       },
       {
         "decile": 4,
-        "avg_lvt": 3082,
-        "avg_council_tax_saved": 1761,
-        "avg_net_change": -1321,
-        "avg_income_change_pct": -3.1,
-        "avg_land_value": 205493,
-        "pct_winners": 44.6,
-        "pct_losers": 53.8,
-        "pct_unchanged": 1.5
+        "avg_lvt": 2415,
+        "avg_council_tax_saved": 1753,
+        "avg_net_change": -661,
+        "avg_income_change_pct": -1.6,
+        "avg_land_value": 160968,
+        "pct_winners": 48.1,
+        "pct_losers": 50.1,
+        "pct_unchanged": 1.8
       },
       {
         "decile": 5,
-        "avg_lvt": 4896,
-        "avg_council_tax_saved": 1822,
-        "avg_net_change": -3074,
-        "avg_income_change_pct": -6.6,
-        "avg_land_value": 326416,
-        "pct_winners": 35.3,
-        "pct_losers": 63.6,
-        "pct_unchanged": 1.1
+        "avg_lvt": 3694,
+        "avg_council_tax_saved": 1771,
+        "avg_net_change": -1923,
+        "avg_income_change_pct": -4.4,
+        "avg_land_value": 246282,
+        "pct_winners": 38.8,
+        "pct_losers": 60.4,
+        "pct_unchanged": 0.8
       },
       {
         "decile": 6,
-        "avg_lvt": 4967,
-        "avg_council_tax_saved": 1956,
-        "avg_net_change": -3011,
-        "avg_income_change_pct": -5.8,
-        "avg_land_value": 331128,
-        "pct_winners": 34.0,
-        "pct_losers": 65.6,
+        "avg_lvt": 3720,
+        "avg_council_tax_saved": 1927,
+        "avg_net_change": -1792,
+        "avg_income_change_pct": -3.5,
+        "avg_land_value": 247984,
+        "pct_winners": 37.9,
+        "pct_losers": 61.6,
         "pct_unchanged": 0.4
       },
       {
         "decile": 7,
-        "avg_lvt": 5662,
-        "avg_council_tax_saved": 1960,
-        "avg_net_change": -3702,
-        "avg_income_change_pct": -6.7,
-        "avg_land_value": 377469,
-        "pct_winners": 35.4,
-        "pct_losers": 64.1,
-        "pct_unchanged": 0.5
+        "avg_lvt": 4263,
+        "avg_council_tax_saved": 1954,
+        "avg_net_change": -2310,
+        "avg_income_change_pct": -4.3,
+        "avg_land_value": 284233,
+        "pct_winners": 44.2,
+        "pct_losers": 55.3,
+        "pct_unchanged": 0.6
       },
       {
         "decile": 8,
-        "avg_lvt": 6320,
-        "avg_council_tax_saved": 2073,
-        "avg_net_change": -4248,
-        "avg_income_change_pct": -6.4,
-        "avg_land_value": 421361,
-        "pct_winners": 22.6,
-        "pct_losers": 76.2,
-        "pct_unchanged": 1.2
+        "avg_lvt": 5384,
+        "avg_council_tax_saved": 2060,
+        "avg_net_change": -3324,
+        "avg_income_change_pct": -4.8,
+        "avg_land_value": 358936,
+        "pct_winners": 28.5,
+        "pct_losers": 70.4,
+        "pct_unchanged": 1.1
       },
       {
         "decile": 9,
-        "avg_lvt": 6326,
-        "avg_council_tax_saved": 2164,
-        "avg_net_change": -4162,
-        "avg_income_change_pct": -5.5,
-        "avg_land_value": 421712,
-        "pct_winners": 25.0,
-        "pct_losers": 74.8,
-        "pct_unchanged": 0.2
+        "avg_lvt": 6032,
+        "avg_council_tax_saved": 2160,
+        "avg_net_change": -3872,
+        "avg_income_change_pct": -5.1,
+        "avg_land_value": 402142,
+        "pct_winners": 26.2,
+        "pct_losers": 73.7,
+        "pct_unchanged": 0.1
       },
       {
         "decile": 10,
-        "avg_lvt": 10580,
+        "avg_lvt": 9141,
         "avg_council_tax_saved": 2487,
-        "avg_net_change": -8093,
-        "avg_income_change_pct": -6.6,
-        "avg_land_value": 705325,
-        "pct_winners": 9.1,
-        "pct_losers": 90.6,
-        "pct_unchanged": 0.3
+        "avg_net_change": -6653,
+        "avg_income_change_pct": -5.3,
+        "avg_land_value": 609374,
+        "pct_winners": 13.4,
+        "pct_losers": 85.8,
+        "pct_unchanged": 0.8
       }
     ],
     "2.0%": [
       {
         "decile": 1,
-        "avg_lvt": 3359,
-        "avg_council_tax_saved": 1591,
-        "avg_net_change": -1769,
-        "avg_income_change_pct": -8.8,
-        "avg_land_value": 167959,
-        "pct_winners": 52.7,
-        "pct_losers": 44.2,
-        "pct_unchanged": 3.1
+        "avg_lvt": 2635,
+        "avg_council_tax_saved": 1626,
+        "avg_net_change": -1009,
+        "avg_income_change_pct": -5.0,
+        "avg_land_value": 131738,
+        "pct_winners": 56.9,
+        "pct_losers": 39.4,
+        "pct_unchanged": 3.7
       },
       {
         "decile": 2,
-        "avg_lvt": 4656,
-        "avg_council_tax_saved": 1690,
-        "avg_net_change": -2966,
-        "avg_income_change_pct": -9.7,
-        "avg_land_value": 232788,
-        "pct_winners": 45.0,
-        "pct_losers": 53.8,
-        "pct_unchanged": 1.2
+        "avg_lvt": 3042,
+        "avg_council_tax_saved": 1695,
+        "avg_net_change": -1346,
+        "avg_income_change_pct": -4.4,
+        "avg_land_value": 152084,
+        "pct_winners": 53.4,
+        "pct_losers": 45.4,
+        "pct_unchanged": 1.3
       },
       {
         "decile": 3,
-        "avg_lvt": 4357,
-        "avg_council_tax_saved": 1616,
-        "avg_net_change": -2741,
-        "avg_income_change_pct": -7.3,
-        "avg_land_value": 217855,
-        "pct_winners": 42.4,
-        "pct_losers": 54.7,
-        "pct_unchanged": 2.9
+        "avg_lvt": 3100,
+        "avg_council_tax_saved": 1638,
+        "avg_net_change": -1462,
+        "avg_income_change_pct": -4.0,
+        "avg_land_value": 154987,
+        "pct_winners": 52.0,
+        "pct_losers": 44.8,
+        "pct_unchanged": 3.2
       },
       {
         "decile": 4,
-        "avg_lvt": 4110,
-        "avg_council_tax_saved": 1761,
-        "avg_net_change": -2348,
-        "avg_income_change_pct": -5.6,
-        "avg_land_value": 205493,
-        "pct_winners": 42.0,
-        "pct_losers": 56.5,
-        "pct_unchanged": 1.5
+        "avg_lvt": 3219,
+        "avg_council_tax_saved": 1753,
+        "avg_net_change": -1466,
+        "avg_income_change_pct": -3.5,
+        "avg_land_value": 160968,
+        "pct_winners": 45.6,
+        "pct_losers": 52.6,
+        "pct_unchanged": 1.8
       },
       {
         "decile": 5,
-        "avg_lvt": 6528,
-        "avg_council_tax_saved": 1822,
-        "avg_net_change": -4706,
-        "avg_income_change_pct": -10.2,
-        "avg_land_value": 326416,
-        "pct_winners": 31.3,
-        "pct_losers": 67.6,
-        "pct_unchanged": 1.1
+        "avg_lvt": 4926,
+        "avg_council_tax_saved": 1771,
+        "avg_net_change": -3155,
+        "avg_income_change_pct": -7.2,
+        "avg_land_value": 246282,
+        "pct_winners": 35.6,
+        "pct_losers": 63.6,
+        "pct_unchanged": 0.8
       },
       {
         "decile": 6,
-        "avg_lvt": 6623,
-        "avg_council_tax_saved": 1956,
-        "avg_net_change": -4666,
-        "avg_income_change_pct": -8.9,
-        "avg_land_value": 331128,
-        "pct_winners": 31.2,
-        "pct_losers": 68.4,
+        "avg_lvt": 4960,
+        "avg_council_tax_saved": 1927,
+        "avg_net_change": -3032,
+        "avg_income_change_pct": -5.9,
+        "avg_land_value": 247984,
+        "pct_winners": 33.0,
+        "pct_losers": 66.5,
         "pct_unchanged": 0.4
       },
       {
         "decile": 7,
-        "avg_lvt": 7549,
-        "avg_council_tax_saved": 1960,
-        "avg_net_change": -5589,
-        "avg_income_change_pct": -10.1,
-        "avg_land_value": 377469,
-        "pct_winners": 33.5,
-        "pct_losers": 65.9,
-        "pct_unchanged": 0.5
+        "avg_lvt": 5685,
+        "avg_council_tax_saved": 1954,
+        "avg_net_change": -3731,
+        "avg_income_change_pct": -6.9,
+        "avg_land_value": 284233,
+        "pct_winners": 41.7,
+        "pct_losers": 57.8,
+        "pct_unchanged": 0.6
       },
       {
         "decile": 8,
-        "avg_lvt": 8427,
-        "avg_council_tax_saved": 2073,
-        "avg_net_change": -6355,
-        "avg_income_change_pct": -9.6,
-        "avg_land_value": 421361,
-        "pct_winners": 19.9,
-        "pct_losers": 78.8,
-        "pct_unchanged": 1.2
+        "avg_lvt": 7179,
+        "avg_council_tax_saved": 2060,
+        "avg_net_change": -5119,
+        "avg_income_change_pct": -7.4,
+        "avg_land_value": 358936,
+        "pct_winners": 25.5,
+        "pct_losers": 73.4,
+        "pct_unchanged": 1.1
       },
       {
         "decile": 9,
-        "avg_lvt": 8434,
-        "avg_council_tax_saved": 2164,
-        "avg_net_change": -6270,
-        "avg_income_change_pct": -8.2,
-        "avg_land_value": 421712,
-        "pct_winners": 22.3,
-        "pct_losers": 77.5,
-        "pct_unchanged": 0.2
+        "avg_lvt": 8043,
+        "avg_council_tax_saved": 2160,
+        "avg_net_change": -5883,
+        "avg_income_change_pct": -7.8,
+        "avg_land_value": 402142,
+        "pct_winners": 22.8,
+        "pct_losers": 77.2,
+        "pct_unchanged": 0.1
       },
       {
         "decile": 10,
-        "avg_lvt": 14107,
+        "avg_lvt": 12187,
         "avg_council_tax_saved": 2487,
-        "avg_net_change": -11620,
-        "avg_income_change_pct": -9.5,
-        "avg_land_value": 705325,
-        "pct_winners": 8.3,
-        "pct_losers": 91.4,
-        "pct_unchanged": 0.3
+        "avg_net_change": -9700,
+        "avg_income_change_pct": -7.7,
+        "avg_land_value": 609374,
+        "pct_winners": 12.1,
+        "pct_losers": 87.0,
+        "pct_unchanged": 0.8
       }
     ],
     "3.0%": [
       {
         "decile": 1,
-        "avg_lvt": 5039,
-        "avg_council_tax_saved": 1591,
-        "avg_net_change": -3448,
-        "avg_income_change_pct": -17.2,
-        "avg_land_value": 167959,
-        "pct_winners": 51.1,
-        "pct_losers": 45.8,
-        "pct_unchanged": 3.1
+        "avg_lvt": 3952,
+        "avg_council_tax_saved": 1626,
+        "avg_net_change": -2326,
+        "avg_income_change_pct": -11.6,
+        "avg_land_value": 131738,
+        "pct_winners": 54.8,
+        "pct_losers": 41.5,
+        "pct_unchanged": 3.7
       },
       {
         "decile": 2,
-        "avg_lvt": 6984,
-        "avg_council_tax_saved": 1690,
-        "avg_net_change": -5293,
-        "avg_income_change_pct": -17.3,
-        "avg_land_value": 232788,
-        "pct_winners": 42.6,
-        "pct_losers": 56.1,
-        "pct_unchanged": 1.2
+        "avg_lvt": 4563,
+        "avg_council_tax_saved": 1695,
+        "avg_net_change": -2867,
+        "avg_income_change_pct": -9.3,
+        "avg_land_value": 152084,
+        "pct_winners": 51.2,
+        "pct_losers": 47.5,
+        "pct_unchanged": 1.3
       },
       {
         "decile": 3,
-        "avg_lvt": 6536,
-        "avg_council_tax_saved": 1616,
-        "avg_net_change": -4919,
-        "avg_income_change_pct": -13.2,
-        "avg_land_value": 217855,
-        "pct_winners": 41.0,
-        "pct_losers": 56.1,
-        "pct_unchanged": 2.9
+        "avg_lvt": 4650,
+        "avg_council_tax_saved": 1638,
+        "avg_net_change": -3012,
+        "avg_income_change_pct": -8.2,
+        "avg_land_value": 154987,
+        "pct_winners": 48.9,
+        "pct_losers": 47.9,
+        "pct_unchanged": 3.2
       },
       {
         "decile": 4,
-        "avg_lvt": 6165,
-        "avg_council_tax_saved": 1761,
-        "avg_net_change": -4403,
-        "avg_income_change_pct": -10.4,
-        "avg_land_value": 205493,
-        "pct_winners": 39.8,
-        "pct_losers": 58.7,
-        "pct_unchanged": 1.5
+        "avg_lvt": 4829,
+        "avg_council_tax_saved": 1753,
+        "avg_net_change": -3076,
+        "avg_income_change_pct": -7.4,
+        "avg_land_value": 160968,
+        "pct_winners": 44.2,
+        "pct_losers": 53.9,
+        "pct_unchanged": 1.8
       },
       {
         "decile": 5,
-        "avg_lvt": 9792,
-        "avg_council_tax_saved": 1822,
-        "avg_net_change": -7970,
-        "avg_income_change_pct": -17.2,
-        "avg_land_value": 326416,
-        "pct_winners": 29.2,
-        "pct_losers": 69.7,
-        "pct_unchanged": 1.1
+        "avg_lvt": 7388,
+        "avg_council_tax_saved": 1771,
+        "avg_net_change": -5618,
+        "avg_income_change_pct": -12.8,
+        "avg_land_value": 246282,
+        "pct_winners": 33.4,
+        "pct_losers": 65.8,
+        "pct_unchanged": 0.8
       },
       {
         "decile": 6,
-        "avg_lvt": 9934,
-        "avg_council_tax_saved": 1956,
-        "avg_net_change": -7978,
-        "avg_income_change_pct": -15.3,
-        "avg_land_value": 331128,
-        "pct_winners": 30.1,
-        "pct_losers": 69.5,
+        "avg_lvt": 7440,
+        "avg_council_tax_saved": 1927,
+        "avg_net_change": -5512,
+        "avg_income_change_pct": -10.8,
+        "avg_land_value": 247984,
+        "pct_winners": 31.8,
+        "pct_losers": 67.7,
         "pct_unchanged": 0.4
       },
       {
         "decile": 7,
-        "avg_lvt": 11324,
-        "avg_council_tax_saved": 1960,
-        "avg_net_change": -9364,
-        "avg_income_change_pct": -17.0,
-        "avg_land_value": 377469,
-        "pct_winners": 32.2,
-        "pct_losers": 67.3,
-        "pct_unchanged": 0.5
+        "avg_lvt": 8527,
+        "avg_council_tax_saved": 1954,
+        "avg_net_change": -6573,
+        "avg_income_change_pct": -12.1,
+        "avg_land_value": 284233,
+        "pct_winners": 40.7,
+        "pct_losers": 58.8,
+        "pct_unchanged": 0.6
       },
       {
         "decile": 8,
-        "avg_lvt": 12641,
-        "avg_council_tax_saved": 2073,
-        "avg_net_change": -10568,
-        "avg_income_change_pct": -16.0,
-        "avg_land_value": 421361,
-        "pct_winners": 19.3,
-        "pct_losers": 79.4,
-        "pct_unchanged": 1.2
+        "avg_lvt": 10768,
+        "avg_council_tax_saved": 2060,
+        "avg_net_change": -8708,
+        "avg_income_change_pct": -12.6,
+        "avg_land_value": 358936,
+        "pct_winners": 24.7,
+        "pct_losers": 74.3,
+        "pct_unchanged": 1.1
       },
       {
         "decile": 9,
-        "avg_lvt": 12651,
-        "avg_council_tax_saved": 2164,
-        "avg_net_change": -10488,
-        "avg_income_change_pct": -13.8,
-        "avg_land_value": 421712,
-        "pct_winners": 21.5,
-        "pct_losers": 78.4,
-        "pct_unchanged": 0.2
+        "avg_lvt": 12064,
+        "avg_council_tax_saved": 2160,
+        "avg_net_change": -9905,
+        "avg_income_change_pct": -13.2,
+        "avg_land_value": 402142,
+        "pct_winners": 21.3,
+        "pct_losers": 78.6,
+        "pct_unchanged": 0.1
       },
       {
         "decile": 10,
-        "avg_lvt": 21160,
+        "avg_lvt": 18281,
         "avg_council_tax_saved": 2487,
-        "avg_net_change": -18673,
-        "avg_income_change_pct": -15.2,
-        "avg_land_value": 705325,
-        "pct_winners": 6.6,
-        "pct_losers": 93.1,
-        "pct_unchanged": 0.3
+        "avg_net_change": -15794,
+        "avg_income_change_pct": -12.5,
+        "avg_land_value": 609374,
+        "pct_winners": 11.3,
+        "pct_losers": 87.9,
+        "pct_unchanged": 0.8
       }
     ],
     "5.0%": [
       {
         "decile": 1,
-        "avg_lvt": 8398,
-        "avg_council_tax_saved": 1591,
-        "avg_net_change": -6807,
-        "avg_income_change_pct": -33.9,
-        "avg_land_value": 167959,
-        "pct_winners": 48.5,
-        "pct_losers": 48.4,
-        "pct_unchanged": 3.1
+        "avg_lvt": 6587,
+        "avg_council_tax_saved": 1626,
+        "avg_net_change": -4961,
+        "avg_income_change_pct": -24.8,
+        "avg_land_value": 131738,
+        "pct_winners": 52.1,
+        "pct_losers": 44.2,
+        "pct_unchanged": 3.7
       },
       {
         "decile": 2,
-        "avg_lvt": 11639,
-        "avg_council_tax_saved": 1690,
-        "avg_net_change": -9949,
-        "avg_income_change_pct": -32.6,
-        "avg_land_value": 232788,
-        "pct_winners": 39.0,
-        "pct_losers": 59.7,
-        "pct_unchanged": 1.2
+        "avg_lvt": 7604,
+        "avg_council_tax_saved": 1695,
+        "avg_net_change": -5909,
+        "avg_income_change_pct": -19.2,
+        "avg_land_value": 152084,
+        "pct_winners": 45.3,
+        "pct_losers": 53.5,
+        "pct_unchanged": 1.3
       },
       {
         "decile": 3,
-        "avg_lvt": 10893,
-        "avg_council_tax_saved": 1616,
-        "avg_net_change": -9276,
-        "avg_income_change_pct": -24.8,
-        "avg_land_value": 217855,
-        "pct_winners": 39.0,
-        "pct_losers": 58.1,
-        "pct_unchanged": 2.9
+        "avg_lvt": 7749,
+        "avg_council_tax_saved": 1638,
+        "avg_net_change": -6112,
+        "avg_income_change_pct": -16.6,
+        "avg_land_value": 154987,
+        "pct_winners": 46.6,
+        "pct_losers": 50.2,
+        "pct_unchanged": 3.2
       },
       {
         "decile": 4,
-        "avg_lvt": 10275,
-        "avg_council_tax_saved": 1761,
-        "avg_net_change": -8513,
-        "avg_income_change_pct": -20.2,
-        "avg_land_value": 205493,
-        "pct_winners": 36.3,
-        "pct_losers": 62.2,
-        "pct_unchanged": 1.5
+        "avg_lvt": 8048,
+        "avg_council_tax_saved": 1753,
+        "avg_net_change": -6295,
+        "avg_income_change_pct": -15.2,
+        "avg_land_value": 160968,
+        "pct_winners": 40.0,
+        "pct_losers": 58.2,
+        "pct_unchanged": 1.8
       },
       {
         "decile": 5,
-        "avg_lvt": 16321,
-        "avg_council_tax_saved": 1822,
-        "avg_net_change": -14499,
-        "avg_income_change_pct": -31.3,
-        "avg_land_value": 326416,
-        "pct_winners": 28.1,
-        "pct_losers": 70.8,
-        "pct_unchanged": 1.1
+        "avg_lvt": 12314,
+        "avg_council_tax_saved": 1771,
+        "avg_net_change": -10543,
+        "avg_income_change_pct": -24.0,
+        "avg_land_value": 246282,
+        "pct_winners": 31.0,
+        "pct_losers": 68.2,
+        "pct_unchanged": 0.8
       },
       {
         "decile": 6,
-        "avg_lvt": 16556,
-        "avg_council_tax_saved": 1956,
-        "avg_net_change": -14600,
-        "avg_income_change_pct": -28.0,
-        "avg_land_value": 331128,
-        "pct_winners": 28.8,
-        "pct_losers": 70.8,
+        "avg_lvt": 12399,
+        "avg_council_tax_saved": 1927,
+        "avg_net_change": -10472,
+        "avg_income_change_pct": -20.4,
+        "avg_land_value": 247984,
+        "pct_winners": 31.3,
+        "pct_losers": 68.2,
         "pct_unchanged": 0.4
       },
       {
         "decile": 7,
-        "avg_lvt": 18873,
-        "avg_council_tax_saved": 1960,
-        "avg_net_change": -16913,
-        "avg_income_change_pct": -30.7,
-        "avg_land_value": 377469,
-        "pct_winners": 31.3,
-        "pct_losers": 68.2,
-        "pct_unchanged": 0.5
+        "avg_lvt": 14212,
+        "avg_council_tax_saved": 1954,
+        "avg_net_change": -12258,
+        "avg_income_change_pct": -22.6,
+        "avg_land_value": 284233,
+        "pct_winners": 39.2,
+        "pct_losers": 60.2,
+        "pct_unchanged": 0.6
       },
       {
         "decile": 8,
-        "avg_lvt": 21068,
-        "avg_council_tax_saved": 2073,
-        "avg_net_change": -18995,
-        "avg_income_change_pct": -28.8,
-        "avg_land_value": 421361,
-        "pct_winners": 18.8,
-        "pct_losers": 80.0,
-        "pct_unchanged": 1.2
+        "avg_lvt": 17947,
+        "avg_council_tax_saved": 2060,
+        "avg_net_change": -15887,
+        "avg_income_change_pct": -22.9,
+        "avg_land_value": 358936,
+        "pct_winners": 21.7,
+        "pct_losers": 77.2,
+        "pct_unchanged": 1.1
       },
       {
         "decile": 9,
-        "avg_lvt": 21086,
-        "avg_council_tax_saved": 2164,
-        "avg_net_change": -18922,
-        "avg_income_change_pct": -24.8,
-        "avg_land_value": 421712,
-        "pct_winners": 20.9,
-        "pct_losers": 78.9,
-        "pct_unchanged": 0.2
+        "avg_lvt": 20107,
+        "avg_council_tax_saved": 2160,
+        "avg_net_change": -17947,
+        "avg_income_change_pct": -23.9,
+        "avg_land_value": 402142,
+        "pct_winners": 21.1,
+        "pct_losers": 78.8,
+        "pct_unchanged": 0.1
       },
       {
         "decile": 10,
-        "avg_lvt": 35266,
+        "avg_lvt": 30469,
         "avg_council_tax_saved": 2487,
-        "avg_net_change": -32780,
-        "avg_income_change_pct": -26.7,
-        "avg_land_value": 705325,
-        "pct_winners": 6.0,
-        "pct_losers": 93.8,
-        "pct_unchanged": 0.3
+        "avg_net_change": -27981,
+        "avg_income_change_pct": -22.1,
+        "avg_land_value": 609374,
+        "pct_winners": 10.5,
+        "pct_losers": 88.7,
+        "pct_unchanged": 0.8
       }
     ]
   },
   "poverty_gini": {
-    "baseline_poverty_bhc": 11.44,
-    "baseline_poverty_ahc": 15.14,
-    "baseline_gini": 0.3552,
+    "baseline_poverty_bhc": 11.59,
+    "baseline_poverty_ahc": 15.5,
+    "baseline_gini": 0.3561,
     "scenarios": {
       "0.5%": {
-        "poverty_bhc": 10.51,
-        "poverty_ahc": 13.81,
-        "poverty_bhc_change": -0.93,
-        "poverty_ahc_change": -1.33,
-        "gini": 0.3533,
-        "gini_change": -0.0019,
-        "gini_change_pct": -0.54
+        "poverty_bhc": 9.83,
+        "poverty_ahc": 13.73,
+        "poverty_bhc_change": -1.76,
+        "poverty_ahc_change": -1.76,
+        "gini": 0.3511,
+        "gini_change": -0.005,
+        "gini_change_pct": -1.41
       },
-      "0.56%": {
-        "poverty_bhc": 10.62,
-        "poverty_ahc": 14.13,
+      "0.70%": {
+        "poverty_bhc": 10.77,
+        "poverty_ahc": 14.14,
         "poverty_bhc_change": -0.82,
-        "poverty_ahc_change": -1.0,
-        "gini": 0.3544,
-        "gini_change": -0.0009,
-        "gini_change_pct": -0.24
+        "poverty_ahc_change": -1.35,
+        "gini": 0.353,
+        "gini_change": -0.0031,
+        "gini_change_pct": -0.87
       },
       "1.0%": {
-        "poverty_bhc": 12.37,
-        "poverty_ahc": 16.0,
-        "poverty_bhc_change": 0.93,
-        "poverty_ahc_change": 0.86,
-        "gini": 0.3626,
-        "gini_change": 0.0074,
-        "gini_change_pct": 2.08
+        "poverty_bhc": 11.39,
+        "poverty_ahc": 14.94,
+        "poverty_bhc_change": -0.2,
+        "poverty_ahc_change": -0.56,
+        "gini": 0.3563,
+        "gini_change": 0.0002,
+        "gini_change_pct": 0.05
       },
       "1.5%": {
-        "poverty_bhc": 14.65,
-        "poverty_ahc": 18.94,
-        "poverty_bhc_change": 3.21,
-        "poverty_ahc_change": 3.8,
-        "gini": 0.3743,
-        "gini_change": 0.0191,
-        "gini_change_pct": 5.37
+        "poverty_bhc": 13.19,
+        "poverty_ahc": 17.03,
+        "poverty_bhc_change": 1.6,
+        "poverty_ahc_change": 1.53,
+        "gini": 0.363,
+        "gini_change": 0.0069,
+        "gini_change_pct": 1.95
       },
       "2.0%": {
-        "poverty_bhc": 17.19,
-        "poverty_ahc": 22.04,
-        "poverty_bhc_change": 5.75,
-        "poverty_ahc_change": 6.9,
-        "gini": 0.3885,
-        "gini_change": 0.0333,
-        "gini_change_pct": 9.37
+        "poverty_bhc": 14.75,
+        "poverty_ahc": 18.87,
+        "poverty_bhc_change": 3.16,
+        "poverty_ahc_change": 3.37,
+        "gini": 0.3713,
+        "gini_change": 0.0152,
+        "gini_change_pct": 4.28
       },
       "3.0%": {
-        "poverty_bhc": 21.66,
-        "poverty_ahc": 26.66,
-        "poverty_bhc_change": 10.21,
-        "poverty_ahc_change": 11.52,
-        "gini": 0.425,
-        "gini_change": 0.0698,
-        "gini_change_pct": 19.66
+        "poverty_bhc": 18.21,
+        "poverty_ahc": 22.37,
+        "poverty_bhc_change": 6.62,
+        "poverty_ahc_change": 6.88,
+        "gini": 0.3929,
+        "gini_change": 0.0368,
+        "gini_change_pct": 10.34
       },
       "5.0%": {
-        "poverty_bhc": 31.24,
-        "poverty_ahc": 35.72,
-        "poverty_bhc_change": 19.8,
-        "poverty_ahc_change": 20.59,
-        "gini": 0.5357,
-        "gini_change": 0.1805,
-        "gini_change_pct": 50.81
+        "poverty_bhc": 26.39,
+        "poverty_ahc": 30.22,
+        "poverty_bhc_change": 14.8,
+        "poverty_ahc_change": 14.72,
+        "gini": 0.459,
+        "gini_change": 0.1029,
+        "gini_change_pct": 28.9
       }
     }
   },
   "revenue_by_scope": [
     {
       "scope": "all_land",
-      "revenue_bn": 107.6,
-      "avg_per_household": 3372
+      "revenue_bn": 86.1,
+      "avg_per_household": 2708
     },
     {
       "scope": "household_only",
-      "revenue_bn": 72.4,
-      "avg_per_household": 2268
+      "revenue_bn": 58.7,
+      "avg_per_household": 1848
     },
     {
       "scope": "corporate_only",
-      "revenue_bn": 35.2,
-      "avg_per_household": 1103
+      "revenue_bn": 27.3,
+      "avg_per_household": 860
     }
   ],
   "council_tax_replacement": {
-    "council_tax_revenue_bn": 60.8,
-    "total_land_bn": 10763.5,
-    "required_lvt_rate_pct": 0.56
+    "council_tax_revenue_bn": 60.3,
+    "total_land_bn": 8606.7,
+    "required_lvt_rate_pct": 0.7
   },
   "council_tax_vs_lvt_scenarios": {
     "0.5%": [
       {
         "decile": 1,
-        "avg_council_tax": 1591,
-        "avg_lvt": 840,
-        "difference": -751,
-        "change_pct": -47.2
+        "avg_council_tax": 1626,
+        "avg_lvt": 659,
+        "difference": -967,
+        "change_pct": -59.5
       },
       {
         "decile": 2,
-        "avg_council_tax": 1690,
-        "avg_lvt": 1164,
-        "difference": -526,
-        "change_pct": -31.1
+        "avg_council_tax": 1695,
+        "avg_lvt": 760,
+        "difference": -935,
+        "change_pct": -55.1
       },
       {
         "decile": 3,
-        "avg_council_tax": 1616,
-        "avg_lvt": 1089,
-        "difference": -527,
-        "change_pct": -32.6
+        "avg_council_tax": 1638,
+        "avg_lvt": 775,
+        "difference": -863,
+        "change_pct": -52.7
       },
       {
         "decile": 4,
-        "avg_council_tax": 1761,
-        "avg_lvt": 1027,
-        "difference": -734,
-        "change_pct": -41.7
+        "avg_council_tax": 1753,
+        "avg_lvt": 805,
+        "difference": -949,
+        "change_pct": -54.1
       },
       {
         "decile": 5,
-        "avg_council_tax": 1822,
-        "avg_lvt": 1632,
-        "difference": -190,
-        "change_pct": -10.4
+        "avg_council_tax": 1771,
+        "avg_lvt": 1231,
+        "difference": -540,
+        "change_pct": -30.5
       },
       {
         "decile": 6,
-        "avg_council_tax": 1956,
-        "avg_lvt": 1656,
-        "difference": -300,
-        "change_pct": -15.4
+        "avg_council_tax": 1927,
+        "avg_lvt": 1240,
+        "difference": -687,
+        "change_pct": -35.7
       },
       {
         "decile": 7,
-        "avg_council_tax": 1960,
-        "avg_lvt": 1887,
-        "difference": -73,
-        "change_pct": -3.7
+        "avg_council_tax": 1954,
+        "avg_lvt": 1421,
+        "difference": -532,
+        "change_pct": -27.3
       },
       {
         "decile": 8,
-        "avg_council_tax": 2073,
-        "avg_lvt": 2107,
-        "difference": 34,
-        "change_pct": 1.6
+        "avg_council_tax": 2060,
+        "avg_lvt": 1795,
+        "difference": -266,
+        "change_pct": -12.9
       },
       {
         "decile": 9,
-        "avg_council_tax": 2164,
-        "avg_lvt": 2109,
-        "difference": -55,
-        "change_pct": -2.6
+        "avg_council_tax": 2160,
+        "avg_lvt": 2011,
+        "difference": -149,
+        "change_pct": -6.9
       },
       {
         "decile": 10,
         "avg_council_tax": 2487,
-        "avg_lvt": 3527,
-        "difference": 1040,
-        "change_pct": 41.8
+        "avg_lvt": 3047,
+        "difference": 560,
+        "change_pct": 22.5
       }
     ],
-    "0.56%": [
+    "0.70%": [
       {
         "decile": 1,
-        "avg_council_tax": 1591,
-        "avg_lvt": 948,
-        "difference": -643,
-        "change_pct": -40.4
+        "avg_council_tax": 1626,
+        "avg_lvt": 924,
+        "difference": -702,
+        "change_pct": -43.2
       },
       {
         "decile": 2,
-        "avg_council_tax": 1690,
-        "avg_lvt": 1314,
-        "difference": -376,
-        "change_pct": -22.2
+        "avg_council_tax": 1695,
+        "avg_lvt": 1066,
+        "difference": -629,
+        "change_pct": -37.1
       },
       {
         "decile": 3,
-        "avg_council_tax": 1616,
-        "avg_lvt": 1230,
-        "difference": -387,
-        "change_pct": -23.9
+        "avg_council_tax": 1638,
+        "avg_lvt": 1087,
+        "difference": -551,
+        "change_pct": -33.6
       },
       {
         "decile": 4,
-        "avg_council_tax": 1761,
-        "avg_lvt": 1160,
-        "difference": -601,
-        "change_pct": -34.1
+        "avg_council_tax": 1753,
+        "avg_lvt": 1129,
+        "difference": -625,
+        "change_pct": -35.6
       },
       {
         "decile": 5,
-        "avg_council_tax": 1822,
-        "avg_lvt": 1843,
-        "difference": 20,
-        "change_pct": 1.1
+        "avg_council_tax": 1771,
+        "avg_lvt": 1727,
+        "difference": -44,
+        "change_pct": -2.5
       },
       {
         "decile": 6,
-        "avg_council_tax": 1956,
-        "avg_lvt": 1869,
-        "difference": -87,
-        "change_pct": -4.4
+        "avg_council_tax": 1927,
+        "avg_lvt": 1739,
+        "difference": -189,
+        "change_pct": -9.8
       },
       {
         "decile": 7,
-        "avg_council_tax": 1960,
-        "avg_lvt": 2131,
-        "difference": 171,
-        "change_pct": 8.7
+        "avg_council_tax": 1954,
+        "avg_lvt": 1993,
+        "difference": 39,
+        "change_pct": 2.0
       },
       {
         "decile": 8,
-        "avg_council_tax": 2073,
-        "avg_lvt": 2379,
-        "difference": 306,
-        "change_pct": 14.8
+        "avg_council_tax": 2060,
+        "avg_lvt": 2517,
+        "difference": 457,
+        "change_pct": 22.2
       },
       {
         "decile": 9,
-        "avg_council_tax": 2164,
-        "avg_lvt": 2381,
-        "difference": 217,
-        "change_pct": 10.0
+        "avg_council_tax": 2160,
+        "avg_lvt": 2820,
+        "difference": 660,
+        "change_pct": 30.6
       },
       {
         "decile": 10,
         "avg_council_tax": 2487,
-        "avg_lvt": 3982,
-        "difference": 1495,
-        "change_pct": 60.1
+        "avg_lvt": 4273,
+        "difference": 1785,
+        "change_pct": 71.8
       }
     ],
     "1.0%": [
       {
         "decile": 1,
-        "avg_council_tax": 1591,
-        "avg_lvt": 1680,
-        "difference": 89,
-        "change_pct": 5.6
+        "avg_council_tax": 1626,
+        "avg_lvt": 1317,
+        "difference": -308,
+        "change_pct": -19.0
       },
       {
         "decile": 2,
-        "avg_council_tax": 1690,
-        "avg_lvt": 2328,
-        "difference": 638,
-        "change_pct": 37.7
+        "avg_council_tax": 1695,
+        "avg_lvt": 1521,
+        "difference": -174,
+        "change_pct": -10.3
       },
       {
         "decile": 3,
-        "avg_council_tax": 1616,
-        "avg_lvt": 2179,
-        "difference": 562,
-        "change_pct": 34.8
+        "avg_council_tax": 1638,
+        "avg_lvt": 1550,
+        "difference": -88,
+        "change_pct": -5.4
       },
       {
         "decile": 4,
-        "avg_council_tax": 1761,
-        "avg_lvt": 2055,
-        "difference": 293,
-        "change_pct": 16.7
+        "avg_council_tax": 1753,
+        "avg_lvt": 1610,
+        "difference": -144,
+        "change_pct": -8.2
       },
       {
         "decile": 5,
-        "avg_council_tax": 1822,
-        "avg_lvt": 3264,
-        "difference": 1442,
-        "change_pct": 79.1
+        "avg_council_tax": 1771,
+        "avg_lvt": 2463,
+        "difference": 692,
+        "change_pct": 39.1
       },
       {
         "decile": 6,
-        "avg_council_tax": 1956,
-        "avg_lvt": 3311,
-        "difference": 1355,
-        "change_pct": 69.3
+        "avg_council_tax": 1927,
+        "avg_lvt": 2480,
+        "difference": 552,
+        "change_pct": 28.7
       },
       {
         "decile": 7,
-        "avg_council_tax": 1960,
-        "avg_lvt": 3775,
-        "difference": 1815,
-        "change_pct": 92.6
+        "avg_council_tax": 1954,
+        "avg_lvt": 2842,
+        "difference": 889,
+        "change_pct": 45.5
       },
       {
         "decile": 8,
-        "avg_council_tax": 2073,
-        "avg_lvt": 4214,
-        "difference": 2141,
-        "change_pct": 103.3
+        "avg_council_tax": 2060,
+        "avg_lvt": 3589,
+        "difference": 1529,
+        "change_pct": 74.2
       },
       {
         "decile": 9,
-        "avg_council_tax": 2164,
-        "avg_lvt": 4217,
-        "difference": 2053,
-        "change_pct": 94.9
+        "avg_council_tax": 2160,
+        "avg_lvt": 4021,
+        "difference": 1862,
+        "change_pct": 86.2
       },
       {
         "decile": 10,
         "avg_council_tax": 2487,
-        "avg_lvt": 7053,
-        "difference": 4567,
-        "change_pct": 183.7
+        "avg_lvt": 6094,
+        "difference": 3606,
+        "change_pct": 145.0
       }
     ],
     "1.5%": [
       {
         "decile": 1,
-        "avg_council_tax": 1591,
-        "avg_lvt": 2519,
-        "difference": 929,
-        "change_pct": 58.4
+        "avg_council_tax": 1626,
+        "avg_lvt": 1976,
+        "difference": 350,
+        "change_pct": 21.5
       },
       {
         "decile": 2,
-        "avg_council_tax": 1690,
-        "avg_lvt": 3492,
-        "difference": 1802,
-        "change_pct": 106.6
+        "avg_council_tax": 1695,
+        "avg_lvt": 2281,
+        "difference": 586,
+        "change_pct": 34.6
       },
       {
         "decile": 3,
-        "avg_council_tax": 1616,
-        "avg_lvt": 3268,
-        "difference": 1651,
-        "change_pct": 102.2
+        "avg_council_tax": 1638,
+        "avg_lvt": 2325,
+        "difference": 687,
+        "change_pct": 42.0
       },
       {
         "decile": 4,
-        "avg_council_tax": 1761,
-        "avg_lvt": 3082,
-        "difference": 1321,
-        "change_pct": 75.0
+        "avg_council_tax": 1753,
+        "avg_lvt": 2415,
+        "difference": 661,
+        "change_pct": 37.7
       },
       {
         "decile": 5,
-        "avg_council_tax": 1822,
-        "avg_lvt": 4896,
-        "difference": 3074,
-        "change_pct": 168.7
+        "avg_council_tax": 1771,
+        "avg_lvt": 3694,
+        "difference": 1923,
+        "change_pct": 108.6
       },
       {
         "decile": 6,
-        "avg_council_tax": 1956,
-        "avg_lvt": 4967,
-        "difference": 3011,
-        "change_pct": 153.9
+        "avg_council_tax": 1927,
+        "avg_lvt": 3720,
+        "difference": 1792,
+        "change_pct": 93.0
       },
       {
         "decile": 7,
-        "avg_council_tax": 1960,
-        "avg_lvt": 5662,
-        "difference": 3702,
-        "change_pct": 188.9
+        "avg_council_tax": 1954,
+        "avg_lvt": 4263,
+        "difference": 2310,
+        "change_pct": 118.2
       },
       {
         "decile": 8,
-        "avg_council_tax": 2073,
-        "avg_lvt": 6320,
-        "difference": 4248,
-        "change_pct": 204.9
+        "avg_council_tax": 2060,
+        "avg_lvt": 5384,
+        "difference": 3324,
+        "change_pct": 161.3
       },
       {
         "decile": 9,
-        "avg_council_tax": 2164,
-        "avg_lvt": 6326,
-        "difference": 4162,
-        "change_pct": 192.3
+        "avg_council_tax": 2160,
+        "avg_lvt": 6032,
+        "difference": 3872,
+        "change_pct": 179.3
       },
       {
         "decile": 10,
         "avg_council_tax": 2487,
-        "avg_lvt": 10580,
-        "difference": 8093,
-        "change_pct": 325.5
+        "avg_lvt": 9141,
+        "difference": 6653,
+        "change_pct": 267.5
       }
     ],
     "2.0%": [
       {
         "decile": 1,
-        "avg_council_tax": 1591,
-        "avg_lvt": 3359,
-        "difference": 1769,
-        "change_pct": 111.2
+        "avg_council_tax": 1626,
+        "avg_lvt": 2635,
+        "difference": 1009,
+        "change_pct": 62.1
       },
       {
         "decile": 2,
-        "avg_council_tax": 1690,
-        "avg_lvt": 4656,
-        "difference": 2966,
-        "change_pct": 175.5
+        "avg_council_tax": 1695,
+        "avg_lvt": 3042,
+        "difference": 1346,
+        "change_pct": 79.4
       },
       {
         "decile": 3,
-        "avg_council_tax": 1616,
-        "avg_lvt": 4357,
-        "difference": 2741,
-        "change_pct": 169.6
+        "avg_council_tax": 1638,
+        "avg_lvt": 3100,
+        "difference": 1462,
+        "change_pct": 89.3
       },
       {
         "decile": 4,
-        "avg_council_tax": 1761,
-        "avg_lvt": 4110,
-        "difference": 2348,
-        "change_pct": 133.3
+        "avg_council_tax": 1753,
+        "avg_lvt": 3219,
+        "difference": 1466,
+        "change_pct": 83.6
       },
       {
         "decile": 5,
-        "avg_council_tax": 1822,
-        "avg_lvt": 6528,
-        "difference": 4706,
-        "change_pct": 258.3
+        "avg_council_tax": 1771,
+        "avg_lvt": 4926,
+        "difference": 3155,
+        "change_pct": 178.1
       },
       {
         "decile": 6,
-        "avg_council_tax": 1956,
-        "avg_lvt": 6623,
-        "difference": 4666,
-        "change_pct": 238.6
+        "avg_council_tax": 1927,
+        "avg_lvt": 4960,
+        "difference": 3032,
+        "change_pct": 157.3
       },
       {
         "decile": 7,
-        "avg_council_tax": 1960,
-        "avg_lvt": 7549,
-        "difference": 5589,
-        "change_pct": 285.2
+        "avg_council_tax": 1954,
+        "avg_lvt": 5685,
+        "difference": 3731,
+        "change_pct": 191.0
       },
       {
         "decile": 8,
-        "avg_council_tax": 2073,
-        "avg_lvt": 8427,
-        "difference": 6355,
-        "change_pct": 306.6
+        "avg_council_tax": 2060,
+        "avg_lvt": 7179,
+        "difference": 5119,
+        "change_pct": 248.4
       },
       {
         "decile": 9,
-        "avg_council_tax": 2164,
-        "avg_lvt": 8434,
-        "difference": 6270,
-        "change_pct": 289.8
+        "avg_council_tax": 2160,
+        "avg_lvt": 8043,
+        "difference": 5883,
+        "change_pct": 272.4
       },
       {
         "decile": 10,
         "avg_council_tax": 2487,
-        "avg_lvt": 14107,
-        "difference": 11620,
-        "change_pct": 467.3
+        "avg_lvt": 12187,
+        "difference": 9700,
+        "change_pct": 390.0
       }
     ],
     "3.0%": [
       {
         "decile": 1,
-        "avg_council_tax": 1591,
-        "avg_lvt": 5039,
-        "difference": 3448,
-        "change_pct": 216.8
+        "avg_council_tax": 1626,
+        "avg_lvt": 3952,
+        "difference": 2326,
+        "change_pct": 143.1
       },
       {
         "decile": 2,
-        "avg_council_tax": 1690,
-        "avg_lvt": 6984,
-        "difference": 5293,
-        "change_pct": 313.2
+        "avg_council_tax": 1695,
+        "avg_lvt": 4563,
+        "difference": 2867,
+        "change_pct": 169.1
       },
       {
         "decile": 3,
-        "avg_council_tax": 1616,
-        "avg_lvt": 6536,
-        "difference": 4919,
-        "change_pct": 304.3
+        "avg_council_tax": 1638,
+        "avg_lvt": 4650,
+        "difference": 3012,
+        "change_pct": 183.9
       },
       {
         "decile": 4,
-        "avg_council_tax": 1761,
-        "avg_lvt": 6165,
-        "difference": 4403,
-        "change_pct": 250.0
+        "avg_council_tax": 1753,
+        "avg_lvt": 4829,
+        "difference": 3076,
+        "change_pct": 175.4
       },
       {
         "decile": 5,
-        "avg_council_tax": 1822,
-        "avg_lvt": 9792,
-        "difference": 7970,
-        "change_pct": 437.4
+        "avg_council_tax": 1771,
+        "avg_lvt": 7388,
+        "difference": 5618,
+        "change_pct": 317.2
       },
       {
         "decile": 6,
-        "avg_council_tax": 1956,
-        "avg_lvt": 9934,
-        "difference": 7978,
-        "change_pct": 407.8
+        "avg_council_tax": 1927,
+        "avg_lvt": 7440,
+        "difference": 5512,
+        "change_pct": 286.0
       },
       {
         "decile": 7,
-        "avg_council_tax": 1960,
-        "avg_lvt": 11324,
-        "difference": 9364,
-        "change_pct": 477.7
+        "avg_council_tax": 1954,
+        "avg_lvt": 8527,
+        "difference": 6573,
+        "change_pct": 336.5
       },
       {
         "decile": 8,
-        "avg_council_tax": 2073,
-        "avg_lvt": 12641,
-        "difference": 10568,
-        "change_pct": 509.9
+        "avg_council_tax": 2060,
+        "avg_lvt": 10768,
+        "difference": 8708,
+        "change_pct": 422.7
       },
       {
         "decile": 9,
-        "avg_council_tax": 2164,
-        "avg_lvt": 12651,
-        "difference": 10488,
-        "change_pct": 484.7
+        "avg_council_tax": 2160,
+        "avg_lvt": 12064,
+        "difference": 9905,
+        "change_pct": 458.6
       },
       {
         "decile": 10,
         "avg_council_tax": 2487,
-        "avg_lvt": 21160,
-        "difference": 18673,
-        "change_pct": 751.0
+        "avg_lvt": 18281,
+        "difference": 15794,
+        "change_pct": 635.0
       }
     ],
     "5.0%": [
       {
         "decile": 1,
-        "avg_council_tax": 1591,
-        "avg_lvt": 8398,
-        "difference": 6807,
-        "change_pct": 427.9
+        "avg_council_tax": 1626,
+        "avg_lvt": 6587,
+        "difference": 4961,
+        "change_pct": 305.1
       },
       {
         "decile": 2,
-        "avg_council_tax": 1690,
-        "avg_lvt": 11639,
-        "difference": 9949,
-        "change_pct": 588.6
+        "avg_council_tax": 1695,
+        "avg_lvt": 7604,
+        "difference": 5909,
+        "change_pct": 348.6
       },
       {
         "decile": 3,
-        "avg_council_tax": 1616,
-        "avg_lvt": 10893,
-        "difference": 9276,
-        "change_pct": 573.9
+        "avg_council_tax": 1638,
+        "avg_lvt": 7749,
+        "difference": 6112,
+        "change_pct": 373.2
       },
       {
         "decile": 4,
-        "avg_council_tax": 1761,
-        "avg_lvt": 10275,
-        "difference": 8513,
-        "change_pct": 483.3
+        "avg_council_tax": 1753,
+        "avg_lvt": 8048,
+        "difference": 6295,
+        "change_pct": 359.0
       },
       {
         "decile": 5,
-        "avg_council_tax": 1822,
-        "avg_lvt": 16321,
-        "difference": 14499,
-        "change_pct": 795.6
+        "avg_council_tax": 1771,
+        "avg_lvt": 12314,
+        "difference": 10543,
+        "change_pct": 595.3
       },
       {
         "decile": 6,
-        "avg_council_tax": 1956,
-        "avg_lvt": 16556,
-        "difference": 14600,
-        "change_pct": 746.4
+        "avg_council_tax": 1927,
+        "avg_lvt": 12399,
+        "difference": 10472,
+        "change_pct": 543.3
       },
       {
         "decile": 7,
-        "avg_council_tax": 1960,
-        "avg_lvt": 18873,
-        "difference": 16913,
-        "change_pct": 862.9
+        "avg_council_tax": 1954,
+        "avg_lvt": 14212,
+        "difference": 12258,
+        "change_pct": 627.5
       },
       {
         "decile": 8,
-        "avg_council_tax": 2073,
-        "avg_lvt": 21068,
-        "difference": 18995,
-        "change_pct": 916.5
+        "avg_council_tax": 2060,
+        "avg_lvt": 17947,
+        "difference": 15887,
+        "change_pct": 771.1
       },
       {
         "decile": 9,
-        "avg_council_tax": 2164,
-        "avg_lvt": 21086,
-        "difference": 18922,
-        "change_pct": 874.5
+        "avg_council_tax": 2160,
+        "avg_lvt": 20107,
+        "difference": 17947,
+        "change_pct": 831.0
       },
       {
         "decile": 10,
         "avg_council_tax": 2487,
-        "avg_lvt": 35266,
-        "difference": 32780,
-        "change_pct": 1318.3
+        "avg_lvt": 30469,
+        "difference": 27981,
+        "change_pct": 1125.0
       }
     ]
   },
