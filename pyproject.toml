@@ -1,0 +1,31 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "uk-land-value-tax"
+version = "0.1.0"
+description = "Tested data-processing pipeline for the UK land value tax dashboard."
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+  "numpy>=1.26",
+  "pandas>=2.2",
+]
+
+[project.optional-dependencies]
+simulation = [
+  "policyengine-uk>=2.75.1",
+]
+dev = [
+  "pytest>=8.0",
+]
+
+[project.scripts]
+uk-land-value-tax-build = "uk_land_value_tax.cli:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/uk_land_value_tax"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

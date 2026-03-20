@@ -106,7 +106,7 @@ function BaselineSection() {
       <div className="subsections">
         <div className="subsection-block">
           <SubsectionTitle>Comparison with official statistics</SubsectionTitle>
-          <p className="subsection-prose">The ONS <a href="https://www.ons.gov.uk/economy/nationalaccounts/uksectoraccounts/datasets/thenationalbalancesheetestimates" target="_blank" rel="noopener noreferrer">reports</a> total UK land at £{Number(data.ons_comparison.ons_2024_total_tn).toFixed(1)}tn for 2024, of which £{Number(data.ons_comparison.ons_2024_household_tn).toFixed(1)}tn is household land and £{(data.ons_comparison.ons_2024_corporate_tn + data.ons_comparison.ons_2024_government_tn).toFixed(1)}tn is non-household (corporate and government), measured as non-produced assets (<a href="https://www.ons.gov.uk/economy/nationalaccounts/uksectoraccounts/datasets/thenationalbalancesheetestimates" target="_blank" rel="noopener noreferrer">AN.211</a>) in the National Balance <a href="https://www.ons.gov.uk/economy/nationalaccounts/uksectoraccounts/bulletins/nationalbalancesheet/2025" target="_blank" rel="noopener noreferrer">Sheet</a>. The model uprates survey-year values using OBR per capita nominal GDP growth <a href="https://obr.uk/efo/economic-and-fiscal-outlook-march-2025/" target="_blank" rel="noopener noreferrer">projections</a> and estimates total UK land at £{Number(data.baseline.total_land_tn).toFixed(1)}tn and total UK household wealth at £{Number(data.baseline.total_wealth_tn).toFixed(1)}tn, of which land accounts for {Number(data.baseline.land_pct_of_wealth).toFixed(1)}%. Table 1 compares these estimates with the published ONS figures.</p>
+          <p className="subsection-prose">The ONS <a href="https://www.ons.gov.uk/economy/nationalaccounts/uksectoraccounts/datasets/thenationalbalancesheetestimates" target="_blank" rel="noopener noreferrer">reports</a> total UK land at £{Number(data.ons_comparison.ons_2024_total_tn).toFixed(1)}tn for 2024, of which £{Number(data.ons_comparison.ons_2024_household_tn).toFixed(1)}tn is household land and £{(data.ons_comparison.ons_2024_corporate_tn + data.ons_comparison.ons_2024_government_tn).toFixed(1)}tn is non-household (corporate and government), measured as non-produced assets (<a href="https://www.ons.gov.uk/economy/nationalaccounts/uksectoraccounts/datasets/thenationalbalancesheetestimates" target="_blank" rel="noopener noreferrer">AN.211</a>) in the National Balance <a href="https://www.ons.gov.uk/economy/nationalaccounts/uksectoraccounts/bulletins/nationalbalancesheet/2025" target="_blank" rel="noopener noreferrer">Sheet</a>. The model uprates survey-year values using OBR per capita nominal GDP growth <a href="https://obr.uk/efo/economic-and-fiscal-outlook-march-2025/" target="_blank" rel="noopener noreferrer">projections</a> and estimates total UK land at £{Number(data.baseline.total_land_tn).toFixed(1)}tn and total UK household wealth at £{Number(data.baseline.total_wealth_tn).toFixed(1)}tn, of which land accounts for {Number(data.baseline.land_pct_of_wealth).toFixed(1)}%. These figures are not yet recalibrated to the ONS land targets, so the gap in Table 1 reflects a live model estimate rather than an ONS-aligned baseline.</p>
           <p className="fig-caption">Table 1. <span>Land value estimates by source (2020-27)</span></p>
           <ONSComparisonTable />
         </div>
@@ -119,10 +119,10 @@ function BaselineSection() {
         </div>
         <div className="subsection-block">
           <SubsectionTitle>Land value distribution</SubsectionTitle>
-          <p className="subsection-prose">Figure 1 shows average land value by income decile and each decile's share of the national total. Income deciles rank households from lowest (1) to highest (10) equivalised net income. Land value includes both the land component of property wealth and corporate land attributed to the household through shareholdings.</p>
+          <p className="subsection-prose">Figure 1 shows average land value by income decile and land as a share of average property wealth within each decile. Income deciles rank households from lowest (1) to highest (10) equivalised net income. Land value includes both the land component of property wealth and corporate land attributed to the household through shareholdings.</p>
           <p className="fig-caption">Figure 1. <span>Land value by income decile (2026-27)</span></p>
           <DistributionChart />
-          <p className="subsection-prose finding">The top decile holds the largest share of total land value, whilst the bottom decile holds the smallest. Average land value rises with income, reflecting higher rates of home ownership and more valuable properties amongst higher-income households.</p>
+          <p className="subsection-prose finding">Average land value rises with income, reflecting higher rates of home ownership and more valuable properties amongst higher-income households. Expressing land relative to property wealth also avoids mixing a per-household average with a total-share measure.</p>
         </div>
       </div>
     </section>
@@ -170,7 +170,13 @@ function ONSComparisonTable() {
 }
 
 function DistributionChart() {
-  const decileData = data.distribution_by_decile;
+  const decileData = data.distribution_by_decile.map((row) => ({
+    ...row,
+    land_share_of_property_wealth_pct:
+      row.avg_property_wealth > 0
+        ? (row.avg_land_value / row.avg_property_wealth) * 100
+        : 0,
+  }));
   const [distView, setDistView] = useState('avgLand');
 
   return (
@@ -178,7 +184,7 @@ function DistributionChart() {
       <div style={{ textAlign: 'center', marginBottom: 12 }}>
         <div className="chart-toggle" style={{ display: 'inline-flex' }}>
           <button className={distView === 'avgLand' ? 'active' : ''} onClick={() => setDistView('avgLand')}>Avg value</button>
-          <button className={distView === 'share' ? 'active' : ''} onClick={() => setDistView('share')}>Share %</button>
+          <button className={distView === 'share' ? 'active' : ''} onClick={() => setDistView('share')}>Share of property wealth</button>
         </div>
       </div>
       <ResponsiveContainer width="100%" height={320}>
@@ -194,9 +200,9 @@ function DistributionChart() {
           <BarChart data={decileData}>
             <CartesianGrid {...GRID_STYLE} />
             <XAxis dataKey="decile" tick={AXIS_STYLE} label={{ value: 'Income decile', position: 'insideBottom', offset: -5, ...AXIS_STYLE }} />
-            <YAxis tick={AXIS_STYLE} domain={[0, 25]} ticks={[0, 5, 10, 15, 20, 25]} tickFormatter={(v) => `${v}%`} label={{ value: 'Share of total land', angle: -90, position: 'insideLeft', offset: 10, style: { ...AXIS_STYLE, textAnchor: 'middle' } }} />
+            <YAxis tick={AXIS_STYLE} tickFormatter={(v) => `${Math.round(v)}%`} label={{ value: 'Land as % of property wealth', angle: -90, position: 'insideLeft', offset: 10, style: { ...AXIS_STYLE, textAnchor: 'middle' } }} />
             <Tooltip content={<CustomTooltip formatter={(v) => fmtPct(v)} />} />
-            <Bar dataKey="share_of_land_pct" name="Share of land %" fill={C.teal500} radius={[4,4,0,0]} />
+            <Bar dataKey="land_share_of_property_wealth_pct" name="Land as % of property wealth" fill={C.teal500} radius={[4,4,0,0]} />
           </BarChart>
         )}
       </ResponsiveContainer>

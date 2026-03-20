@@ -11,6 +11,8 @@ The dashboard estimates UK land values for 2026-27 and simulates what would happ
 
 All estimates are produced by [PolicyEngine UK](https://github.com/PolicyEngine/policyengine-uk) using the [Enhanced FRS 2023-24](https://github.com/PolicyEngine/policyengine-uk-data) microdata, uprated to 2026-27 with OBR per capita nominal GDP growth projections.
 
+The current generated outputs are not yet recalibrated to the ONS land totals added in `policyengine-uk-data`, so the model should be read as a live microsimulation estimate rather than an ONS-aligned land baseline.
+
 ## Data sources
 
 | Source | Description |
@@ -29,12 +31,17 @@ All estimates are produced by [PolicyEngine UK](https://github.com/PolicyEngine/
 │   │   ├── App.css     # Styles
 │   │   └── lvt_results.json  # Simulation results consumed by the dashboard
 │   └── package.json
+├── src/uk_land_value_tax/
+│   ├── analysis.py     # Pure, testable data-processing logic
+│   ├── pipeline.py     # PolicyEngine orchestration and JSON generation
+│   └── cli.py          # CLI entrypoint
+├── tests/
+│   └── test_analysis.py
 ├── simulation/
-│   └── land_value_tax_simulation.py  # PolicyEngine UK microsimulation script
+│   └── land_value_tax_simulation.py  # Thin wrapper around the package CLI
 ├── data/
 │   └── lvt_results.json  # Simulation output
-└── notebook/
-    └── land_value_tax_microsimulation.ipynb
+└── pyproject.toml
 ```
 
 ## Running locally
@@ -49,14 +56,21 @@ npm start
 
 ### Simulation
 
-Requires the `python313` conda environment with `policyengine-uk` installed and access to the Enhanced FRS dataset.
+The data pipeline now lives in a regular Python package with unit tests. The full simulation still requires access to the Enhanced FRS dataset through `policyengine-uk`, and currently requires Python 3.13+ because of the `policyengine-uk` dependency.
 
 ```bash
-conda activate python313
-cd simulation
-python land_value_tax_simulation.py
-cp ../data/lvt_results.json ../dashboard/src/lvt_results.json
+uv sync --extra simulation --extra dev
+uv run pytest
+uv run uk-land-value-tax-build --sync-dashboard
 ```
+
+If you prefer the legacy entrypoint, this wrapper still works:
+
+```bash
+python simulation/land_value_tax_simulation.py --sync-dashboard
+```
+
+The dashboard reads `data/lvt_results.json`, and `--sync-dashboard` also updates `dashboard/src/lvt_results.json`.
 
 ## Deployment
 
@@ -66,3 +80,9 @@ The dashboard is deployed on [Vercel](https://vercel.com) and updates automatica
 - **Framework**: Create React App
 - **Build command**: `npm run build`
 - **Output directory**: `build`
+
+## Development notes
+
+- The dashboard repo should not use notebooks for production data processing.
+- Keep transformation logic in `src/uk_land_value_tax/analysis.py` so it can be tested without the full microsimulation environment.
+- Treat `data/lvt_results.json` as a generated artifact from the Python package, not as hand-edited analysis output.
