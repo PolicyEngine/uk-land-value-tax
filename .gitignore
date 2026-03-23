@@ -1,6 +1,7 @@
 # Dependencies
 dashboard/node_modules/
 dashboard/build/
+dashboard/.next/
 
 # Environment
 .env

@@ -20,7 +20,7 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument(
         "--sync-dashboard",
         action="store_true",
-        help="Copy the generated JSON into dashboard/src/lvt_results.json as well.",
+        help="Copy the generated JSON into dashboard/public/data/lvt_results.json as well.",
     )
     parser.add_argument(
         "--dashboard-output",

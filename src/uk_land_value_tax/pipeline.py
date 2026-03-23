@@ -29,7 +29,7 @@ from .analysis import (
 
 DEFAULT_YEAR = 2026
 DEFAULT_OUTPUT_PATH = Path("data/lvt_results.json")
-DEFAULT_DASHBOARD_OUTPUT_PATH = Path("dashboard/src/lvt_results.json")
+DEFAULT_DASHBOARD_OUTPUT_PATH = Path("dashboard/public/data/lvt_results.json")
 DEFAULT_TARGET_YEAR = 2024
 
 
