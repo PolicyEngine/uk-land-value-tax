@@ -6,8 +6,9 @@ An interactive dashboard modelling the impact of replacing council tax with a la
 
 The dashboard estimates UK land values for 2026-27 and simulates what would happen if council tax were abolished and replaced with a flat-rate land value tax. It covers:
 
-- **Land and wealth overview** — total UK land values compared with ONS National Balance Sheet figures, average land value by region and household type, and distribution across income deciles
-- **Replacing council tax with LVT** — budgetary impact at various LVT rates, distributional effects by income decile, winners and losers, and changes to poverty and inequality
+- **Council tax to LVT** — a tool-first view of how replacing council tax shifts the tax burden, with scenarios near the budget-neutral rate
+- **Land baseline** — enough context to interpret the reform, including upstream ONS target comparisons and average land values across groups
+- **Methodology** — a short explanation of what the static microsimulation does and does not capture
 
 All estimates are produced by [PolicyEngine UK](https://github.com/PolicyEngine/policyengine-uk) using the [Enhanced FRS 2023-24](https://github.com/PolicyEngine/policyengine-uk-data) microdata, uprated to 2026-27 with OBR per capita nominal GDP growth projections.
 
@@ -25,11 +26,10 @@ The comparison figures in this repo should come from two sources only: upstream 
 ## Project structure
 
 ```
-├── dashboard/          # React dashboard (Create React App + Recharts)
-│   ├── src/
-│   │   ├── App.js      # Main dashboard component
-│   │   ├── App.css     # Styles
-│   │   └── lvt_results.json  # Simulation results consumed by the dashboard
+├── dashboard/          # Next.js + Tailwind dashboard
+│   ├── app/           # App Router entrypoints and global styles
+│   ├── public/data/   # Generated JSON consumed by the dashboard
+│   ├── src/components/
 │   └── package.json
 ├── src/uk_land_value_tax/
 │   ├── analysis.py     # Pure, testable data-processing logic
@@ -51,7 +51,7 @@ The comparison figures in this repo should come from two sources only: upstream 
 ```bash
 cd dashboard
 npm install
-npm start
+npm run dev
 ```
 
 ### Simulation
@@ -72,16 +72,15 @@ POLICYENGINE_UK_DATA_ROOT=/path/to/policyengine-uk-data \
   python simulation/land_value_tax_simulation.py --sync-dashboard
 ```
 
-The dashboard reads `data/lvt_results.json`, and `--sync-dashboard` also updates `dashboard/src/lvt_results.json`.
+The Python pipeline writes `data/lvt_results.json`, and `--sync-dashboard` also updates `dashboard/public/data/lvt_results.json`.
 
 ## Deployment
 
 The dashboard is deployed on [Vercel](https://vercel.com) and updates automatically on pushes to `main`. The Vercel project is configured with:
 
 - **Root directory**: `dashboard`
-- **Framework**: Create React App
+- **Framework**: Next.js
 - **Build command**: `npm run build`
-- **Output directory**: `build`
 
 ## Development notes
 
@@ -89,3 +88,4 @@ The dashboard is deployed on [Vercel](https://vercel.com) and updates automatica
 - Keep transformation logic in `src/uk_land_value_tax/analysis.py` so it can be tested without the full microsimulation environment.
 - Treat `data/lvt_results.json` as a generated artifact from the Python package, not as hand-edited analysis output.
 - Pull land targets from `policyengine-uk-data` at build time rather than duplicating ONS constants in this repo.
+- Keep the public UI focused on plausible council-tax-replacement scenarios rather than very high annual LVT rates that the static model cannot interpret well.
