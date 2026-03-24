@@ -6,15 +6,17 @@ export default function MethodologyTab({ data }) {
   return (
     <div className="space-y-8">
       <div className="section-card">
-        <div className="eyebrow text-slate-500">What this tool is for</div>
+        <div className="eyebrow text-slate-500">Overview</div>
         <h2 className="mt-2 text-2xl font-semibold tracking-tight text-slate-900">
-          First-round analysis of a council-tax-to-LVT swap
+          How the model works
         </h2>
-        <p className="mt-4 max-w-4xl text-sm leading-7 text-slate-600">
-          This tool uses a static microsimulation to replace council tax with
-          an annual land value tax. It shows who pays more, who pays less, and
-          how revenue, poverty, and inequality change at rates near the
-          council-tax-replacement range.
+        <p className="mt-4 text-sm leading-7 text-slate-600">
+          This dashboard uses PolicyEngine UK, a static microsimulation model,
+          to estimate the first-round effects of replacing council tax with a
+          flat annual land value tax. It shows who pays more, who pays less,
+          and how aggregate revenue, poverty, and inequality shift at rates
+          near the budget-neutral range. All figures are for the 2026-27
+          fiscal year.
         </p>
       </div>
 
@@ -22,27 +24,29 @@ export default function MethodologyTab({ data }) {
         <div className="section-card">
           <div className="eyebrow text-slate-500">Included</div>
           <h3 className="mt-2 text-lg font-semibold text-slate-900">
-            What the model does
+            What the model captures
           </h3>
-          <ul className="mt-4 space-y-3 text-sm leading-6 text-slate-600">
-            <li>Estimates household and corporate land values for UK households.</li>
-            <li>Attributes corporate land through household shareholdings.</li>
-            <li>Simulates abolishing council tax and replacing it with LVT.</li>
-            <li>Reports first-round distributional, poverty, and inequality effects.</li>
-          </ul>
+          <p className="mt-4 text-sm leading-7 text-slate-600">
+            The model estimates household and corporate land values for every
+            UK household, attributing corporate land to households through
+            shareholdings. It simulates full council tax abolition replaced by
+            a flat-rate LVT and reports first-round distributional, poverty,
+            and inequality effects by income decile.
+          </p>
         </div>
 
         <div className="section-card">
           <div className="eyebrow text-slate-500">Excluded</div>
           <h3 className="mt-2 text-lg font-semibold text-slate-900">
-            What the model does not do
+            What the model omits
           </h3>
-          <ul className="mt-4 space-y-3 text-sm leading-6 text-slate-600">
-            <li>It does not model land-price capitalisation.</li>
-            <li>It does not model rent pass-through or landlord responses.</li>
-            <li>It does not model local government redesign or local rate-setting.</li>
-            <li>It should not be read as a long-run equilibrium forecast for very high annual LVT rates.</li>
-          </ul>
+          <p className="mt-4 text-sm leading-7 text-slate-600">
+            The model does not capture land-price capitalisation in response
+            to the tax, rent pass-through or landlord behavioural responses,
+            or local government redesign and devolved rate-setting. Long-run
+            equilibrium effects are excluded — results should not be read as
+            forecasts at very high LVT rates.
+          </p>
         </div>
 
         <div className="section-card">
@@ -50,27 +54,33 @@ export default function MethodologyTab({ data }) {
           <h3 className="mt-2 text-lg font-semibold text-slate-900">
             Data and calibration
           </h3>
-          <ul className="mt-4 space-y-3 text-sm leading-6 text-slate-600">
-            <li>Enhanced FRS 2023-24 microdata through PolicyEngine UK.</li>
-            <li>Land calibration targets from policyengine-uk-data.</li>
-            <li>
-              Current upstream target total: {formatTn(comparison.target_total_tn)} for{" "}
-              {comparison.target_label}.
-            </li>
-            <li>Uprating to 2026-27 using OBR per-capita nominal GDP growth projections.</li>
-          </ul>
+          <p className="mt-4 text-sm leading-7 text-slate-600">
+            Household microdata comes from the Enhanced Family Resources
+            Survey 2023-24 via PolicyEngine UK, with land calibration targets
+            from policyengine-uk-data. The ONS {comparison.target_label} aggregate
+            land value target is {formatTn(comparison.target_total_tn)}, uprated
+            to 2026-27 using OBR per-capita nominal GDP growth projections.
+          </p>
         </div>
       </div>
 
       <div className="section-card">
         <div className="eyebrow text-slate-500">Replication</div>
         <h3 className="mt-2 text-lg font-semibold text-slate-900">
-          Code structure
+          Code and data pipeline
         </h3>
-        <p className="mt-4 max-w-4xl text-sm leading-7 text-slate-600">
-          The Python pipeline generates the JSON consumed by this app. The
-          dashboard reads <code>public/data/lvt_results.json</code>, and the
-          replication code lives in the public repository.
+        <p className="mt-4 text-sm leading-7 text-slate-600">
+          A Python pipeline generates <code>lvt_results.json</code>, which
+          the dashboard consumes at build time. All source code, data
+          processing scripts, and configuration are available in the{" "}
+          <a
+            href="https://github.com/PolicyEngine/uk-land-value-tax"
+            target="_blank"
+            rel="noreferrer"
+            className="text-blue-600 underline hover:text-blue-800"
+          >
+            public repository
+          </a>.
         </p>
       </div>
     </div>

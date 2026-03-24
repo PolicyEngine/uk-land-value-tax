@@ -109,7 +109,7 @@ export default function BaselineTab({ data }) {
             {comparison.model_vs_target_pct}%
           </div>
           <div className="mt-2 text-sm text-slate-500">
-            Modelled total land value as a share of the upstream target.
+            Modelled 2026-27 total land value as a share of the ONS 2024-25 target.
           </div>
         </div>
       </div>
@@ -147,9 +147,6 @@ export default function BaselineTab({ data }) {
               </tr>
             </tbody>
           </table>
-          <p className="mt-4 text-sm text-slate-500">
-            Model total as a share of target: {comparison.model_vs_target_pct}%.
-          </p>
         </div>
 
         <div className="section-card">

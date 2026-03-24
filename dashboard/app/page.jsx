@@ -65,21 +65,18 @@ function Dashboard() {
     <div className="app-shell min-h-screen">
       <header className="title-row">
         <div className="mx-auto flex max-w-[1400px] items-center justify-between px-6 py-4 md:px-8">
-          <h1>Council tax → land value tax</h1>
+          <h1>Council tax to land value tax reform dashboard</h1>
         </div>
       </header>
 
       <main className="relative z-[1] mx-auto max-w-[1400px] px-6 py-10 md:px-8 md:py-12">
-        <div className="max-w-4xl animate-[fadeIn_0.4s_ease-out]">
+        <div className="animate-[fadeIn_0.4s_ease-out]">
           <p className="mb-3 text-[1.05rem] leading-relaxed text-slate-600">
-            Estimate the revenue and distributional effects of replacing
-            council tax with an annual land value tax in the UK. Review the
-            main reform results, the land-value baseline, and the modelling
-            assumptions in one place.
-          </p>
-          <p className="mb-3 text-sm leading-6 text-slate-500">
-            The UK policy debate already includes proposals to replace council
-            tax with land value tax. The{" "}
+            PolicyEngine estimates the revenue and distributional effects of
+            replacing council tax with an annual land value tax in the UK.
+            Explore the reform results, land-value baseline, and modelling
+            assumptions in one place. Replacing council tax with a land value
+            tax is already part of the UK policy debate — the{" "}
             <a
               href="https://commonslibrary.parliament.uk/research-briefings/sn06558/"
               target="_blank"
@@ -87,8 +84,7 @@ function Dashboard() {
             >
               House of Commons Library
             </a>{" "}
-            notes that proponents have argued for replacing council tax with a
-            land value tax, and the{" "}
+            notes longstanding support for the idea, and the{" "}
             <a
               href="https://www.greenparty.org.uk/app/uploads/2024/06/Green-Party-2024-General-Election-Manifesto-Long-version-with-cover.pdf"
               target="_blank"
@@ -96,11 +92,7 @@ function Dashboard() {
             >
               Green Party&apos;s 2024 manifesto
             </a>{" "}
-            backs a long-term move to land value tax.
-          </p>
-          <p className="text-sm text-slate-500">
-            Uses the Enhanced Family Resources Survey and the PolicyEngine UK
-            microsimulation model.
+            backs a long-term transition.
           </p>
         </div>
 
@@ -135,7 +127,7 @@ function Dashboard() {
           </>
         )}
 
-        <footer className="mt-12 border-t border-slate-200 pt-8 text-sm text-slate-500">
+        <footer className="mt-12 border-t border-slate-200 pt-8 text-center text-sm text-slate-500">
           <p>
             Replication code:{" "}
             <a

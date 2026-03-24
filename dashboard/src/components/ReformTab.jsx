@@ -121,6 +121,7 @@ export default function ReformTab({ data }) {
   const [selectedScenario, setSelectedScenario] = useState(defaultScenario);
   const [councilTaxView, setCouncilTaxView] = useState("amount");
   const [impactView, setImpactView] = useState("net");
+  const [taxSwapView, setTaxSwapView] = useState("comparison");
 
   const selectedSummary = useMemo(
     () => deriveScenarioSummary(data, selectedScenario),
@@ -157,10 +158,23 @@ export default function ReformTab({ data }) {
     return getNiceTicks([Math.min(0, ...values), Math.max(0, ...values)]);
   }, [impactConfig.dataKey, impactRows]);
 
+  const taxSwapDiffRows = useMemo(
+    () =>
+      taxSwapRows.map((row) => ({
+        ...row,
+        tax_diff: Number(row.avg_lvt || 0) - Number(row.avg_council_tax || 0),
+      })),
+    [taxSwapRows],
+  );
+
   const taxSwapTicks = useMemo(() => {
+    if (taxSwapView === "difference") {
+      const values = taxSwapDiffRows.map((row) => row.tax_diff);
+      return getNiceTicks([Math.min(0, ...values), Math.max(0, ...values)]);
+    }
     const values = taxSwapRows.flatMap((row) => [Number(row.avg_council_tax || 0), Number(row.avg_lvt || 0)]);
     return getNiceTicks([0, Math.max(0, ...values)]);
-  }, [taxSwapRows]);
+  }, [taxSwapRows, taxSwapDiffRows, taxSwapView]);
 
   const winnersLosersTicks = useMemo(() => getNiceTicks([0, 100]), []);
 
@@ -168,8 +182,43 @@ export default function ReformTab({ data }) {
     <div className="space-y-8">
       <SectionHeading
         title="Replace council tax with land value tax"
-        description="Estimate how a flat annual land value tax changes tax burdens relative to council tax. This static first-round simulation shows immediate distributional effects; it does not forecast long-run changes in rents, land prices, or behaviour."
+        description="Estimate how a flat annual land value tax reshapes 2026-27 tax burdens relative to council tax. This static first-round simulation captures immediate distributional effects without modelling equilibrium adjustments in land prices, rents, ownership, or local tax design, so the scenarios shown focus on the council-tax-replacement range rather than treating very high LVT rates as literal policy forecasts."
       />
+
+      <div className="section-card">
+          <SectionHeading
+            title="Choose a land value tax rate"
+            description="Compare the three scenarios closest to a plausible council-tax replacement range. The revenue line on each card shows how much revenue each scenario raises relative to current council tax."
+          />
+        <div className="grid gap-4 lg:grid-cols-3">
+          {scenarioOptions.map((option) => {
+            const summary = deriveScenarioSummary(data, option.value);
+            return (
+              <button
+                key={option.value}
+                className={`selector-chip ${selectedScenario === option.value ? "active" : ""}`}
+                onClick={() => setSelectedScenario(option.value)}
+              >
+                <div className="flex items-start justify-between gap-3">
+                  <div>
+                    <div className="text-sm font-semibold text-slate-900">{option.title}</div>
+                    <div className="mt-1 text-2xl font-bold tracking-tight text-slate-900">
+                      {option.value}
+                    </div>
+                  </div>
+                  <div className="selector-chip-status px-3 py-1 text-xs font-medium shadow-sm">
+                    {summary.net_revenue_bn === 0 ? "Revenue neutral" : "Revenue change"}
+                  </div>
+                </div>
+                <div className="mt-3 text-sm text-slate-600">{option.description}</div>
+                <div className="mt-4 text-sm font-medium text-slate-800">
+                  {formatSignedBn(summary.net_revenue_bn)}
+                </div>
+              </button>
+            );
+          })}
+        </div>
+      </div>
 
       <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-5">
         <div className="metric-card">
@@ -202,7 +251,7 @@ export default function ReformTab({ data }) {
             {formatCurrency(avgCouncilTaxBill)}
           </div>
           <div className="mt-2 text-sm text-slate-500">
-            Approximate decile-average baseline bill.
+            Approximate 2026-27 decile-average baseline bill.
           </div>
         </div>
         <div className="metric-card">
@@ -213,7 +262,7 @@ export default function ReformTab({ data }) {
             {formatSignedCurrency(selectedSummary.avg_net_change)}
           </div>
           <div className="mt-2 text-sm text-slate-500">
-            Average annual household net change at {selectedScenario}.
+            Average 2026-27 household net change at {selectedScenario}.
           </div>
         </div>
         <div className="metric-card">
@@ -226,52 +275,6 @@ export default function ReformTab({ data }) {
           <div className="mt-2 text-sm text-slate-500">
             Better off at {selectedScenario}.
           </div>
-        </div>
-      </div>
-
-      <div className="note-card section-card">
-        <div className="eyebrow note-eyebrow">Interpretation caveat</div>
-        <p className="note-body mt-2 max-w-4xl text-sm leading-6">
-          Use this tool near the council-tax-replacement range. It does not
-          model equilibrium adjustments in land prices, rents, ownership, or
-          local tax design, so the public interface surfaces scenarios near the
-          budget-neutral rate instead of treating very high annual LVT rates as
-          literal policy forecasts.
-        </p>
-      </div>
-
-      <div className="section-card">
-          <SectionHeading
-            title="Choose a reform scenario"
-            description="Compare the three scenarios closest to a plausible council-tax replacement range. The revenue line on each card shows how much revenue each scenario raises relative to current council tax."
-          />
-        <div className="grid gap-4 lg:grid-cols-3">
-          {scenarioOptions.map((option) => {
-            const summary = deriveScenarioSummary(data, option.value);
-            return (
-              <button
-                key={option.value}
-                className={`selector-chip ${selectedScenario === option.value ? "active" : ""}`}
-                onClick={() => setSelectedScenario(option.value)}
-              >
-                <div className="flex items-start justify-between gap-3">
-                  <div>
-                    <div className="text-sm font-semibold text-slate-900">{option.title}</div>
-                    <div className="mt-1 text-2xl font-bold tracking-tight text-slate-900">
-                      {option.value}
-                    </div>
-                  </div>
-                  <div className="selector-chip-status px-3 py-1 text-xs font-medium shadow-sm">
-                    {summary.net_revenue_bn === 0 ? "Revenue neutral" : "Revenue change"}
-                  </div>
-                </div>
-                <div className="mt-3 text-sm text-slate-600">{option.description}</div>
-                <div className="mt-4 text-sm font-medium text-slate-800">
-                  {formatSignedBn(summary.net_revenue_bn)}
-                </div>
-              </button>
-            );
-          })}
         </div>
       </div>
 
@@ -372,7 +375,7 @@ export default function ReformTab({ data }) {
       <div className="section-card">
         <SectionHeading
           title="Distributional impact of the swap"
-          description={`At ${selectedScenario}, the chart below shows the average annual net change in household income after abolishing council tax and applying the selected LVT rate.`}
+          description={`At ${selectedScenario}, the chart below shows the average 2026-27 net change in household income after abolishing council tax and applying the selected LVT rate.`}
         />
         <div className="mb-5 flex flex-wrap gap-2">
           <button
@@ -438,38 +441,85 @@ export default function ReformTab({ data }) {
             title="Current council tax versus proposed LVT"
             description="This puts the swap itself in view, by showing the average council tax bill and the average LVT charge under the selected scenario for each income decile."
           />
+          <div className="mb-5 flex flex-wrap gap-2">
+            <button
+              className={`toggle-button ${taxSwapView === "comparison" ? "active" : ""}`}
+              onClick={() => setTaxSwapView("comparison")}
+            >
+              Side by side
+            </button>
+            <button
+              className={`toggle-button ${taxSwapView === "difference" ? "active" : ""}`}
+              onClick={() => setTaxSwapView("difference")}
+            >
+              Difference
+            </button>
+          </div>
           <div className="h-[360px] w-full">
             <ResponsiveContainer width="100%" height="100%">
-              <BarChart data={taxSwapRows} barGap={6}>
-                <CartesianGrid strokeDasharray="3 3" stroke={PALETTE.grid} />
-                <XAxis dataKey="decile" tick={AXIS_STYLE} tickLine={false} />
-                <YAxis
-                  ticks={taxSwapTicks}
-                  domain={getTickDomain(taxSwapTicks)}
-                  tick={AXIS_STYLE}
-                  tickLine={false}
-                  axisLine={false}
-                  tickFormatter={(value) => formatCompactCurrency(value)}
-                />
-                <Tooltip
-                  content={
-                    <CustomTooltip formatter={(value) => formatCurrency(value)} />
-                  }
-                />
-                <Legend />
-                <Bar
-                  dataKey="avg_council_tax"
-                  name="Council tax"
-                  fill={PALETTE.councilTax}
-                  radius={[6, 6, 0, 0]}
-                />
-                <Bar
-                  dataKey="avg_lvt"
-                  name={`LVT at ${selectedScenario}`}
-                  fill={PALETTE.lvt}
-                  radius={[6, 6, 0, 0]}
-                />
-              </BarChart>
+              {taxSwapView === "comparison" ? (
+                <BarChart data={taxSwapRows} barGap={6}>
+                  <CartesianGrid strokeDasharray="3 3" stroke={PALETTE.grid} />
+                  <XAxis dataKey="decile" tick={AXIS_STYLE} tickLine={false} />
+                  <YAxis
+                    ticks={taxSwapTicks}
+                    domain={getTickDomain(taxSwapTicks)}
+                    tick={AXIS_STYLE}
+                    tickLine={false}
+                    axisLine={false}
+                    tickFormatter={(value) => formatCompactCurrency(value)}
+                  />
+                  <Tooltip
+                    content={
+                      <CustomTooltip formatter={(value) => formatCurrency(value)} />
+                    }
+                  />
+                  <Legend />
+                  <Bar
+                    dataKey="avg_council_tax"
+                    name="Council tax"
+                    fill={PALETTE.councilTax}
+                    radius={[6, 6, 0, 0]}
+                  />
+                  <Bar
+                    dataKey="avg_lvt"
+                    name={`LVT at ${selectedScenario}`}
+                    fill={PALETTE.lvt}
+                    radius={[6, 6, 0, 0]}
+                  />
+                </BarChart>
+              ) : (
+                <BarChart data={taxSwapDiffRows}>
+                  <CartesianGrid strokeDasharray="3 3" stroke={PALETTE.grid} />
+                  <XAxis dataKey="decile" tick={AXIS_STYLE} tickLine={false} />
+                  <YAxis
+                    ticks={taxSwapTicks}
+                    domain={getTickDomain(taxSwapTicks)}
+                    tick={AXIS_STYLE}
+                    tickLine={false}
+                    axisLine={false}
+                    tickFormatter={(value) => formatCompactCurrency(value)}
+                  />
+                  <ReferenceLine y={0} stroke={colors.gray[400]} strokeWidth={1} />
+                  <Tooltip
+                    content={
+                      <CustomTooltip formatter={(value) => formatSignedCurrency(value)} />
+                    }
+                  />
+                  <Bar
+                    dataKey="tax_diff"
+                    name={`LVT minus council tax`}
+                    radius={[6, 6, 0, 0]}
+                  >
+                    {taxSwapDiffRows.map((row) => (
+                      <Cell
+                        key={`${row.decile}-diff`}
+                        fill={row.tax_diff >= 0 ? PALETTE.loss : PALETTE.gain}
+                      />
+                    ))}
+                  </Bar>
+                </BarChart>
+              )}
             </ResponsiveContainer>
           </div>
         </div>
@@ -501,7 +551,7 @@ export default function ReformTab({ data }) {
                   name="Better off"
                   stackId="shares"
                   fill={PALETTE.gain}
-                  radius={[6, 6, 0, 0]}
+                  radius={[0, 0, 6, 6]}
                 />
                 <Bar
                   dataKey="pct_unchanged"
@@ -514,7 +564,7 @@ export default function ReformTab({ data }) {
                   name="Worse off"
                   stackId="shares"
                   fill={PALETTE.loss}
-                  radius={[0, 0, 0, 0]}
+                  radius={[6, 6, 0, 0]}
                 />
               </ComposedChart>
             </ResponsiveContainer>

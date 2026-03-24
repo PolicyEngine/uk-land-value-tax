@@ -82,7 +82,7 @@
     border-bottom: 2px solid transparent;
     background: transparent;
     padding: 14px 22px;
-    font-size: var(--pe-font-size-sm);
+    font-size: 1.1rem;
     font-weight: var(--pe-font-weight-medium);
     color: var(--pe-color-gray-500);
     transition: all 200ms ease;
