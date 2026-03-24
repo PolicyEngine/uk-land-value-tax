@@ -14,6 +14,7 @@ import {
 import SectionHeading from "./SectionHeading";
 import { formatCompactCurrency, formatCurrency, formatTn } from "../lib/formatters";
 import { getNiceTicks, getTickDomain } from "../lib/chartUtils";
+import ChartLogo from "./ChartLogo";
 
 const AXIS_STYLE = {
   fontSize: 12,
@@ -224,6 +225,7 @@ export default function BaselineTab({ data }) {
             </BarChart>
           </ResponsiveContainer>
         </div>
+        <ChartLogo />
       </div>
     </div>
   );

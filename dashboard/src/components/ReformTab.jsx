@@ -34,6 +34,7 @@ import {
   formatSignedPct,
 } from "../lib/formatters";
 import { getNiceTicks, getTickDomain } from "../lib/chartUtils";
+import ChartLogo from "./ChartLogo";
 
 const PALETTE = {
   border: colors.border.light,
@@ -333,6 +334,7 @@ export default function ReformTab({ data }) {
               </BarChart>
             </ResponsiveContainer>
           </div>
+          <ChartLogo />
         </div>
 
         <div className="section-card">
@@ -433,6 +435,7 @@ export default function ReformTab({ data }) {
             </BarChart>
           </ResponsiveContainer>
         </div>
+        <ChartLogo />
       </div>
 
       <div className="grid gap-8 xl:grid-cols-[1.15fr_1fr]">
@@ -522,6 +525,7 @@ export default function ReformTab({ data }) {
               )}
             </ResponsiveContainer>
           </div>
+          <ChartLogo />
         </div>
 
         <div className="section-card">
@@ -569,6 +573,7 @@ export default function ReformTab({ data }) {
               </ComposedChart>
             </ResponsiveContainer>
           </div>
+          <ChartLogo />
         </div>
       </div>
     </div>
