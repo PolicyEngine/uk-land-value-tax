@@ -183,13 +183,13 @@ export default function ReformTab({ data }) {
     <div className="space-y-8">
       <SectionHeading
         title="Replace council tax with land value tax"
-        description="Estimate how a flat annual land value tax reshapes 2026-27 tax burdens relative to council tax. This static first-round simulation captures immediate distributional effects without modelling equilibrium adjustments in land prices, rents, ownership, or local tax design, so the scenarios shown focus on the council-tax-replacement range rather than treating very high LVT rates as literal policy forecasts."
+        description="Static first-round simulation of replacing council tax with a flat-rate land value tax in 2026-27. Shows immediate distributional effects without modelling land price, rent, or ownership adjustments."
       />
 
       <div className="section-card">
           <SectionHeading
             title="Choose a land value tax rate"
-            description="Compare the three scenarios closest to a plausible council-tax replacement range. The revenue line on each card shows how much revenue each scenario raises relative to current council tax."
+            description="Three LVT rates near the council-tax-replacement range. Each card shows how much revenue the rate raises relative to current council tax."
           />
         <div className="grid gap-4 lg:grid-cols-3">
           {scenarioOptions.map((option) => {
@@ -283,7 +283,7 @@ export default function ReformTab({ data }) {
         <div className="section-card">
           <SectionHeading
             title="Current council tax burden"
-            description="If the story is council tax to LVT, the starting point matters. This chart shows how today’s average council tax burden varies across income deciles."
+            description="Average council tax bill (or share of income) by income decile under the 2026-27 baseline, before any LVT reform."
           />
           <div className="mb-5 flex flex-wrap gap-2">
             <button
@@ -340,7 +340,7 @@ export default function ReformTab({ data }) {
         <div className="section-card">
           <SectionHeading
             title="Aggregate outcomes"
-            description="These compact indicators keep the public view near the plausible implementation range."
+            description="Summary of each LVT scenario: average household impact, share of households gaining, and changes to poverty rates and income inequality (Gini)."
           />
           <div className="overflow-x-auto">
             <table className="data-table">
@@ -377,7 +377,7 @@ export default function ReformTab({ data }) {
       <div className="section-card">
         <SectionHeading
           title="Distributional impact of the swap"
-          description={`At ${selectedScenario}, the chart below shows the average 2026-27 net change in household income after abolishing council tax and applying the selected LVT rate.`}
+          description={`Average net change in 2026-27 household income by decile after abolishing council tax and applying a ${selectedScenario} LVT rate.`}
         />
         <div className="mb-5 flex flex-wrap gap-2">
           <button
@@ -442,7 +442,7 @@ export default function ReformTab({ data }) {
         <div className="section-card">
           <SectionHeading
             title="Current council tax versus proposed LVT"
-            description="This puts the swap itself in view, by showing the average council tax bill and the average LVT charge under the selected scenario for each income decile."
+            description="Average council tax bill versus average LVT charge by income decile under the selected scenario."
           />
           <div className="mb-5 flex flex-wrap gap-2">
             <button
@@ -531,7 +531,7 @@ export default function ReformTab({ data }) {
         <div className="section-card">
           <SectionHeading
             title="Winners and losers"
-            description="Each decile contains the same share of households, so this chart shows who comes out ahead or behind within those groups."
+            description="Share of households in each income decile that are better off, worse off, or unchanged under the selected council-tax-to-LVT swap."
           />
           <div className="h-[360px] w-full">
             <ResponsiveContainer width="100%" height="100%">

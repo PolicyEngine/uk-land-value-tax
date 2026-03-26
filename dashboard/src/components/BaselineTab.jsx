@@ -74,7 +74,7 @@ export default function BaselineTab({ data }) {
     <div className="space-y-8">
       <SectionHeading
         title="Land baseline"
-        description="Use this tab to interpret the council-tax-to-LVT simulation: review the size of the modelled land base, compare it with official targets, and see how land values vary across households."
+        description="Overview of the UK's modelled land base for 2026-27: aggregate land values, comparison with ONS targets, and how household land ownership varies by region, country, and income."
       />
 
       <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
@@ -119,7 +119,7 @@ export default function BaselineTab({ data }) {
         <div className="section-card">
           <SectionHeading
             title="Official comparison"
-            description="Targets come directly from policyengine-uk-data, which pulls the ONS National Balance Sheet totals used for land calibration."
+            description="Modelled 2026-27 land values compared with ONS National Balance Sheet 2024-25 totals for household, corporate, and total land."
           />
           <table className="data-table">
             <thead>
@@ -153,7 +153,7 @@ export default function BaselineTab({ data }) {
         <div className="section-card">
           <SectionHeading
             title="Average land value by group"
-            description="Corporate land is attributed through shareholdings, so this is a total household land estimate rather than only directly owned plots."
+            description="Average household land value (the land component of residential property) by region, country, or household type. Excludes corporate land."
           />
           <div className="mb-5 flex flex-wrap gap-2">
             {Object.entries(TABLE_VIEW_CONFIG).map(([view, config]) => (
@@ -175,7 +175,7 @@ export default function BaselineTab({ data }) {
                 </tr>
               </thead>
               <tbody>
-                {tableRows.map((row) => (
+                {[...tableRows].sort((a, b) => b.avg_land_value - a.avg_land_value).map((row) => (
                   <tr key={row.group}>
                     <td>{row.group}</td>
                     <td>{formatCurrency(row.avg_land_value)}</td>
@@ -190,7 +190,7 @@ export default function BaselineTab({ data }) {
       <div className="section-card">
         <SectionHeading
           title="Land value by income decile"
-          description="This is the one decile baseline view worth keeping in the public app: the average land value held by households in each income decile."
+          description="Average household land value by equivalised household income decile, showing how residential land ownership concentrates toward higher-income households."
         />
         <div className="h-[340px] w-full">
           <ResponsiveContainer width="100%" height="100%">
