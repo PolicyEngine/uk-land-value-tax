@@ -61,7 +61,7 @@
   }
 
   .title-row h1 {
-    font-size: clamp(1.35rem, 3vw, 1.85rem);
+    font-size: clamp(1.1rem, 2.5vw, 1.5rem);
     font-weight: var(--pe-font-weight-bold);
     letter-spacing: -0.03em;
     line-height: 1.1;

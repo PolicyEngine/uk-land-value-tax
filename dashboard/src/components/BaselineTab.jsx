@@ -22,6 +22,11 @@ const AXIS_STYLE = {
 };
 
 const TABLE_VIEW_CONFIG = {
+  family: {
+    buttonLabel: "Household type",
+    headingLabel: "Household type",
+    rowsKey: "avg_land_by_family_type",
+  },
   region: {
     buttonLabel: "Region",
     headingLabel: "Region",
@@ -31,11 +36,6 @@ const TABLE_VIEW_CONFIG = {
     buttonLabel: "Country",
     headingLabel: "Country",
     rowsKey: "avg_land_by_country",
-  },
-  family: {
-    buttonLabel: "Household type",
-    headingLabel: "Household type",
-    rowsKey: "avg_land_by_family_type",
   },
 };
 
@@ -61,7 +61,7 @@ function CustomTooltip({ active, payload, label }) {
 }
 
 export default function BaselineTab({ data }) {
-  const [tableView, setTableView] = useState("region");
+  const [tableView, setTableView] = useState("family");
   const tableConfig = TABLE_VIEW_CONFIG[tableView];
   const tableRows = data[tableConfig.rowsKey];
   const comparison = data.ons_comparison;
@@ -74,7 +74,7 @@ export default function BaselineTab({ data }) {
     <div className="space-y-8">
       <SectionHeading
         title="Land baseline"
-        description="Overview of the UK's modelled land base for 2026-27: aggregate land values, comparison with ONS targets, and how household land ownership varies by region, country, and income."
+        description="Overview of the UK's modelled land base for 2026-27: aggregate land values representing the estimated land component of all property wealth, comparison with ONS targets, and how household land ownership varies by region, country, and income."
       />
 
       <div className="grid gap-4 md:grid-cols-3">
