@@ -102,17 +102,6 @@ export default function BaselineTab({ data }) {
             {formatTn(data.baseline.corporate_land_tn)}
           </div>
         </div>
-        <div className="metric-card">
-          <div className="text-xs font-medium uppercase tracking-[0.08em] text-slate-500">
-            Model vs target
-          </div>
-          <div className="mt-2 text-3xl font-bold tracking-tight text-slate-900">
-            {comparison.model_vs_target_pct}%
-          </div>
-          <div className="mt-2 text-sm text-slate-500">
-            Modelled 2026-27 total land value as a share of the ONS 2024-25 target.
-          </div>
-        </div>
       </div>
 
       <div className="grid gap-8 xl:grid-cols-[1fr_1.15fr]">
