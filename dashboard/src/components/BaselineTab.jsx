@@ -77,7 +77,7 @@ export default function BaselineTab({ data }) {
         description="Overview of the UK's modelled land base for 2026-27: aggregate land values, comparison with ONS targets, and how household land ownership varies by region, country, and income."
       />
 
-      <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+      <div className="grid gap-4 md:grid-cols-3">
         <div className="metric-card">
           <div className="text-xs font-medium uppercase tracking-[0.08em] text-slate-500">
             Total land value
@@ -100,17 +100,6 @@ export default function BaselineTab({ data }) {
           </div>
           <div className="mt-2 text-3xl font-bold tracking-tight text-slate-900">
             {formatTn(data.baseline.corporate_land_tn)}
-          </div>
-        </div>
-        <div className="metric-card">
-          <div className="text-xs font-medium uppercase tracking-[0.08em] text-slate-500">
-            Model vs target
-          </div>
-          <div className="mt-2 text-3xl font-bold tracking-tight text-slate-900">
-            {comparison.model_vs_target_pct}%
-          </div>
-          <div className="mt-2 text-sm text-slate-500">
-            Modelled 2026-27 total land value as a share of the ONS 2024-25 target.
           </div>
         </div>
       </div>
