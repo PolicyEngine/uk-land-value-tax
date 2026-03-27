@@ -77,7 +77,7 @@ export default function BaselineTab({ data }) {
         description="Overview of the UK's modelled land base for 2026-27: aggregate land values, comparison with ONS targets, and how household land ownership varies by region, country, and income."
       />
 
-      <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+      <div className="grid gap-4 md:grid-cols-3">
         <div className="metric-card">
           <div className="text-xs font-medium uppercase tracking-[0.08em] text-slate-500">
             Total land value
