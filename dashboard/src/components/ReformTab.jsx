@@ -27,6 +27,7 @@ import {
   formatBn,
   formatCompactCurrency,
   formatCurrency,
+  formatGiniChange,
   formatPct,
   formatPercentagePointChange,
   formatSignedBn,
@@ -351,7 +352,7 @@ export default function ReformTab({ data }) {
                   <th>Gaining</th>
                   <th>BHC poverty</th>
                   <th>AHC poverty</th>
-                  <th>Gini</th>
+                  <th>Gini change</th>
                 </tr>
               </thead>
               <tbody>
@@ -365,7 +366,7 @@ export default function ReformTab({ data }) {
                     <td>{formatPct(row.pct_winners)}</td>
                     <td>{formatPercentagePointChange(row.poverty_bhc_change)}</td>
                     <td>{formatPercentagePointChange(row.poverty_ahc_change)}</td>
-                    <td>{formatSignedPct(row.gini_change_pct, 2)}</td>
+                    <td>{formatGiniChange(row.gini_change)}</td>
                   </tr>
                 ))}
               </tbody>

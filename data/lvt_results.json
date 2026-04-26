@@ -1039,8 +1039,7 @@
         "poverty_bhc_change": -1.88,
         "poverty_ahc_change": -1.46,
         "gini": 0.3621,
-        "gini_change": -0.0038,
-        "gini_change_pct": -1.05
+        "gini_change": -0.0038
       },
       "0.85%": {
         "poverty_bhc": 12.83,
@@ -1048,8 +1047,7 @@
         "poverty_bhc_change": -0.91,
         "poverty_ahc_change": -1.02,
         "gini": 0.3666,
-        "gini_change": 0.0007,
-        "gini_change_pct": 0.19
+        "gini_change": 0.0007
       },
       "1.0%": {
         "poverty_bhc": 13.45,
@@ -1057,8 +1055,7 @@
         "poverty_bhc_change": -0.29,
         "poverty_ahc_change": -0.67,
         "gini": 0.3688,
-        "gini_change": 0.0029,
-        "gini_change_pct": 0.79
+        "gini_change": 0.0029
       },
       "1.5%": {
         "poverty_bhc": 14.67,
@@ -1066,8 +1063,7 @@
         "poverty_bhc_change": 0.93,
         "poverty_ahc_change": 0.68,
         "gini": 0.3768,
-        "gini_change": 0.0109,
-        "gini_change_pct": 2.98
+        "gini_change": 0.0109
       },
       "2.0%": {
         "poverty_bhc": 15.73,
@@ -1075,8 +1071,7 @@
         "poverty_bhc_change": 1.99,
         "poverty_ahc_change": 2.11,
         "gini": 0.3862,
-        "gini_change": 0.0203,
-        "gini_change_pct": 5.54
+        "gini_change": 0.0203
       },
       "3.0%": {
         "poverty_bhc": 19.4,
@@ -1084,8 +1079,7 @@
         "poverty_bhc_change": 5.66,
         "poverty_ahc_change": 5.87,
         "gini": 0.4087,
-        "gini_change": 0.0428,
-        "gini_change_pct": 11.7
+        "gini_change": 0.0428
       },
       "5.0%": {
         "poverty_bhc": 25.39,
@@ -1093,8 +1087,7 @@
         "poverty_bhc_change": 11.65,
         "poverty_ahc_change": 11.57,
         "gini": 0.4697,
-        "gini_change": 0.1038,
-        "gini_change_pct": 28.36
+        "gini_change": 0.1038
       }
     }
   },

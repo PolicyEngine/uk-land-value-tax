@@ -305,10 +305,6 @@ def build_results(
             ),
             "gini": round(reform_gini, 4),
             "gini_change": round(reform_gini - baseline_gini, 4),
-            "gini_change_pct": round(
-                (reform_gini - baseline_gini) / baseline_gini * 100,
-                2,
-            ),
         }
 
         impact_df = pd.DataFrame(
