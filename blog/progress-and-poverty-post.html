@@ -114,7 +114,7 @@
 
   <p class="byline">By Vahid Ahmadi, PolicyEngine &middot; April 2026</p>
 
-  <p>Council tax in England and <a href="https://www.saa.gov.uk/council-tax/council-tax-bands/">Scotland</a> is calculated from property valuations carried out in <a href="https://valuationoffice.blog.gov.uk/2023/06/05/how-properties-are-valued-for-council-tax/">April 1991</a>, with bands capped at Band H (<a href="https://www.legislation.gov.uk/wsi/2003/3046/made/data.html">Wales rebanded in 2003</a>; <a href="https://www.nidirect.gov.uk/articles/how-rate-bills-are-calculated">Northern Ireland</a> uses a separate domestic rates system based on 2005 valuations). Because the England and Scotland valuations are three decades old and the bands compress at the top, council tax falls as a share of property value for homes above the lower bands. The <a href="https://www.nuffieldfoundation.org/news/mirrlees-review-of-tax-system-recommends-radical-changes#:~:text=Stamp%20duty%20should%20be%20abolished%20and%20council%20tax%20reformed%20so%20that%20payments%20are%20fully%20proportional%20to%20house%20value">Mirrlees Review</a>, the <a href="https://ifs.org.uk/articles/council-tax-needs-urgent-reform-not-being-frozen-time-1991">IFS</a>, <a href="https://www.inet.ox.ac.uk/news/property-tax-reform-proposal-gains-momentum-ahead-of-uk-budget#:~:text=Replacing%20the%20top%20two%20Council%20Tax%20bands">John Muellbauer</a>, and the <a href="https://fairershare.org.uk/three-broken-taxes-one-simple-fix-a-proportional-property-tax-for-britain/#:~:text=Replacing%20them%20with%20a%20single%20Proportional%20Property%20Tax">Fairer Share</a> campaign have proposed reforms that move property taxation closer to current property or land values. This post models one option: replacing council tax with a flat land value tax (LVT).</p>
+  <p>Council tax in England and <a href="https://www.saa.gov.uk/council-tax/council-tax-bands/">Scotland</a> is calculated from property valuations carried out in <a href="https://valuationoffice.blog.gov.uk/2023/06/05/how-properties-are-valued-for-council-tax/">April 1991</a>, with bands capped at Band H (<a href="https://www.gov.uk/guidance/council-tax-manual/section-1-introduction-and-essential-background">Wales revalued from 1 April 2005 using a 1 April 2003 valuation date</a>; <a href="https://www.nidirect.gov.uk/articles/how-rate-bills-are-calculated">Northern Ireland</a> uses a separate domestic rates system based on 2005 valuations). Because the England and Scotland valuations are three decades old and the bands compress at the top, council tax falls as a share of property value for homes above the lower bands. The <a href="https://www.nuffieldfoundation.org/news/mirrlees-review-of-tax-system-recommends-radical-changes#:~:text=Stamp%20duty%20should%20be%20abolished%20and%20council%20tax%20reformed%20so%20that%20payments%20are%20fully%20proportional%20to%20house%20value">Mirrlees Review</a>, the <a href="https://ifs.org.uk/articles/council-tax-needs-urgent-reform-not-being-frozen-time-1991">IFS</a>, <a href="https://www.inet.ox.ac.uk/news/property-tax-reform-proposal-gains-momentum-ahead-of-uk-budget#:~:text=Replacing%20the%20top%20two%20Council%20Tax%20bands">John Muellbauer</a>, and the <a href="https://fairershare.org.uk/three-broken-taxes-one-simple-fix-a-proportional-property-tax-for-britain/#:~:text=Replacing%20them%20with%20a%20single%20Proportional%20Property%20Tax">Fairer Share</a> campaign have proposed reforms that move property taxation closer to current property or land values. This post models one option: replacing council tax with a flat land value tax (LVT).</p>
 
   <p><a href="https://policyengine.org/uk">PolicyEngine UK</a> is a household-level microsimulation that estimates the effects of policy reforms for individual UK households and aggregate groups at any LVT rate. This post describes the model, presents the headline findings from a revenue-neutral swap of council tax for a flat LVT, and outlines where the model goes next.</p>
 
@@ -132,22 +132,22 @@
 
   <h3>UK land value</h3>
 
-  <p>This part reports the aggregate UK land value that forms the LVT base. Table 1 compares the modelled 2026-27 aggregate with the <a href="https://www.ons.gov.uk/economy/nationalaccounts/uksectoraccounts/bulletins/nationalbalancesheet/2025">ONS National Balance Sheet</a> 2024 target.</p>
+  <p>This part reports the aggregate UK land value that forms the LVT base. Table 1 compares the modelled 2026-27 aggregate with the <a href="https://www.ons.gov.uk/economy/nationalaccounts/uksectoraccounts/bulletins/nationalbalancesheet/2025">ONS National Balance Sheet</a> 2024 aggregate target. The household and corporate columns are PolicyEngine components, not ONS sector targets.</p>
 
-  <div class="fig-title">Table 1: UK land value, modelled vs ONS target</div>
+  <div class="fig-title">Table 1: UK land value, modelled vs ONS aggregate target</div>
   <div class="table-wrap">
     <table>
       <thead>
         <tr>
           <th>Source</th>
           <th>Period</th>
-          <th class="num">Household</th>
-          <th class="num">Corporate</th>
+          <th class="num">Direct household</th>
+          <th class="num">Attributed corporate</th>
           <th class="num">Total</th>
         </tr>
       </thead>
       <tbody>
-        <tr><td><a href="https://www.ons.gov.uk/economy/nationalaccounts/uksectoraccounts/bulletins/nationalbalancesheet/2025">ONS National Balance Sheet</a></td><td>2024</td><td class="num">£5.04tn</td><td class="num">£2.06tn</td><td class="num">£7.10tn</td></tr>
+        <tr><td><a href="https://www.ons.gov.uk/economy/nationalaccounts/uksectoraccounts/bulletins/nationalbalancesheet/2025">ONS National Balance Sheet</a></td><td>2024</td><td class="num">n/a</td><td class="num">n/a</td><td class="num">£7.10tn</td></tr>
         <tr><td>PolicyEngine UK</td><td>2026-27</td><td class="num">£5.17tn</td><td class="num">£2.06tn</td><td class="num">£7.23tn</td></tr>
       </tbody>
     </table>
