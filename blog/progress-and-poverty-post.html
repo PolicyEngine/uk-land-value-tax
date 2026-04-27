@@ -114,7 +114,7 @@
 
   <p class="byline">By Vahid Ahmadi, PolicyEngine &middot; April 2026</p>
 
-  <p>England and <a href="https://www.saa.gov.uk/council-tax/council-tax-bands/">Scotland</a> still base council tax on property valuations from <a href="https://valuationoffice.blog.gov.uk/2023/06/05/how-properties-are-valued-for-council-tax/">April 1991</a> and cap bands at Band H (<a href="https://www.gov.uk/guidance/council-tax-manual/section-1-introduction-and-essential-background">Wales revalued from 1 April 2005 using a 1 April 2003 valuation date</a>; <a href="https://www.nidirect.gov.uk/articles/how-rate-bills-are-calculated">Northern Ireland</a> uses 2005 valuations for its separate domestic rates system). Because the England and Scotland valuations are three decades old and the bands compress at the top, council tax falls as a share of property value for homes above the lower bands. The <a href="https://www.nuffieldfoundation.org/news/mirrlees-review-of-tax-system-recommends-radical-changes#:~:text=Stamp%20duty%20should%20be%20abolished%20and%20council%20tax%20reformed%20so%20that%20payments%20are%20fully%20proportional%20to%20house%20value">Mirrlees Review</a>, the <a href="https://ifs.org.uk/articles/council-tax-needs-urgent-reform-not-being-frozen-time-1991">IFS</a>, <a href="https://www.inet.ox.ac.uk/news/property-tax-reform-proposal-gains-momentum-ahead-of-uk-budget#:~:text=Replacing%20the%20top%20two%20Council%20Tax%20bands">John Muellbauer</a>, and the <a href="https://fairershare.org.uk/three-broken-taxes-one-simple-fix-a-proportional-property-tax-for-britain/#:~:text=Replacing%20them%20with%20a%20single%20Proportional%20Property%20Tax">Fairer Share</a> campaign have proposed reforms that move property taxation closer to current property or land values. This post models one option: replacing council tax with a flat land value tax (LVT).</p>
+  <p>England and <a href="https://www.saa.gov.uk/council-tax/council-tax-bands/">Scotland</a> still base council tax on property valuations from <a href="https://valuationoffice.blog.gov.uk/2023/06/05/how-properties-are-valued-for-council-tax/">April 1991</a> and cap bands at Band H (<a href="https://www.gov.uk/guidance/council-tax-manual/section-1-introduction-and-essential-background">Wales revalued from 1 April 2005 using a 1 April 2003 valuation date</a>; <a href="https://www.nidirect.gov.uk/articles/how-rate-bills-are-calculated">Northern Ireland</a> uses 2005 valuations for its separate domestic rates system). Because the England and Scotland valuations are three decades old and the bands compress at the top, council tax falls as a share of property value for homes above the lower bands. The <a href="https://www.nuffieldfoundation.org/news/mirrlees-review-of-tax-system-recommends-radical-changes">Mirrlees Review</a>, the <a href="https://ifs.org.uk/articles/council-tax-needs-urgent-reform-not-being-frozen-time-1991">IFS</a>, <a href="https://www.inet.ox.ac.uk/news/property-tax-reform-proposal-gains-momentum-ahead-of-uk-budget">John Muellbauer</a>, and the <a href="https://fairershare.org.uk/three-broken-taxes-one-simple-fix-a-proportional-property-tax-for-britain/">Fairer Share</a> campaign have proposed reforms that move property taxation closer to current property or land values. This post models one option: replacing council tax with a flat land value tax (LVT).</p>
 
   <p><a href="https://policyengine.org/uk">PolicyEngine UK</a> is a household-level microsimulation that estimates the effects of policy reforms for individual UK households and aggregate groups at any LVT rate. This post describes the model, presents the headline findings from a revenue-neutral swap of council tax for a flat LVT, and outlines where the model goes next.</p>
 
@@ -128,11 +128,11 @@
 
   <h2>The PolicyEngine UK model</h2>
 
-  <p>This section describes the simulation, the land-value data that forms the LVT base, and the distribution of land value across UK households. <a href="https://github.com/PolicyEngine/policyengine-uk">PolicyEngine UK</a> 2.86.12 produces this analysis using its open-source static microsimulation model for UK tax and benefit reforms. The simulation uses the <a href="https://github.com/PolicyEngine/policyengine-uk-data">Enhanced Family Resources Survey 2023-24</a>, attributes a directly held land-value component to every household, attributes aggregate corporate land to households through corporate wealth, calibrates the aggregate to the <a href="https://www.ons.gov.uk/economy/nationalaccounts/uksectoraccounts/bulletins/nationalbalancesheet/2025">ONS National Balance Sheet</a> (series AN.211, 2024 target of £7.1 trillion), and uprates to 2026-27 using OBR per-capita nominal GDP projections. The model reports revenue, distributional, poverty, and inequality outcomes at any LVT rate, for every income decile and family type. All figures are for the 2026-27 financial year.</p>
+  <p>The sections below describe the simulation, the land-value data that forms the LVT base, and the distribution of land value across UK households. <a href="https://github.com/PolicyEngine/policyengine-uk">PolicyEngine UK</a> 2.86.12 produced this analysis using its open-source static microsimulation model for UK tax and benefit reforms. The simulation uses the <a href="https://github.com/PolicyEngine/policyengine-uk-data">Enhanced Family Resources Survey 2023-24</a>, attributes a directly held land-value component to every household, attributes aggregate corporate land to households through corporate wealth, calibrates the aggregate to the <a href="https://www.ons.gov.uk/economy/nationalaccounts/uksectoraccounts/bulletins/nationalbalancesheet/2025">ONS National Balance Sheet</a> (series AN.211, 2024 target of £7.1 trillion), and uprates to 2026-27 using per-capita nominal GDP growth from the <a href="https://obr.uk/efo/economic-and-fiscal-outlook-march-2025/">OBR March 2025 Economic and Fiscal Outlook</a>. The model reports revenue, distributional, poverty, and inequality outcomes at any LVT rate, for every income decile and family type. All figures are for the 2026-27 financial year.</p>
 
   <h3>UK land value</h3>
 
-  <p>This part reports the aggregate UK land value that forms the LVT base. Table 1 compares the modelled 2026-27 aggregate with the <a href="https://www.ons.gov.uk/economy/nationalaccounts/uksectoraccounts/bulletins/nationalbalancesheet/2025">ONS National Balance Sheet</a> 2024 aggregate target. The household and corporate columns are PolicyEngine components, not ONS sector targets.</p>
+  <p>Table 1 compares the modelled 2026-27 aggregate with the <a href="https://www.ons.gov.uk/economy/nationalaccounts/uksectoraccounts/bulletins/nationalbalancesheet/2025">ONS National Balance Sheet</a> 2024 aggregate target. The household and corporate columns are PolicyEngine components, not ONS sector targets.</p>
 
   <div class="fig-title">Table 1: UK land value, modelled vs ONS aggregate target</div>
   <div class="table-wrap">
@@ -153,11 +153,11 @@
     </table>
   </div>
 
-  <p>PolicyEngine UK estimates total UK land value at £7.23 trillion in 2026-27: households hold £5.17 trillion directly and £2.06 trillion through the corporate sector, 1.8% above the ONS 2024 aggregate after OBR uprating. Land that households hold directly equals 67% of UK property wealth; total land, including corporate land that the model attributes to households, equals 35% of household wealth.</p>
+  <p>PolicyEngine UK estimates total UK land value at £7.23 trillion in 2026-27: households hold £5.17 trillion directly and £2.06 trillion through the corporate sector, 1.8% above the ONS 2024 aggregate after uprating with per-capita nominal GDP growth from the <a href="https://obr.uk/efo/economic-and-fiscal-outlook-march-2025/">OBR March 2025 Economic and Fiscal Outlook</a>. Land that households hold directly equals 67% of UK property wealth; total land, including corporate land that the model attributes to households, equals 35% of household wealth.</p>
 
   <h3>Land ownership</h3>
 
-  <p>This part reports how households hold UK land value across income deciles, regions and countries, and household types. Figure 1 shows average household land value by income decile.</p>
+  <p>Figure 1 shows average household land value by income decile, with regional and household-type breakdowns following.</p>
 
   <div class="fig-title">Figure 1: Average household land value by income decile, 2026-27</div>
   <figure>
@@ -330,11 +330,11 @@
 
   <h2>The reform</h2>
 
-  <p>We model a reform that abolishes council tax in England, Wales, and Scotland, and the equivalent domestic rates in Northern Ireland, and replaces them with a flat LVT on all UK land value at the rate that maintains aggregate revenue. For distributional results, the model assigns the first-round burden to current landowners and wealth holders: households face the tax on directly held land, and corporate land flows to households through corporate wealth. No other taxes or benefits change. The parts below report the outcomes at a range of LVT rates, the household-level distributional impact at the budget-neutral rate, and the share of households that gain or lose.</p>
+  <p>The reform abolishes council tax (and Northern Ireland's equivalent domestic rates) and replaces it with a flat LVT on all UK land value, set at the revenue-neutral rate. For distributional results, the model assigns the first-round burden to current landowners: directly for household-held land, and indirectly via corporate equity for corporate land. No other taxes or benefits change. The parts below report outcomes at a range of LVT rates, the household-level distributional impact at the budget-neutral rate, and the share of households with higher net income.</p>
 
   <h3>Outcomes at different LVT rates</h3>
 
-  <p>This part derives the budget-neutral LVT rate and reports outcomes at a range of rates. PolicyEngine UK estimates £61.2 billion per year from council tax (and equivalent Northern Ireland domestic rates). Dividing that by £7.23 trillion of UK land value gives a budget-neutral LVT rate of <strong>0.85%</strong>. Table 2 reports revenue (relative to the current baseline), the share of households with higher net income, the change in relative before-housing-costs poverty, and the change in the Gini coefficient at three illustrative rates: 0.5%, 0.85% (budget-neutral), and 1.0%.</p>
+  <p>UK council tax (with Northern Ireland's equivalent domestic rates) raises £61.2 billion per year. Dividing that by £7.23 trillion of UK land value gives a budget-neutral LVT rate of <strong>0.85%</strong>. Table 2 reports revenue (relative to the current baseline), the share of households with higher net income, the change in relative before-housing-costs poverty, and the change in the Gini coefficient at three illustrative rates: 0.5%, 0.85% (budget-neutral), and 1.0%.</p>
 
   <div class="fig-title">Table 2: Outcomes at selected LVT rates, replacing council tax, 2026-27</div>
   <div class="table-wrap">
@@ -360,7 +360,7 @@
 
   <h3>Distributional impact</h3>
 
-  <p>This part reports the household-level impact of the 0.85% reform by income decile: average council tax today, the LVT replacement bill, and the net change in pounds and as a share of income. Table 3 shows the average household impact by income decile at the budget-neutral 0.85% rate. Rounding means averages will not sum exactly to zero.</p>
+  <p>Table 3 reports the household-level impact of the 0.85% reform by income decile: average council tax today, the LVT bill at the budget-neutral rate, and the net change in pounds and as a share of household net income (post-tax-and-benefit, not equivalised). Rounding means averages will not sum exactly to zero.</p>
 
   <div class="fig-title">Table 3: Average household impact by income decile, 0.85% LVT replacing council tax, 2026-27</div>
   <div class="table-wrap">
@@ -371,7 +371,7 @@
           <th class="num">Council tax (baseline)</th>
           <th class="num">LVT replacement (0.85%)</th>
           <th class="num">Net change</th>
-          <th class="num">% of income</th>
+          <th class="num">% of net income</th>
         </tr>
       </thead>
       <tbody>
@@ -389,7 +389,7 @@
     </table>
   </div>
 
-  <p>Deciles 1, 3, 4, 5, 6, and 7 gain on average; deciles 2, 8, 9, and 10 lose. The bottom decile gains £386 per year (2.2% of income); the top decile loses £1,035 per year (0.8% of income). Decile 2 loses on average because its average land value (£200,000) exceeds the average for deciles 3, 4, and 5, while its average council tax bill is lower than theirs. Figure 4 plots the same impact in pounds per year.</p>
+  <p>Deciles 1, 3, 4, 5, 6, and 7 gain on average; deciles 2, 8, 9, and 10 lose. The bottom decile gains £386 per year (2.2% of net income); the top decile loses £1,035 per year (0.8% of net income). Decile 2 loses on average because its average land value (£200,000) exceeds the average for deciles 3, 4, and 5, while its average council tax bill is lower than theirs. Figure 4 plots the same impact in pounds per year.</p>
 
   <div class="fig-title">Figure 4: Average net income change by income decile, 2026-27 (£/year)</div>
   <figure>
@@ -461,7 +461,7 @@
 
   <h3>Households with net income increases and decreases</h3>
 
-  <p>This part reports the share of households with higher, lower, or unchanged net income under the 0.85% reform, by income decile. Figure 5 shows the breakdown.</p>
+  <p>Figure 5 shows the share of households with higher, lower, or unchanged net income under the 0.85% reform, by income decile.</p>
 
   <div class="fig-title">Figure 5: Share of households with higher, lower, and unchanged net income by income decile, 0.85% LVT replacing council tax, 2026-27 (%)</div>
   <figure>
@@ -554,15 +554,15 @@
       <text class="chart-axis-title" x="32" y="180" text-anchor="middle" transform="rotate(-90 32 180)">Income decile</text>
 
       <rect class="bar-gain" x="200" y="386" width="14" height="14" />
-      <text class="chart-label" x="220" y="398">Higher income</text>
+      <text class="chart-label" x="220" y="398">Higher net income</text>
       <rect x="300" y="386" width="14" height="14" fill="#9ca3af" />
       <text class="chart-label" x="320" y="398">Unchanged</text>
       <rect class="bar-loss" x="420" y="386" width="14" height="14" />
-      <text class="chart-label" x="440" y="398">Lower income</text>
+      <text class="chart-label" x="440" y="398">Lower net income</text>
     </svg>
   </figure>
 
-  <p>Overall, 68% of households have higher net income, 31% have lower net income, and 1% see no change. In the top decile, 47% gain and 53% lose; in the bottom decile, 76% gain and 21% lose.</p>
+  <p>Overall, 68% of households have higher net income, 31% have lower net income, and 1% see no change. In the top decile, 47% have higher net income and 53% lower; in the bottom decile, 76% have higher net income and 21% lower.</p>
 
   <h2>Summary and next steps</h2>
 
