@@ -53,6 +53,37 @@ const AXIS_STYLE = {
   fill: colors.gray[500],
 };
 
+function makeStackBarShape({ topRadius, bottomRadius, isTopSegment }) {
+  return function StackBarShape(props) {
+    const { x, y, width, height, fill, payload } = props;
+    if (!height) return null;
+    const top = isTopSegment(payload) ? topRadius : 0;
+    const bottom = bottomRadius;
+    if (!top && !bottom) {
+      return <rect x={x} y={y} width={width} height={height} fill={fill} />;
+    }
+    const r = (corner) => Math.min(corner, width / 2, height);
+    const tl = r(top);
+    const tr = r(top);
+    const br = r(bottom);
+    const bl = r(bottom);
+    const path = [
+      `M${x},${y + tl}`,
+      tl ? `Q${x},${y} ${x + tl},${y}` : `L${x},${y}`,
+      `L${x + width - tr},${y}`,
+      tr ? `Q${x + width},${y} ${x + width},${y + tr}` : `L${x + width},${y}`,
+      `L${x + width},${y + height - br}`,
+      br
+        ? `Q${x + width},${y + height} ${x + width - br},${y + height}`
+        : `L${x + width},${y + height}`,
+      `L${x + bl},${y + height}`,
+      bl ? `Q${x},${y + height} ${x},${y + height - bl}` : `L${x},${y + height}`,
+      "Z",
+    ].join(" ");
+    return <path d={path} fill={fill} />;
+  };
+}
+
 function DecileBasisToggle({ value, onChange }) {
   return (
     <div className="ml-auto inline-flex items-center gap-2 text-xs text-slate-500">
@@ -606,20 +637,35 @@ export default function ReformTab({ data }) {
                   name="Better off"
                   stackId="shares"
                   fill={PALETTE.gain}
-                  radius={[0, 0, 6, 6]}
+                  shape={makeStackBarShape({
+                    topRadius: 6,
+                    bottomRadius: 6,
+                    isTopSegment: (row) =>
+                      Number(row.pct_unchanged || 0) === 0 &&
+                      Number(row.pct_losers || 0) === 0,
+                  })}
                 />
                 <Bar
                   dataKey="pct_unchanged"
                   name="No change"
                   stackId="shares"
                   fill={PALETTE.neutral}
+                  shape={makeStackBarShape({
+                    topRadius: 6,
+                    bottomRadius: 0,
+                    isTopSegment: (row) => Number(row.pct_losers || 0) === 0,
+                  })}
                 />
                 <Bar
                   dataKey="pct_losers"
                   name="Worse off"
                   stackId="shares"
                   fill={PALETTE.loss}
-                  radius={[6, 6, 0, 0]}
+                  shape={makeStackBarShape({
+                    topRadius: 6,
+                    bottomRadius: 0,
+                    isTopSegment: () => true,
+                  })}
                 />
               </ComposedChart>
             </ResponsiveContainer>
