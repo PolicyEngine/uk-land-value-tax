@@ -53,6 +53,69 @@ const AXIS_STYLE = {
   fill: colors.gray[500],
 };
 
+function makeStackBarShape({ topRadius, bottomRadius, isTopSegment }) {
+  return function StackBarShape(props) {
+    const { x, y, width, height, fill, payload } = props;
+    if (!height) return null;
+    const top = isTopSegment(payload) ? topRadius : 0;
+    const bottom = bottomRadius;
+    if (!top && !bottom) {
+      return <rect x={x} y={y} width={width} height={height} fill={fill} />;
+    }
+    const r = (corner) => Math.min(corner, width / 2, height);
+    const tl = r(top);
+    const tr = r(top);
+    const br = r(bottom);
+    const bl = r(bottom);
+    const path = [
+      `M${x},${y + tl}`,
+      tl ? `Q${x},${y} ${x + tl},${y}` : `L${x},${y}`,
+      `L${x + width - tr},${y}`,
+      tr ? `Q${x + width},${y} ${x + width},${y + tr}` : `L${x + width},${y}`,
+      `L${x + width},${y + height - br}`,
+      br
+        ? `Q${x + width},${y + height} ${x + width - br},${y + height}`
+        : `L${x + width},${y + height}`,
+      `L${x + bl},${y + height}`,
+      bl ? `Q${x},${y + height} ${x},${y + height - bl}` : `L${x},${y + height}`,
+      "Z",
+    ].join(" ");
+    return <path d={path} fill={fill} />;
+  };
+}
+
+function DecileBasisToggle({ value, onChange }) {
+  return (
+    <div className="ml-auto inline-flex items-center gap-2 text-xs text-slate-500">
+      <span className="font-medium uppercase tracking-[0.06em]">Deciles by</span>
+      <div className="inline-flex rounded-lg border border-slate-200 bg-white p-0.5">
+        <button
+          type="button"
+          className={`rounded-md px-2.5 py-1 text-xs font-medium transition ${
+            value === "income"
+              ? "bg-slate-900 text-white"
+              : "text-slate-600 hover:text-slate-900"
+          }`}
+          onClick={() => onChange("income")}
+        >
+          Income
+        </button>
+        <button
+          type="button"
+          className={`rounded-md px-2.5 py-1 text-xs font-medium transition ${
+            value === "wealth"
+              ? "bg-slate-900 text-white"
+              : "text-slate-600 hover:text-slate-900"
+          }`}
+          onClick={() => onChange("wealth")}
+        >
+          Wealth
+        </button>
+      </div>
+    </div>
+  );
+}
+
 function CustomTooltip({ active, payload, label, formatter }) {
   if (!active || !payload?.length) return null;
   return (
@@ -123,17 +186,32 @@ export default function ReformTab({ data }) {
   const [councilTaxView, setCouncilTaxView] = useState("amount");
   const [impactView, setImpactView] = useState("net");
   const [taxSwapView, setTaxSwapView] = useState("comparison");
+  const [councilTaxDecileBasis, setCouncilTaxDecileBasis] = useState("income");
+  const [impactDecileBasis, setImpactDecileBasis] = useState("income");
+  const [taxSwapDecileBasis, setTaxSwapDecileBasis] = useState("income");
+  const [winnersDecileBasis, setWinnersDecileBasis] = useState("income");
 
   const selectedSummary = useMemo(
     () => deriveScenarioSummary(data, selectedScenario),
     [data, selectedScenario],
   );
   const councilTaxDistribution = useMemo(
-    () => deriveCouncilTaxDistribution(data, selectedScenario),
-    [data, selectedScenario],
+    () =>
+      deriveCouncilTaxDistribution(data, selectedScenario, councilTaxDecileBasis),
+    [data, selectedScenario, councilTaxDecileBasis],
   );
-  const impactRows = data.impact_scenarios[selectedScenario] || [];
-  const taxSwapRows = data.council_tax_vs_lvt_scenarios[selectedScenario] || [];
+  const impactRows =
+    (impactDecileBasis === "wealth"
+      ? data.impact_scenarios_by_wealth?.[selectedScenario]
+      : data.impact_scenarios[selectedScenario]) || [];
+  const winnersRows =
+    (winnersDecileBasis === "wealth"
+      ? data.impact_scenarios_by_wealth?.[selectedScenario]
+      : data.impact_scenarios[selectedScenario]) || [];
+  const taxSwapRows =
+    (taxSwapDecileBasis === "wealth"
+      ? data.council_tax_vs_lvt_scenarios_by_wealth?.[selectedScenario]
+      : data.council_tax_vs_lvt_scenarios[selectedScenario]) || [];
   const aggregateOutcomes = useMemo(
     () => deriveAggregateOutcomeRows(data),
     [data],
@@ -283,9 +361,9 @@ export default function ReformTab({ data }) {
         <div className="section-card">
           <SectionHeading
             title="Current council tax burden"
-            description="Average council tax bill (or share of income) by income decile under the 2026-27 baseline, before any LVT reform."
+            description="Average council tax bill (or share of income) by income or wealth decile under the 2026-27 baseline, before any LVT reform."
           />
-          <div className="mb-5 flex flex-wrap gap-2">
+          <div className="mb-5 flex flex-wrap items-center gap-2">
             <button
               className={`toggle-button ${councilTaxView === "amount" ? "active" : ""}`}
               onClick={() => setCouncilTaxView("amount")}
@@ -298,22 +376,16 @@ export default function ReformTab({ data }) {
             >
               % of income
             </button>
+            <DecileBasisToggle
+              value={councilTaxDecileBasis}
+              onChange={setCouncilTaxDecileBasis}
+            />
           </div>
           <div className="h-[320px] w-full">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={councilTaxDistribution}>
                 <CartesianGrid strokeDasharray="3 3" stroke={PALETTE.grid} />
-                <XAxis
-                  dataKey="decile"
-                  tick={AXIS_STYLE}
-                  tickLine={false}
-                  label={{
-                    value: "Income decile",
-                    position: "insideBottom",
-                    offset: -12,
-                    style: AXIS_STYLE,
-                  }}
-                />
+                <XAxis dataKey="decile" tick={AXIS_STYLE} tickLine={false} />
                 <YAxis
                   ticks={councilTaxTicks}
                   domain={getTickDomain(councilTaxTicks)}
@@ -377,9 +449,11 @@ export default function ReformTab({ data }) {
       <div className="section-card">
         <SectionHeading
           title="Distributional impact of the swap"
-          description={`Average net change in 2026-27 household income by decile after abolishing council tax and applying a ${selectedScenario} LVT rate.`}
+          description={`Average net change in 2026-27 household income by ${
+            impactDecileBasis === "wealth" ? "wealth" : "income"
+          } decile after abolishing council tax and applying a ${selectedScenario} LVT rate.`}
         />
-        <div className="mb-5 flex flex-wrap gap-2">
+        <div className="mb-5 flex flex-wrap items-center gap-2">
           <button
             className={`toggle-button ${impactView === "net" ? "active" : ""}`}
             onClick={() => setImpactView("net")}
@@ -392,22 +466,16 @@ export default function ReformTab({ data }) {
           >
             % of income
           </button>
+          <DecileBasisToggle
+            value={impactDecileBasis}
+            onChange={setImpactDecileBasis}
+          />
         </div>
         <div className="h-[340px] w-full">
           <ResponsiveContainer width="100%" height="100%">
             <BarChart data={impactRows}>
               <CartesianGrid strokeDasharray="3 3" stroke={PALETTE.grid} />
-              <XAxis
-                dataKey="decile"
-                tick={AXIS_STYLE}
-                tickLine={false}
-                label={{
-                  value: "Income decile",
-                  position: "insideBottom",
-                  offset: -12,
-                  style: AXIS_STYLE,
-                }}
-              />
+              <XAxis dataKey="decile" tick={AXIS_STYLE} tickLine={false} />
                 <YAxis
                   ticks={impactTicks}
                   domain={getTickDomain(impactTicks)}
@@ -442,9 +510,11 @@ export default function ReformTab({ data }) {
         <div className="section-card">
           <SectionHeading
             title="Current council tax versus proposed LVT"
-            description="Average council tax bill versus average LVT charge by income decile under the selected scenario."
+            description={`Average council tax bill versus average LVT charge by ${
+              taxSwapDecileBasis === "wealth" ? "wealth" : "income"
+            } decile under the selected scenario.`}
           />
-          <div className="mb-5 flex flex-wrap gap-2">
+          <div className="mb-5 flex flex-wrap items-center gap-2">
             <button
               className={`toggle-button ${taxSwapView === "comparison" ? "active" : ""}`}
               onClick={() => setTaxSwapView("comparison")}
@@ -457,6 +527,10 @@ export default function ReformTab({ data }) {
             >
               Difference
             </button>
+            <DecileBasisToggle
+              value={taxSwapDecileBasis}
+              onChange={setTaxSwapDecileBasis}
+            />
           </div>
           <div className="h-[360px] w-full">
             <ResponsiveContainer width="100%" height="100%">
@@ -531,11 +605,19 @@ export default function ReformTab({ data }) {
         <div className="section-card">
           <SectionHeading
             title="Winners and losers"
-            description="Share of households in each income decile that are better off, worse off, or unchanged under the selected council-tax-to-LVT swap."
+            description={`Share of households in each ${
+              winnersDecileBasis === "wealth" ? "wealth" : "income"
+            } decile that are better off, worse off, or unchanged under the selected council-tax-to-LVT swap.`}
           />
+          <div className="mb-5 flex flex-wrap items-center gap-2">
+            <DecileBasisToggle
+              value={winnersDecileBasis}
+              onChange={setWinnersDecileBasis}
+            />
+          </div>
           <div className="h-[360px] w-full">
             <ResponsiveContainer width="100%" height="100%">
-              <ComposedChart data={impactRows} margin={{ top: 10, right: 12, left: 4, bottom: 24 }}>
+              <ComposedChart data={winnersRows} margin={{ top: 10, right: 12, left: 4, bottom: 24 }}>
                 <CartesianGrid strokeDasharray="3 3" stroke={PALETTE.grid} />
                 <XAxis dataKey="decile" tick={AXIS_STYLE} tickLine={false} />
                 <YAxis
@@ -555,20 +637,35 @@ export default function ReformTab({ data }) {
                   name="Better off"
                   stackId="shares"
                   fill={PALETTE.gain}
-                  radius={[0, 0, 6, 6]}
+                  shape={makeStackBarShape({
+                    topRadius: 6,
+                    bottomRadius: 6,
+                    isTopSegment: (row) =>
+                      Number(row.pct_unchanged || 0) === 0 &&
+                      Number(row.pct_losers || 0) === 0,
+                  })}
                 />
                 <Bar
                   dataKey="pct_unchanged"
                   name="No change"
                   stackId="shares"
                   fill={PALETTE.neutral}
+                  shape={makeStackBarShape({
+                    topRadius: 6,
+                    bottomRadius: 0,
+                    isTopSegment: (row) => Number(row.pct_losers || 0) === 0,
+                  })}
                 />
                 <Bar
                   dataKey="pct_losers"
                   name="Worse off"
                   stackId="shares"
                   fill={PALETTE.loss}
-                  radius={[6, 6, 0, 0]}
+                  shape={makeStackBarShape({
+                    topRadius: 6,
+                    bottomRadius: 0,
+                    isTopSegment: () => true,
+                  })}
                 />
               </ComposedChart>
             </ResponsiveContainer>
