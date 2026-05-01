@@ -94,13 +94,26 @@ export function deriveScenarioSummary(data, scenarioLabel) {
   };
 }
 
-export function deriveCouncilTaxDistribution(data, scenarioLabel) {
+export function deriveCouncilTaxDistribution(
+  data,
+  scenarioLabel,
+  decileBasis = "income",
+) {
   const referenceLabel = scenarioLabel || getBudgetNeutralRateLabel(data);
+  const impactScenarios =
+    decileBasis === "wealth"
+      ? data.impact_scenarios_by_wealth || data.impact_scenarios
+      : data.impact_scenarios;
+  const distribution =
+    decileBasis === "wealth"
+      ? data.distribution_by_wealth_decile || data.distribution_by_decile
+      : data.distribution_by_decile;
+
   const impactRows = new Map(
-    (data.impact_scenarios[referenceLabel] || []).map((row) => [row.decile, row]),
+    (impactScenarios[referenceLabel] || []).map((row) => [row.decile, row]),
   );
 
-  return (data.distribution_by_decile || []).map((row) => {
+  return (distribution || []).map((row) => {
     const avgCouncilTax = impactRows.get(row.decile)?.avg_council_tax_saved ?? 0;
     return {
       decile: row.decile,

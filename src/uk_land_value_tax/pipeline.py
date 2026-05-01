@@ -31,6 +31,7 @@ DEFAULT_YEAR = 2026
 DEFAULT_OUTPUT_PATH = Path("data/lvt_results.json")
 DEFAULT_DASHBOARD_OUTPUT_PATH = Path("dashboard/public/data/lvt_results.json")
 DEFAULT_TARGET_YEAR = 2024
+DATASET_URL = "hf://policyengine/policyengine-uk-data-private/enhanced_frs_2023_24.h5"
 
 
 def _policyengine_classes():
@@ -163,7 +164,7 @@ def build_results(
     Microsimulation, Scenario, Simulation = _policyengine_classes()
 
     results: dict = {}
-    baseline = Microsimulation()
+    baseline = Microsimulation(dataset=DATASET_URL)
 
     land_value = baseline.calculate("land_value", year)
     household_land_value = baseline.calculate("household_land_value", year)
@@ -173,6 +174,7 @@ def build_results(
     weights = baseline.calculate("household_weight", year)
     income = baseline.calculate("household_net_income", year)
     income_decile = baseline.calculate("household_income_decile", year)
+    wealth_decile = baseline.calculate("household_wealth_decile", year)
 
     weight_values = _values(weights)
     land_values = _values(land_value)
@@ -185,6 +187,7 @@ def build_results(
             "total_wealth": _values(total_wealth),
             "income": _values(income),
             "income_decile": _values(income_decile),
+            "wealth_decile": _values(wealth_decile),
             "weight": weight_values,
         }
     )
@@ -232,6 +235,9 @@ def build_results(
         **_load_ons_land_targets(uk_data_root=uk_data_root),
     )
     results["distribution_by_decile"] = build_distribution_by_decile(baseline_df)
+    results["distribution_by_wealth_decile"] = build_distribution_by_decile(
+        baseline_df, decile_col="wealth_decile"
+    )
 
     council_tax_revenue_bn = float(baseline.calculate("council_tax", year).sum()) / 1e9
     rate_rows = []
@@ -239,7 +245,7 @@ def build_results(
         reform = Scenario(
             parameter_changes={"gov.contrib.ubi_center.land_value_tax.rate": rate}
         )
-        simulation = Microsimulation(scenario=reform)
+        simulation = Microsimulation(scenario=reform, dataset=DATASET_URL)
         lvt = simulation.calculate("LVT", year)
         rate_rows.append(
             {
@@ -265,6 +271,7 @@ def build_results(
     council_tax_baseline_values = _values(council_tax_baseline)
 
     results["impact_scenarios"] = {}
+    results["impact_scenarios_by_wealth"] = {}
     results["poverty_gini"] = {
         "baseline_poverty_bhc": round(baseline_poverty_bhc, 2),
         "baseline_poverty_ahc": round(baseline_poverty_ahc, 2),
@@ -280,7 +287,7 @@ def build_results(
                 "gov.contrib.ubi_center.land_value_tax.rate": rate,
             }
         )
-        simulation = Microsimulation(scenario=reform)
+        simulation = Microsimulation(scenario=reform, dataset=DATASET_URL)
         reformed_lvt = simulation.calculate("LVT", year)
         reformed_net_income = simulation.calculate("household_net_income", year)
         income_change = _values(reformed_net_income) - baseline_net_income_values
@@ -314,6 +321,7 @@ def build_results(
         impact_df = pd.DataFrame(
             {
                 "income_decile": _values(income_decile),
+                "wealth_decile": _values(wealth_decile),
                 "lvt": _values(reformed_lvt),
                 "council_tax_saved": council_tax_baseline_values,
                 "income_change": income_change,
@@ -324,6 +332,9 @@ def build_results(
         )
         results["impact_scenarios"][rate_label] = build_impact_scenario_table(
             impact_df
+        )
+        results["impact_scenarios_by_wealth"][rate_label] = build_impact_scenario_table(
+            impact_df, decile_col="wealth_decile"
         )
 
     scope_scenarios = {
@@ -337,7 +348,10 @@ def build_results(
     }
     scope_rows = []
     for scope, params in scope_scenarios.items():
-        simulation = Microsimulation(scenario=Scenario(parameter_changes=params))
+        simulation = Microsimulation(
+            scenario=Scenario(parameter_changes=params),
+            dataset=DATASET_URL,
+        )
         lvt = simulation.calculate("LVT", year)
         scope_rows.append(
             {
@@ -355,17 +369,20 @@ def build_results(
     }
 
     results["council_tax_vs_lvt_scenarios"] = {}
+    results["council_tax_vs_lvt_scenarios_by_wealth"] = {}
     for rate in impact_rates:
         rate_label = format_rate_label(rate, required_rate)
         simulation = Microsimulation(
             scenario=Scenario(
                 parameter_changes={"gov.contrib.ubi_center.land_value_tax.rate": rate}
-            )
+            ),
+            dataset=DATASET_URL,
         )
         lvt = simulation.calculate("LVT", year)
         council_tax_vs_lvt_df = pd.DataFrame(
             {
                 "income_decile": _values(income_decile),
+                "wealth_decile": _values(wealth_decile),
                 "council_tax": council_tax_baseline_values,
                 "lvt": _values(lvt),
                 "weight": weight_values,
@@ -373,6 +390,11 @@ def build_results(
         )
         results["council_tax_vs_lvt_scenarios"][rate_label] = (
             build_council_tax_vs_lvt_table(council_tax_vs_lvt_df)
+        )
+        results["council_tax_vs_lvt_scenarios_by_wealth"][rate_label] = (
+            build_council_tax_vs_lvt_table(
+                council_tax_vs_lvt_df, decile_col="wealth_decile"
+            )
         )
 
     example_situation = {

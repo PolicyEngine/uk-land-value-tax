@@ -183,12 +183,14 @@ def build_average_land_tables(df: pd.DataFrame) -> tuple[list[dict], list[dict],
     return avg_by_country, avg_by_region, avg_by_family_type
 
 
-def build_distribution_by_decile(df: pd.DataFrame) -> list[dict]:
-    filtered = df[df["income_decile"] > 0]
+def build_distribution_by_decile(
+    df: pd.DataFrame, decile_col: str = "income_decile"
+) -> list[dict]:
+    filtered = df[df[decile_col] > 0]
     total_land = weighted_sum(filtered["land_value"], filtered["weight"])
     rows = []
-    for decile in sorted(filtered["income_decile"].unique()):
-        subset = filtered[filtered["income_decile"] == decile]
+    for decile in sorted(filtered[decile_col].unique()):
+        subset = filtered[filtered[decile_col] == decile]
         weights = subset["weight"]
         decile_land = weighted_sum(subset["land_value"], weights)
         rows.append(
@@ -205,15 +207,17 @@ def build_distribution_by_decile(df: pd.DataFrame) -> list[dict]:
     return rows
 
 
-def build_impact_scenario_table(df: pd.DataFrame) -> list[dict]:
-    filtered = df[df["income_decile"] > 0].copy()
+def build_impact_scenario_table(
+    df: pd.DataFrame, decile_col: str = "income_decile"
+) -> list[dict]:
+    filtered = df[df[decile_col] > 0].copy()
     filtered["is_winner"] = (filtered["income_change"] > 0).astype(float)
     filtered["is_loser"] = (filtered["income_change"] < 0).astype(float)
     filtered["is_unchanged"] = (filtered["income_change"] == 0).astype(float)
 
     rows = []
-    for decile in sorted(filtered["income_decile"].unique()):
-        subset = filtered[filtered["income_decile"] == decile]
+    for decile in sorted(filtered[decile_col].unique()):
+        subset = filtered[filtered[decile_col] == decile]
         weights = subset["weight"]
         avg_income_change = weighted_mean(subset["income_change"], weights)
         avg_baseline_income = weighted_mean(subset["baseline_income"], weights)
@@ -241,11 +245,13 @@ def build_impact_scenario_table(df: pd.DataFrame) -> list[dict]:
     return rows
 
 
-def build_council_tax_vs_lvt_table(df: pd.DataFrame) -> list[dict]:
-    filtered = df[df["income_decile"] > 0]
+def build_council_tax_vs_lvt_table(
+    df: pd.DataFrame, decile_col: str = "income_decile"
+) -> list[dict]:
+    filtered = df[df[decile_col] > 0]
     rows = []
-    for decile in sorted(filtered["income_decile"].unique()):
-        subset = filtered[filtered["income_decile"] == decile]
+    for decile in sorted(filtered[decile_col].unique()):
+        subset = filtered[filtered[decile_col] == decile]
         weights = subset["weight"]
         avg_council_tax = weighted_mean(subset["council_tax"], weights)
         avg_lvt = weighted_mean(subset["lvt"], weights)
