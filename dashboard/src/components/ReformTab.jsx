@@ -158,6 +158,7 @@ export default function ReformTab({ data }) {
   const [councilTaxDecileBasis, setCouncilTaxDecileBasis] = useState("income");
   const [impactDecileBasis, setImpactDecileBasis] = useState("income");
   const [taxSwapDecileBasis, setTaxSwapDecileBasis] = useState("income");
+  const [winnersDecileBasis, setWinnersDecileBasis] = useState("income");
 
   const selectedSummary = useMemo(
     () => deriveScenarioSummary(data, selectedScenario),
@@ -170,6 +171,10 @@ export default function ReformTab({ data }) {
   );
   const impactRows =
     (impactDecileBasis === "wealth"
+      ? data.impact_scenarios_by_wealth?.[selectedScenario]
+      : data.impact_scenarios[selectedScenario]) || [];
+  const winnersRows =
+    (winnersDecileBasis === "wealth"
       ? data.impact_scenarios_by_wealth?.[selectedScenario]
       : data.impact_scenarios[selectedScenario]) || [];
   const taxSwapRows =
@@ -569,11 +574,19 @@ export default function ReformTab({ data }) {
         <div className="section-card">
           <SectionHeading
             title="Winners and losers"
-            description="Share of households in each income decile that are better off, worse off, or unchanged under the selected council-tax-to-LVT swap."
+            description={`Share of households in each ${
+              winnersDecileBasis === "wealth" ? "wealth" : "income"
+            } decile that are better off, worse off, or unchanged under the selected council-tax-to-LVT swap.`}
           />
+          <div className="mb-5 flex flex-wrap items-center gap-2">
+            <DecileBasisToggle
+              value={winnersDecileBasis}
+              onChange={setWinnersDecileBasis}
+            />
+          </div>
           <div className="h-[360px] w-full">
             <ResponsiveContainer width="100%" height="100%">
-              <ComposedChart data={impactRows} margin={{ top: 10, right: 12, left: 4, bottom: 24 }}>
+              <ComposedChart data={winnersRows} margin={{ top: 10, right: 12, left: 4, bottom: 24 }}>
                 <CartesianGrid strokeDasharray="3 3" stroke={PALETTE.grid} />
                 <XAxis dataKey="decile" tick={AXIS_STYLE} tickLine={false} />
                 <YAxis
