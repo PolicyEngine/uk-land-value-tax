@@ -62,14 +62,10 @@ function CustomTooltip({ active, payload, label }) {
 
 export default function BaselineTab({ data }) {
   const [tableView, setTableView] = useState("family");
-  const [decileBasis, setDecileBasis] = useState("income");
   const tableConfig = TABLE_VIEW_CONFIG[tableView];
   const tableRows = data[tableConfig.rowsKey];
   const comparison = data.ons_comparison;
-  const distributionRows =
-    decileBasis === "wealth"
-      ? data.distribution_by_wealth_decile || data.distribution_by_decile
-      : data.distribution_by_decile;
+  const distributionRows = data.distribution_by_decile;
   const landValueTicks = getNiceTicks([
     0,
     Math.max(...distributionRows.map((row) => Number(row.avg_land_value || 0))),
@@ -184,41 +180,8 @@ export default function BaselineTab({ data }) {
       <div className="section-card">
         <SectionHeading
           title="Average household land value by decile"
-          description={`Average household land value by ${
-            decileBasis === "wealth" ? "household wealth" : "equivalised income"
-          } decile, showing how residential land ownership concentrates toward higher-${
-            decileBasis === "wealth" ? "wealth" : "income"
-          } households.`}
+          description="Average household land value by equivalised income decile, showing how residential land ownership concentrates toward higher-income households."
         />
-        <div className="mb-5 flex flex-wrap items-center gap-2">
-          <div className="ml-auto inline-flex items-center gap-2 text-xs text-slate-500">
-            <span className="font-medium uppercase tracking-[0.06em]">Deciles by</span>
-            <div className="inline-flex rounded-lg border border-slate-200 bg-white p-0.5">
-              <button
-                type="button"
-                className={`rounded-md px-2.5 py-1 text-xs font-medium transition ${
-                  decileBasis === "income"
-                    ? "bg-slate-900 text-white"
-                    : "text-slate-600 hover:text-slate-900"
-                }`}
-                onClick={() => setDecileBasis("income")}
-              >
-                Income
-              </button>
-              <button
-                type="button"
-                className={`rounded-md px-2.5 py-1 text-xs font-medium transition ${
-                  decileBasis === "wealth"
-                    ? "bg-slate-900 text-white"
-                    : "text-slate-600 hover:text-slate-900"
-                }`}
-                onClick={() => setDecileBasis("wealth")}
-              >
-                Wealth
-              </button>
-            </div>
-          </div>
-        </div>
         <div className="h-[340px] w-full">
           <ResponsiveContainer width="100%" height="100%">
             <BarChart data={distributionRows}>
