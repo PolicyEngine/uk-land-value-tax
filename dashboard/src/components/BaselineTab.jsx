@@ -65,9 +65,10 @@ export default function BaselineTab({ data }) {
   const tableConfig = TABLE_VIEW_CONFIG[tableView];
   const tableRows = data[tableConfig.rowsKey];
   const comparison = data.ons_comparison;
+  const distributionRows = data.distribution_by_decile;
   const landValueTicks = getNiceTicks([
     0,
-    Math.max(...data.distribution_by_decile.map((row) => Number(row.avg_land_value || 0))),
+    Math.max(...distributionRows.map((row) => Number(row.avg_land_value || 0))),
   ]);
 
   return (
@@ -178,24 +179,14 @@ export default function BaselineTab({ data }) {
 
       <div className="section-card">
         <SectionHeading
-          title="Land value by income decile"
-          description="Average household land value by equivalised household income decile, showing how residential land ownership concentrates toward higher-income households."
+          title="Average household land value by decile"
+          description="Average household land value by equivalised income decile, showing how residential land ownership concentrates toward higher-income households."
         />
         <div className="h-[340px] w-full">
           <ResponsiveContainer width="100%" height="100%">
-            <BarChart data={data.distribution_by_decile}>
+            <BarChart data={distributionRows}>
               <CartesianGrid strokeDasharray="3 3" stroke={colors.border.light} />
-              <XAxis
-                dataKey="decile"
-                tick={AXIS_STYLE}
-                tickLine={false}
-                label={{
-                  value: "Income decile",
-                  position: "insideBottom",
-                  offset: -12,
-                  style: AXIS_STYLE,
-                }}
-              />
+              <XAxis dataKey="decile" tick={AXIS_STYLE} tickLine={false} />
               <YAxis
                 ticks={landValueTicks}
                 domain={getTickDomain(landValueTicks)}
