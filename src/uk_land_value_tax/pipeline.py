@@ -267,6 +267,7 @@ def build_results(
     baseline_poverty_bhc = float(baseline.calculate("in_poverty_bhc", year).mean()) * 100
     baseline_poverty_ahc = float(baseline.calculate("in_poverty_ahc", year).mean()) * 100
     baseline_gini = float(baseline_net_income.gini())
+    baseline_wealth_gini = float(total_wealth.gini())
     baseline_net_income_values = _values(baseline_net_income)
     council_tax_baseline_values = _values(council_tax_baseline)
 
@@ -276,6 +277,7 @@ def build_results(
         "baseline_poverty_bhc": round(baseline_poverty_bhc, 2),
         "baseline_poverty_ahc": round(baseline_poverty_ahc, 2),
         "baseline_gini": round(baseline_gini, 4),
+        "baseline_wealth_gini": round(baseline_wealth_gini, 4),
         "scenarios": {},
     }
 
@@ -299,6 +301,7 @@ def build_results(
             simulation.calculate("in_poverty_ahc", year).mean()
         ) * 100
         reform_gini = float(reformed_net_income.gini())
+        reform_wealth_gini = float(simulation.calculate("total_wealth", year).gini())
         results["poverty_gini"]["scenarios"][rate_label] = {
             "poverty_bhc": round(reform_poverty_rate_bhc, 2),
             "poverty_ahc": round(reform_poverty_rate_ahc, 2),
@@ -312,6 +315,8 @@ def build_results(
             ),
             "gini": round(reform_gini, 4),
             "gini_change": round(reform_gini - baseline_gini, 4),
+            "wealth_gini": round(reform_wealth_gini, 4),
+            "wealth_gini_change": round(reform_wealth_gini - baseline_wealth_gini, 4),
         }
 
         impact_df = pd.DataFrame(

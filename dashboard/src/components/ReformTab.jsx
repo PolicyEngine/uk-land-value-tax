@@ -444,6 +444,11 @@ export default function ReformTab({ data }) {
               </tbody>
             </table>
           </div>
+          <p className="mt-3 text-xs text-slate-500">
+            Baseline Gini coefficients (2026-27): equivalised household net income {data.poverty_gini.baseline_gini.toFixed(4)};
+            household total wealth {data.poverty_gini.baseline_wealth_gini.toFixed(4)}. The wealth Gini is unchanged
+            under the static reform.
+          </p>
         </div>
       </div>
 
