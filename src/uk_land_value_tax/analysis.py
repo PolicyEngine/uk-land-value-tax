@@ -112,7 +112,7 @@ def build_ons_comparison(
 ) -> dict:
     return {
         "target_year": target_year,
-        "target_label": f"{target_year}-{str(target_year + 1)[-2:]}",
+        "target_label": str(target_year),
         "target_household_tn": round(target_household_tn, 2),
         "target_corporate_tn": round(target_corporate_tn, 2),
         "target_total_tn": round(target_total_tn, 2),
