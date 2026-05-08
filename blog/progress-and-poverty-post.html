@@ -86,9 +86,9 @@
   .chart-value { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 11px; fill: #111827; font-weight: 600; }
   .seg-label { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 11px; fill: #ffffff; font-weight: 600; }
   .chart-axis-title { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 12px; fill: #111827; font-weight: 600; }
-  .bar-gain { fill: #319795; }
+  .bar-gain { fill: #026AA2; }
   .bar-loss { fill: #6B7280; }
-  .bar-neutral { fill: #319795; }
+  .bar-neutral { fill: #026AA2; }
   hr { border: 0; border-top: 1px solid var(--rule); margin: 36px 0; }
   .byline {
     font-size: 14px;
@@ -116,7 +116,7 @@
 
   <p>That snapshot is still the law. England and Scotland have never had a <a href="https://ifs.org.uk/articles/council-tax-needs-urgent-reform-not-being-frozen-time-1991">revaluation</a>; the government <a href="https://www.legislation.gov.uk/ukpga/2006/7/notes/division/2">cancelled</a> a planned 2007 review before it ran. <a href="https://www.gov.uk/guidance/council-tax-manual/section-1-introduction-and-essential-background">Wales</a> rebanded in 2005 from a 2003 valuation date, and Northern Ireland uses a separate domestic <a href="https://www.nidirect.gov.uk/articles/how-rate-bills-are-calculated">rates</a> system based on 2005 valuations. Because the top band caps at £320,000 in 1991 prices, the council tax shrinks as a share of value for higher-priced homes. This regressive shape has driven proposals to tie property taxation more closely to current property or land values from the <a href="https://www.nuffieldfoundation.org/news/mirrlees-review-of-tax-system-recommends-radical-changes">Mirrlees</a> Review, the <a href="https://ifs.org.uk/articles/council-tax-needs-urgent-reform-not-being-frozen-time-1991">IFS</a>, John <a href="https://www.inet.ox.ac.uk/news/property-tax-reform-proposal-gains-momentum-ahead-of-uk-budget">Muellbauer</a>, and the <a href="https://fairershare.org.uk/three-broken-taxes-one-simple-fix-a-proportional-property-tax-for-britain/">Fairer</a> Share campaign.</p>
 
-  <p>PolicyEngine UK estimates gross council tax (the amount households are billed before any rebate) at <strong>£61.4 billion a year</strong> for 2026-27, around £1,920 per UK household on average. The <a href="https://obr.uk/efo/economic-and-fiscal-outlook-march-2026/">OBR</a>'s March 2026 forecast puts net council tax receipts at £53.7 billion for the same year. The model estimates average bills range from £1,636 in the bottom income decile to £2,500 in the top.</p>
+  <p>PolicyEngine UK estimates gross council tax (the amount households owe before any rebate) at <strong>£61.4 billion a year</strong> for 2026-27, around £1,920 per UK household on average. The <a href="https://obr.uk/efo/economic-and-fiscal-outlook-march-2026/">OBR</a>'s March 2026 forecast puts net council tax receipts at £53.7 billion for the same year. The model estimates average bills range from £1,636 in the bottom income decile to £2,500 in the top.</p>
 
   <p>This post uses <a href="https://policyengine.org/uk">PolicyEngine</a> UK, an open-source household-level microsimulation, to model one option researchers have put forward: replacing council tax with a flat land value tax (LVT). The model runs at any rate. Below: how the model builds the LVT base, what rate sensitivity looks like, the distributional pattern by decile, and where the static modelling reaches its limits.</p>
 
@@ -125,18 +125,20 @@
   <ul>
     <li><strong>At a budget-neutral 0.83% rate, 71% of households have higher net income.</strong> The bottom income decile gains £864 a year on average; the ninth decile pays £1,205 more (the largest average cash loss), and the top decile pays £1,163 more.</li>
     <li><strong>0.83% on all UK land value raises the same £61.4 billion</strong> that council tax does today, holding aggregate revenue constant.</li>
-    <li>Before housing costs relative poverty falls by 0.49 percentage points; the Gini coefficient on equivalised household income rises by 0.45%.</li>
+    <li>Before housing costs relative poverty falls by 0.49 percentage points; the Gini coefficient on income rises by 0.45%.</li>
   </ul>
 
   <h2>The model</h2>
 
-  <p>We run this analysis with <a href="https://github.com/PolicyEngine/policyengine-uk">PolicyEngine</a> UK (version 2.88.10), an open-source static microsimulation, on <a href="https://github.com/PolicyEngine/policyengine-uk-data">Enhanced</a> Family Resources Survey 2023-24 microdata. On the land side, the model gives each household a directly held land-value component and distributes aggregate corporate land to households in proportion to their corporate wealth. We calibrate the total to the <a href="https://www.ons.gov.uk/economy/nationalaccounts/uksectoraccounts/bulletins/nationalbalancesheet/2025">ONS</a> National Balance Sheet series AN.211 (2024 target: £7.10 trillion) and uprate to 2026-27 using per-capita nominal GDP growth from the <a href="https://obr.uk/efo/economic-and-fiscal-outlook-march-2025/">OBR</a> March 2025 Economic and Fiscal Outlook, producing a £7.44 trillion total: £5.38tn held directly by households and £2.06tn through the corporate sector. On the council tax side, each household has a council tax band (A&ndash;H, plus I in Wales) from the FRS. About a quarter of FRS households report their annual bill directly; for the rest, we impute the mean reported bill for the household's region &times; band &times; single-person-status cell. Northern Ireland's domestic rates are modelled separately and remain in place under this reform. Household weights are calibrated against <a href="https://www.gov.uk/government/statistics/council-tax-stock-of-properties-2025">VOA</a> stock-of-properties counts of dwellings by band and region (Scotland from the <a href="https://www.gov.scot/publications/council-tax-datasets/">Scottish Government</a> chargeable-dwellings dataset) and against <a href="https://obr.uk/efo/economic-and-fiscal-outlook-march-2025/">OBR</a> council tax receipts. The 2026-27 council tax baseline this post replaces is £61.4 billion.</p>
+  <p>We run this analysis with <a href="https://github.com/PolicyEngine/policyengine-uk">PolicyEngine</a> UK (version 2.88.10), an open-source static microsimulation, on <a href="https://github.com/PolicyEngine/policyengine-uk-data">Enhanced</a> Family Resources Survey 2023-24 microdata. On the land side, the model gives each household a directly held land-value component and distributes aggregate corporate land to households in proportion to their corporate wealth. We calibrate the total to the <a href="https://www.ons.gov.uk/economy/nationalaccounts/uksectoraccounts/bulletins/nationalbalancesheet/2025">ONS</a> National Balance Sheet series AN.211 (2024 target: £7.10 trillion) and uprate to 2026-27 using per-capita nominal GDP growth from the <a href="https://obr.uk/efo/economic-and-fiscal-outlook-march-2025/">OBR</a> March 2025 Economic and Fiscal Outlook, producing a £7.44 trillion total: £5.38tn held directly by households and £2.06tn through the corporate sector.</p>
+
+  <p>On the council tax side, each household has a council tax band (A&ndash;H, plus I in Wales) from the FRS. About a quarter of FRS households report their annual bill directly; for the rest, we impute the mean reported bill for the household's region &times; band &times; single-person-status cell. We model Northern Ireland's domestic rates separately, and they remain in place under this reform. We then calibrate household weights against <a href="https://www.gov.uk/government/statistics/council-tax-stock-of-properties-2025">VOA</a> stock-of-properties counts of dwellings by band and region (Scotland from the <a href="https://www.gov.scot/publications/council-tax-datasets/">Scottish Government</a> chargeable-dwellings dataset) and against <a href="https://obr.uk/efo/economic-and-fiscal-outlook-march-2026/">OBR</a> council tax receipts. The 2026-27 council tax baseline this post replaces is £61.4 billion.</p>
 
   <p>The model reports revenue, distributional, poverty, and inequality outcomes at any LVT rate, for every income decile and family type. All figures cover the 2026-27 financial year.</p>
 
   <h3>Where land value sits</h3>
 
-  <p>Land value is distributed unevenly across UK households. The three figures below, by income decile, by region, and by household type, set up every distributional result that follows.</p>
+  <p>Land value sits unevenly across UK households. The three figures below, by income decile, by region, and by household type, set up every distributional result that follows.</p>
 
   <p>Average household land value rises from £94,000 in the bottom income decile to £444,000 in the top. The relationship is far from monotonic in the lower half: decile 4 (£223k) holds more land than deciles 5 (£197k) and 7 (£194k), and decile 2 (£197k) holds more than decile 3 (£108k). That detail will matter once we look at distributional impacts.</p>
 
@@ -158,25 +160,25 @@
       <text class="chart-label" fill="#4b5563" font-size="12" font-family="sans-serif" x="50" y="54" text-anchor="end">£500k</text>
       <line class="chart-axis" stroke="#9ca3af" stroke-width="1" x1="56" y1="288" x2="680" y2="288" />
       <g>
-        <rect class="bar-neutral" fill="#319795" x="66.2" y="243.5" width="42" height="44.5" />
+        <rect class="bar-neutral" fill="#026AA2" x="66.2" y="243.5" width="42" height="44.5" />
         <text class="chart-value" fill="#111827" font-size="11" font-weight="600" font-family="sans-serif" x="87.2" y="237" text-anchor="middle">£94k</text>
-        <rect class="bar-neutral" fill="#319795" x="128.6" y="194.0" width="42" height="94.0" />
+        <rect class="bar-neutral" fill="#026AA2" x="128.6" y="194.0" width="42" height="94.0" />
         <text class="chart-value" fill="#111827" font-size="11" font-weight="600" font-family="sans-serif" x="149.6" y="187" text-anchor="middle">£197k</text>
-        <rect class="bar-neutral" fill="#319795" x="191.0" y="236.4" width="42" height="51.6" />
+        <rect class="bar-neutral" fill="#026AA2" x="191.0" y="236.4" width="42" height="51.6" />
         <text class="chart-value" fill="#111827" font-size="11" font-weight="600" font-family="sans-serif" x="212.0" y="230" text-anchor="middle">£108k</text>
-        <rect class="bar-neutral" fill="#319795" x="253.4" y="182.0" width="42" height="106.0" />
+        <rect class="bar-neutral" fill="#026AA2" x="253.4" y="182.0" width="42" height="106.0" />
         <text class="chart-value" fill="#111827" font-size="11" font-weight="600" font-family="sans-serif" x="274.4" y="175" text-anchor="middle">£223k</text>
-        <rect class="bar-neutral" fill="#319795" x="315.8" y="194.4" width="42" height="93.6" />
+        <rect class="bar-neutral" fill="#026AA2" x="315.8" y="194.4" width="42" height="93.6" />
         <text class="chart-value" fill="#111827" font-size="11" font-weight="600" font-family="sans-serif" x="336.8" y="188" text-anchor="middle">£197k</text>
-        <rect class="bar-neutral" fill="#319795" x="378.2" y="180.4" width="42" height="107.6" />
+        <rect class="bar-neutral" fill="#026AA2" x="378.2" y="180.4" width="42" height="107.6" />
         <text class="chart-value" fill="#111827" font-size="11" font-weight="600" font-family="sans-serif" x="399.2" y="174" text-anchor="middle">£226k</text>
-        <rect class="bar-neutral" fill="#319795" x="440.6" y="195.4" width="42" height="92.6" />
+        <rect class="bar-neutral" fill="#026AA2" x="440.6" y="195.4" width="42" height="92.6" />
         <text class="chart-value" fill="#111827" font-size="11" font-weight="600" font-family="sans-serif" x="461.6" y="189" text-anchor="middle">£194k</text>
-        <rect class="bar-neutral" fill="#319795" x="503.0" y="161.8" width="42" height="126.2" />
+        <rect class="bar-neutral" fill="#026AA2" x="503.0" y="161.8" width="42" height="126.2" />
         <text class="chart-value" fill="#111827" font-size="11" font-weight="600" font-family="sans-serif" x="524.0" y="155" text-anchor="middle">£265k</text>
-        <rect class="bar-neutral" fill="#319795" x="565.4" y="88.5" width="42" height="199.5" />
+        <rect class="bar-neutral" fill="#026AA2" x="565.4" y="88.5" width="42" height="199.5" />
         <text class="chart-value" fill="#111827" font-size="11" font-weight="600" font-family="sans-serif" x="586.4" y="82" text-anchor="middle">£419k</text>
-        <rect class="bar-neutral" fill="#319795" x="627.8" y="76.8" width="42" height="211.2" />
+        <rect class="bar-neutral" fill="#026AA2" x="627.8" y="76.8" width="42" height="211.2" />
         <text class="chart-value" fill="#111827" font-size="11" font-weight="600" font-family="sans-serif" x="648.8" y="70" text-anchor="middle">£444k</text>
       </g>
       <g class="chart-label" fill="#4b5563" font-size="12" font-family="sans-serif">
@@ -213,51 +215,51 @@
       <text class="chart-label" fill="#4b5563" font-size="12" font-family="sans-serif" x="680" y="400" text-anchor="middle">£400k</text>
       <g>
         <text class="chart-label" fill="#4b5563" font-size="12" font-family="sans-serif" x="192" y="36" text-anchor="end">London</text>
-        <rect class="bar-neutral" fill="#319795" x="200" y="22" width="440.4" height="20" />
+        <rect class="bar-neutral" fill="#026AA2" x="200" y="22" width="440.4" height="20" />
         <text class="chart-value" fill="#111827" font-size="11" font-weight="600" font-family="sans-serif" x="646" y="36">£367k</text>
 
         <text class="chart-label" fill="#4b5563" font-size="12" font-family="sans-serif" x="192" y="64" text-anchor="end">South East</text>
-        <rect class="bar-neutral" fill="#319795" x="200" y="50" width="344.4" height="20" />
+        <rect class="bar-neutral" fill="#026AA2" x="200" y="50" width="344.4" height="20" />
         <text class="chart-value" fill="#111827" font-size="11" font-weight="600" font-family="sans-serif" x="550" y="64">£287k</text>
 
         <text class="chart-label" fill="#4b5563" font-size="12" font-family="sans-serif" x="192" y="92" text-anchor="end">East of England</text>
-        <rect class="bar-neutral" fill="#319795" x="200" y="78" width="324" height="20" />
+        <rect class="bar-neutral" fill="#026AA2" x="200" y="78" width="324" height="20" />
         <text class="chart-value" fill="#111827" font-size="11" font-weight="600" font-family="sans-serif" x="530" y="92">£270k</text>
 
         <text class="chart-label" fill="#4b5563" font-size="12" font-family="sans-serif" x="192" y="120" text-anchor="end">South West</text>
-        <rect class="bar-neutral" fill="#319795" x="200" y="106" width="297.6" height="20" />
+        <rect class="bar-neutral" fill="#026AA2" x="200" y="106" width="297.6" height="20" />
         <text class="chart-value" fill="#111827" font-size="11" font-weight="600" font-family="sans-serif" x="503" y="120">£248k</text>
 
         <text class="chart-label" fill="#4b5563" font-size="12" font-family="sans-serif" x="192" y="148" text-anchor="end">East Midlands</text>
-        <rect class="bar-neutral" fill="#319795" x="200" y="134" width="250.8" height="20" />
+        <rect class="bar-neutral" fill="#026AA2" x="200" y="134" width="250.8" height="20" />
         <text class="chart-value" fill="#111827" font-size="11" font-weight="600" font-family="sans-serif" x="456" y="148">£209k</text>
 
         <text class="chart-label" fill="#4b5563" font-size="12" font-family="sans-serif" x="192" y="176" text-anchor="end">West Midlands</text>
-        <rect class="bar-neutral" fill="#319795" x="200" y="162" width="232.8" height="20" />
+        <rect class="bar-neutral" fill="#026AA2" x="200" y="162" width="232.8" height="20" />
         <text class="chart-value" fill="#111827" font-size="11" font-weight="600" font-family="sans-serif" x="438" y="176">£194k</text>
 
         <text class="chart-label" fill="#4b5563" font-size="12" font-family="sans-serif" x="192" y="204" text-anchor="end">North West</text>
-        <rect class="bar-neutral" fill="#319795" x="200" y="190" width="223.2" height="20" />
+        <rect class="bar-neutral" fill="#026AA2" x="200" y="190" width="223.2" height="20" />
         <text class="chart-value" fill="#111827" font-size="11" font-weight="600" font-family="sans-serif" x="429" y="204">£186k</text>
 
         <text class="chart-label" fill="#4b5563" font-size="12" font-family="sans-serif" x="192" y="232" text-anchor="end">Wales</text>
-        <rect class="bar-neutral" fill="#319795" x="200" y="218" width="216" height="20" />
+        <rect class="bar-neutral" fill="#026AA2" x="200" y="218" width="216" height="20" />
         <text class="chart-value" fill="#111827" font-size="11" font-weight="600" font-family="sans-serif" x="422" y="232">£180k</text>
 
         <text class="chart-label" fill="#4b5563" font-size="12" font-family="sans-serif" x="192" y="260" text-anchor="end">Yorks. &amp; Humber</text>
-        <rect class="bar-neutral" fill="#319795" x="200" y="246" width="201.6" height="20" />
+        <rect class="bar-neutral" fill="#026AA2" x="200" y="246" width="201.6" height="20" />
         <text class="chart-value" fill="#111827" font-size="11" font-weight="600" font-family="sans-serif" x="407" y="260">£168k</text>
 
         <text class="chart-label" fill="#4b5563" font-size="12" font-family="sans-serif" x="192" y="288" text-anchor="end">Scotland</text>
-        <rect class="bar-neutral" fill="#319795" x="200" y="274" width="195.6" height="20" />
+        <rect class="bar-neutral" fill="#026AA2" x="200" y="274" width="195.6" height="20" />
         <text class="chart-value" fill="#111827" font-size="11" font-weight="600" font-family="sans-serif" x="401" y="288">£163k</text>
 
         <text class="chart-label" fill="#4b5563" font-size="12" font-family="sans-serif" x="192" y="316" text-anchor="end">Northern Ireland</text>
-        <rect class="bar-neutral" fill="#319795" x="200" y="302" width="194.4" height="20" />
+        <rect class="bar-neutral" fill="#026AA2" x="200" y="302" width="194.4" height="20" />
         <text class="chart-value" fill="#111827" font-size="11" font-weight="600" font-family="sans-serif" x="400" y="316">£162k</text>
 
         <text class="chart-label" fill="#4b5563" font-size="12" font-family="sans-serif" x="192" y="344" text-anchor="end">North East</text>
-        <rect class="bar-neutral" fill="#319795" x="200" y="330" width="187.2" height="20" />
+        <rect class="bar-neutral" fill="#026AA2" x="200" y="330" width="187.2" height="20" />
         <text class="chart-value" fill="#111827" font-size="11" font-weight="600" font-family="sans-serif" x="393" y="344">£156k</text>
       </g>
       <line class="chart-axis" stroke="#9ca3af" stroke-width="1" x1="200" y1="16" x2="200" y2="384" />
@@ -284,27 +286,27 @@
       <text class="chart-label" fill="#4b5563" font-size="12" font-family="sans-serif" x="680" y="208" text-anchor="middle">£500k</text>
       <g>
         <text class="chart-label" fill="#4b5563" font-size="12" font-family="sans-serif" x="192" y="36" text-anchor="end">Pensioner couple</text>
-        <rect class="bar-neutral" fill="#319795" x="200" y="22" width="409.0" height="20" />
+        <rect class="bar-neutral" fill="#026AA2" x="200" y="22" width="409.0" height="20" />
         <text class="chart-value" fill="#111827" font-size="11" font-weight="600" font-family="sans-serif" x="615" y="36">£426k</text>
 
         <text class="chart-label" fill="#4b5563" font-size="12" font-family="sans-serif" x="192" y="64" text-anchor="end">Couple, no children</text>
-        <rect class="bar-neutral" fill="#319795" x="200" y="50" width="291.8" height="20" />
+        <rect class="bar-neutral" fill="#026AA2" x="200" y="50" width="291.8" height="20" />
         <text class="chart-value" fill="#111827" font-size="11" font-weight="600" font-family="sans-serif" x="497" y="64">£304k</text>
 
         <text class="chart-label" fill="#4b5563" font-size="12" font-family="sans-serif" x="192" y="92" text-anchor="end">Couple with children</text>
-        <rect class="bar-neutral" fill="#319795" x="200" y="78" width="215.0" height="20" />
+        <rect class="bar-neutral" fill="#026AA2" x="200" y="78" width="215.0" height="20" />
         <text class="chart-value" fill="#111827" font-size="11" font-weight="600" font-family="sans-serif" x="421" y="92">£224k</text>
 
         <text class="chart-label" fill="#4b5563" font-size="12" font-family="sans-serif" x="192" y="120" text-anchor="end">Single pensioner</text>
-        <rect class="bar-neutral" fill="#319795" x="200" y="106" width="155.5" height="20" />
+        <rect class="bar-neutral" fill="#026AA2" x="200" y="106" width="155.5" height="20" />
         <text class="chart-value" fill="#111827" font-size="11" font-weight="600" font-family="sans-serif" x="361" y="120">£162k</text>
 
         <text class="chart-label" fill="#4b5563" font-size="12" font-family="sans-serif" x="192" y="148" text-anchor="end">Single, no children</text>
-        <rect class="bar-neutral" fill="#319795" x="200" y="134" width="131.8" height="20" />
+        <rect class="bar-neutral" fill="#026AA2" x="200" y="134" width="131.8" height="20" />
         <text class="chart-value" fill="#111827" font-size="11" font-weight="600" font-family="sans-serif" x="338" y="148">£137k</text>
 
         <text class="chart-label" fill="#4b5563" font-size="12" font-family="sans-serif" x="192" y="176" text-anchor="end">Lone parent</text>
-        <rect class="bar-neutral" fill="#319795" x="200" y="162" width="7.7" height="20" />
+        <rect class="bar-neutral" fill="#026AA2" x="200" y="162" width="7.7" height="20" />
         <text class="chart-value" fill="#111827" font-size="11" font-weight="600" font-family="sans-serif" x="216" y="176">£8k</text>
       </g>
       <line class="chart-axis" stroke="#9ca3af" stroke-width="1" x1="200" y1="16" x2="200" y2="192" />
@@ -341,7 +343,7 @@
 
   <p>Below the budget-neutral rate, revenue falls and the share of households with higher net income rises. At 0.5%, the model raises £24 billion less than current council tax and 82% of households gain. Above the budget-neutral rate, revenue rises and the share of gainers falls. At 1.0%, the reform raises £13bn more and 65% gain. We hold the rate range to 0.5%-1.0% because the static model assigns the first-round burden to current landowners and does not capture land-price capitalisation, rent pass-through, or behavioural responses, all of which matter more at higher annual rates.</p>
 
-  <p>For context, the baseline 2026-27 Gini coefficient on equivalised household net income is <strong>0.38</strong>, while the Gini on household total wealth is <strong>0.71</strong>. Wealth in the UK is far more concentrated than income. The static model leaves wealth stocks unchanged. Under a real LVT, land prices would capitalise the tax and the wealth Gini would move too. Table 1 reports the income Gini only.</p>
+  <p>For context, the baseline 2026-27 Gini coefficient on income is <strong>0.38</strong>, while the Gini on household total wealth is <strong>0.71</strong>. Wealth in the UK is far more concentrated than income, with no considerable change under the reform.</p>
 
   <h3>Impact by income decile</h3>
 
@@ -400,29 +402,29 @@
       <text class="chart-label" fill="#4b5563" font-size="12" font-family="sans-serif" x="50" y="292" text-anchor="end">&minus;£1,500</text>
       <line class="chart-axis" stroke="#9ca3af" stroke-width="1" x1="56" y1="123" x2="680" y2="123" />
       <g>
-        <rect class="bar-gain" fill="#319795" x="66.2" y="28.0" width="42" height="95.0" />
-        <text class="chart-value" fill="#111827" font-size="11" font-weight="600" font-family="sans-serif" x="87.2" y="22" text-anchor="middle" fill="#319795">+£864</text>
+        <rect class="bar-gain" fill="#026AA2" x="66.2" y="28.0" width="42" height="95.0" />
+        <text class="chart-value" fill="#111827" font-size="11" font-weight="600" font-family="sans-serif" x="87.2" y="22" text-anchor="middle" fill="#026AA2">+£864</text>
 
-        <rect class="bar-gain" fill="#319795" x="128.6" y="121.6" width="42" height="1.4" />
-        <text class="chart-value" fill="#111827" font-size="11" font-weight="600" font-family="sans-serif" x="149.6" y="116" text-anchor="middle" fill="#319795">+£13</text>
+        <rect class="bar-gain" fill="#026AA2" x="128.6" y="121.6" width="42" height="1.4" />
+        <text class="chart-value" fill="#111827" font-size="11" font-weight="600" font-family="sans-serif" x="149.6" y="116" text-anchor="middle" fill="#026AA2">+£13</text>
 
-        <rect class="bar-gain" fill="#319795" x="191.0" y="36.6" width="42" height="86.4" />
-        <text class="chart-value" fill="#111827" font-size="11" font-weight="600" font-family="sans-serif" x="212.0" y="30" text-anchor="middle" fill="#319795">+£785</text>
+        <rect class="bar-gain" fill="#026AA2" x="191.0" y="36.6" width="42" height="86.4" />
+        <text class="chart-value" fill="#111827" font-size="11" font-weight="600" font-family="sans-serif" x="212.0" y="30" text-anchor="middle" fill="#026AA2">+£785</text>
 
         <rect class="bar-loss" fill="#6B7280" x="253.4" y="123" width="42" height="12.3" />
         <text class="chart-value" fill="#111827" font-size="11" font-weight="600" font-family="sans-serif" x="274.4" y="148" text-anchor="middle" fill="#6B7280">&minus;£112</text>
 
-        <rect class="bar-gain" fill="#319795" x="315.8" y="102.9" width="42" height="20.1" />
-        <text class="chart-value" fill="#111827" font-size="11" font-weight="600" font-family="sans-serif" x="336.8" y="97" text-anchor="middle" fill="#319795">+£183</text>
+        <rect class="bar-gain" fill="#026AA2" x="315.8" y="102.9" width="42" height="20.1" />
+        <text class="chart-value" fill="#111827" font-size="11" font-weight="600" font-family="sans-serif" x="336.8" y="97" text-anchor="middle" fill="#026AA2">+£183</text>
 
-        <rect class="bar-gain" fill="#319795" x="378.2" y="116.3" width="42" height="6.7" />
-        <text class="chart-value" fill="#111827" font-size="11" font-weight="600" font-family="sans-serif" x="399.2" y="110" text-anchor="middle" fill="#319795">+£61</text>
+        <rect class="bar-gain" fill="#026AA2" x="378.2" y="116.3" width="42" height="6.7" />
+        <text class="chart-value" fill="#111827" font-size="11" font-weight="600" font-family="sans-serif" x="399.2" y="110" text-anchor="middle" fill="#026AA2">+£61</text>
 
-        <rect class="bar-gain" fill="#319795" x="440.6" y="85.3" width="42" height="37.7" />
-        <text class="chart-value" fill="#111827" font-size="11" font-weight="600" font-family="sans-serif" x="461.6" y="79" text-anchor="middle" fill="#319795">+£343</text>
+        <rect class="bar-gain" fill="#026AA2" x="440.6" y="85.3" width="42" height="37.7" />
+        <text class="chart-value" fill="#111827" font-size="11" font-weight="600" font-family="sans-serif" x="461.6" y="79" text-anchor="middle" fill="#026AA2">+£343</text>
 
-        <rect class="bar-gain" fill="#319795" x="503.0" y="120.8" width="42" height="2.2" />
-        <text class="chart-value" fill="#111827" font-size="11" font-weight="600" font-family="sans-serif" x="524.0" y="115" text-anchor="middle" fill="#319795">+£20</text>
+        <rect class="bar-gain" fill="#026AA2" x="503.0" y="120.8" width="42" height="2.2" />
+        <text class="chart-value" fill="#111827" font-size="11" font-weight="600" font-family="sans-serif" x="524.0" y="115" text-anchor="middle" fill="#026AA2">+£20</text>
 
         <rect class="bar-loss" fill="#6B7280" x="565.4" y="123" width="42" height="132.6" />
         <text class="chart-value" fill="#111827" font-size="11" font-weight="600" font-family="sans-serif" x="586.4" y="269" text-anchor="middle" fill="#6B7280">&minus;£1,205</text>
@@ -446,7 +448,7 @@
     </svg>
   </figure>
 
-  <p>Across all households, 71% have higher net income at the budget-neutral rate. Before-housing-costs relative poverty falls by 0.49 percentage points. The Gini coefficient on equivalised household income rises by 0.45%. The budget-neutral rate concentrates the largest losses in the top two income deciles and spreads gains across most of the lower half.</p>
+  <p>Across all households, 71% have higher net income at the budget-neutral rate. Before-housing-costs relative poverty falls by 0.49 percentage points. The Gini coefficient on income rises by 0.45%. The budget-neutral rate concentrates the largest losses in the top two income deciles and spreads gains across most of the lower half.</p>
 
   <h3>Same reform, by wealth decile</h3>
 
@@ -478,26 +480,26 @@
       <text class="chart-label" fill="#4b5563" font-size="12" font-family="sans-serif" x="50" y="292" text-anchor="end">&minus;£7,000</text>
       <line class="chart-axis" stroke="#9ca3af" stroke-width="1" x1="56" y1="82.7" x2="680" y2="82.7" />
       <g>
-        <rect class="bar-gain" fill="#319795" x="66.2" y="44.7" width="42" height="38.0" />
-        <text class="chart-value" fill="#111827" font-size="11" font-weight="600" font-family="sans-serif" x="87.2" y="39" text-anchor="middle" fill="#319795">+£1,295</text>
+        <rect class="bar-gain" fill="#026AA2" x="66.2" y="44.7" width="42" height="38.0" />
+        <text class="chart-value" fill="#111827" font-size="11" font-weight="600" font-family="sans-serif" x="87.2" y="39" text-anchor="middle" fill="#026AA2">+£1,295</text>
 
-        <rect class="bar-gain" fill="#319795" x="128.6" y="47.4" width="42" height="35.3" />
-        <text class="chart-value" fill="#111827" font-size="11" font-weight="600" font-family="sans-serif" x="149.6" y="42" text-anchor="middle" fill="#319795">+£1,202</text>
+        <rect class="bar-gain" fill="#026AA2" x="128.6" y="47.4" width="42" height="35.3" />
+        <text class="chart-value" fill="#111827" font-size="11" font-weight="600" font-family="sans-serif" x="149.6" y="42" text-anchor="middle" fill="#026AA2">+£1,202</text>
 
-        <rect class="bar-gain" fill="#319795" x="191.0" y="39.7" width="42" height="43.0" />
-        <text class="chart-value" fill="#111827" font-size="11" font-weight="600" font-family="sans-serif" x="212.0" y="34" text-anchor="middle" fill="#319795">+£1,467</text>
+        <rect class="bar-gain" fill="#026AA2" x="191.0" y="39.7" width="42" height="43.0" />
+        <text class="chart-value" fill="#111827" font-size="11" font-weight="600" font-family="sans-serif" x="212.0" y="34" text-anchor="middle" fill="#026AA2">+£1,467</text>
 
-        <rect class="bar-gain" fill="#319795" x="253.4" y="38.1" width="42" height="44.6" />
-        <text class="chart-value" fill="#111827" font-size="11" font-weight="600" font-family="sans-serif" x="274.4" y="33" text-anchor="middle" fill="#319795">+£1,519</text>
+        <rect class="bar-gain" fill="#026AA2" x="253.4" y="38.1" width="42" height="44.6" />
+        <text class="chart-value" fill="#111827" font-size="11" font-weight="600" font-family="sans-serif" x="274.4" y="33" text-anchor="middle" fill="#026AA2">+£1,519</text>
 
-        <rect class="bar-gain" fill="#319795" x="315.8" y="49.3" width="42" height="33.4" />
-        <text class="chart-value" fill="#111827" font-size="11" font-weight="600" font-family="sans-serif" x="336.8" y="44" text-anchor="middle" fill="#319795">+£1,139</text>
+        <rect class="bar-gain" fill="#026AA2" x="315.8" y="49.3" width="42" height="33.4" />
+        <text class="chart-value" fill="#111827" font-size="11" font-weight="600" font-family="sans-serif" x="336.8" y="44" text-anchor="middle" fill="#026AA2">+£1,139</text>
 
-        <rect class="bar-gain" fill="#319795" x="378.2" y="55.2" width="42" height="27.5" />
-        <text class="chart-value" fill="#111827" font-size="11" font-weight="600" font-family="sans-serif" x="399.2" y="50" text-anchor="middle" fill="#319795">+£936</text>
+        <rect class="bar-gain" fill="#026AA2" x="378.2" y="55.2" width="42" height="27.5" />
+        <text class="chart-value" fill="#111827" font-size="11" font-weight="600" font-family="sans-serif" x="399.2" y="50" text-anchor="middle" fill="#026AA2">+£936</text>
 
-        <rect class="bar-gain" fill="#319795" x="440.6" y="68.6" width="42" height="14.1" />
-        <text class="chart-value" fill="#111827" font-size="11" font-weight="600" font-family="sans-serif" x="461.6" y="63" text-anchor="middle" fill="#319795">+£480</text>
+        <rect class="bar-gain" fill="#026AA2" x="440.6" y="68.6" width="42" height="14.1" />
+        <text class="chart-value" fill="#111827" font-size="11" font-weight="600" font-family="sans-serif" x="461.6" y="63" text-anchor="middle" fill="#026AA2">+£480</text>
 
         <rect class="bar-loss" fill="#6B7280" x="503.0" y="82.7" width="42" height="11.8" />
         <text class="chart-value" fill="#111827" font-size="11" font-weight="600" font-family="sans-serif" x="524.0" y="109" text-anchor="middle" fill="#6B7280">&minus;£401</text>
@@ -551,80 +553,80 @@
       <text class="chart-axis-title" fill="#111827" font-size="12" font-weight="600" font-family="sans-serif" x="364" y="360" text-anchor="middle">Share of households (%)</text>
 
       <text class="chart-label" fill="#4b5563" font-size="12" font-family="sans-serif" x="56" y="60" text-anchor="end">1</text>
-      <rect class="bar-gain" fill="#319795" x="64" y="46" width="525.0" height="20" />
-      <rect x="589.0" y="46" width="16.8" height="20" fill="#9ca3af" />
+      <rect class="bar-gain" fill="#026AA2" x="64" y="46" width="525.0" height="20" />
+      <rect x="589.0" y="46" width="16.8" height="20" fill="#9CA3AF" />
       <rect class="bar-loss" fill="#6B7280" x="605.8" y="46" width="58.2" height="20" />
       <text class="seg-label" fill="#ffffff" font-size="11" font-weight="600" font-family="sans-serif" x="326.5" y="60" text-anchor="middle">87.5%</text>
       <text class="seg-label" fill="#ffffff" font-size="11" font-weight="600" font-family="sans-serif" x="634.9" y="60" text-anchor="middle">9.7%</text>
 
       <text class="chart-label" fill="#4b5563" font-size="12" font-family="sans-serif" x="56" y="88" text-anchor="end">2</text>
-      <rect class="bar-gain" fill="#319795" x="64" y="74" width="486.0" height="20" />
-      <rect x="550.0" y="74" width="8.4" height="20" fill="#9ca3af" />
+      <rect class="bar-gain" fill="#026AA2" x="64" y="74" width="486.0" height="20" />
+      <rect x="550.0" y="74" width="8.4" height="20" fill="#9CA3AF" />
       <rect class="bar-loss" fill="#6B7280" x="558.4" y="74" width="105.6" height="20" />
       <text class="seg-label" fill="#ffffff" font-size="11" font-weight="600" font-family="sans-serif" x="307.0" y="88" text-anchor="middle">81.0%</text>
       <text class="seg-label" fill="#ffffff" font-size="11" font-weight="600" font-family="sans-serif" x="611.2" y="88" text-anchor="middle">17.6%</text>
 
       <text class="chart-label" fill="#4b5563" font-size="12" font-family="sans-serif" x="56" y="116" text-anchor="end">3</text>
-      <rect class="bar-gain" fill="#319795" x="64" y="102" width="501.6" height="20" />
-      <rect x="565.6" y="102" width="5.4" height="20" fill="#9ca3af" />
+      <rect class="bar-gain" fill="#026AA2" x="64" y="102" width="501.6" height="20" />
+      <rect x="565.6" y="102" width="5.4" height="20" fill="#9CA3AF" />
       <rect class="bar-loss" fill="#6B7280" x="571.0" y="102" width="93.0" height="20" />
       <text class="seg-label" fill="#ffffff" font-size="11" font-weight="600" font-family="sans-serif" x="314.8" y="116" text-anchor="middle">83.6%</text>
       <text class="seg-label" fill="#ffffff" font-size="11" font-weight="600" font-family="sans-serif" x="617.5" y="116" text-anchor="middle">15.5%</text>
 
       <text class="chart-label" fill="#4b5563" font-size="12" font-family="sans-serif" x="56" y="144" text-anchor="end">4</text>
-      <rect class="bar-gain" fill="#319795" x="64" y="130" width="443.4" height="20" />
-      <rect x="507.4" y="130" width="6.0" height="20" fill="#9ca3af" />
+      <rect class="bar-gain" fill="#026AA2" x="64" y="130" width="443.4" height="20" />
+      <rect x="507.4" y="130" width="6.0" height="20" fill="#9CA3AF" />
       <rect class="bar-loss" fill="#6B7280" x="513.4" y="130" width="150.6" height="20" />
       <text class="seg-label" fill="#ffffff" font-size="11" font-weight="600" font-family="sans-serif" x="285.7" y="144" text-anchor="middle">73.9%</text>
       <text class="seg-label" fill="#ffffff" font-size="11" font-weight="600" font-family="sans-serif" x="588.7" y="144" text-anchor="middle">25.1%</text>
 
       <text class="chart-label" fill="#4b5563" font-size="12" font-family="sans-serif" x="56" y="172" text-anchor="end">5</text>
-      <rect class="bar-gain" fill="#319795" x="64" y="158" width="423.0" height="20" />
-      <rect x="487.0" y="158" width="6.6" height="20" fill="#9ca3af" />
+      <rect class="bar-gain" fill="#026AA2" x="64" y="158" width="423.0" height="20" />
+      <rect x="487.0" y="158" width="6.6" height="20" fill="#9CA3AF" />
       <rect class="bar-loss" fill="#6B7280" x="493.6" y="158" width="170.4" height="20" />
       <text class="seg-label" fill="#ffffff" font-size="11" font-weight="600" font-family="sans-serif" x="275.5" y="172" text-anchor="middle">70.5%</text>
       <text class="seg-label" fill="#ffffff" font-size="11" font-weight="600" font-family="sans-serif" x="578.8" y="172" text-anchor="middle">28.4%</text>
 
       <text class="chart-label" fill="#4b5563" font-size="12" font-family="sans-serif" x="56" y="200" text-anchor="end">6</text>
-      <rect class="bar-gain" fill="#319795" x="64" y="186" width="425.4" height="20" />
-      <rect x="489.4" y="186" width="3.0" height="20" fill="#9ca3af" />
+      <rect class="bar-gain" fill="#026AA2" x="64" y="186" width="425.4" height="20" />
+      <rect x="489.4" y="186" width="3.0" height="20" fill="#9CA3AF" />
       <rect class="bar-loss" fill="#6B7280" x="492.4" y="186" width="171.6" height="20" />
       <text class="seg-label" fill="#ffffff" font-size="11" font-weight="600" font-family="sans-serif" x="276.7" y="200" text-anchor="middle">70.9%</text>
       <text class="seg-label" fill="#ffffff" font-size="11" font-weight="600" font-family="sans-serif" x="578.2" y="200" text-anchor="middle">28.6%</text>
 
       <text class="chart-label" fill="#4b5563" font-size="12" font-family="sans-serif" x="56" y="228" text-anchor="end">7</text>
-      <rect class="bar-gain" fill="#319795" x="64" y="214" width="453.0" height="20" />
-      <rect x="517.0" y="214" width="2.4" height="20" fill="#9ca3af" />
+      <rect class="bar-gain" fill="#026AA2" x="64" y="214" width="453.0" height="20" />
+      <rect x="517.0" y="214" width="2.4" height="20" fill="#9CA3AF" />
       <rect class="bar-loss" fill="#6B7280" x="519.4" y="214" width="144.6" height="20" />
       <text class="seg-label" fill="#ffffff" font-size="11" font-weight="600" font-family="sans-serif" x="290.5" y="228" text-anchor="middle">75.5%</text>
       <text class="seg-label" fill="#ffffff" font-size="11" font-weight="600" font-family="sans-serif" x="591.7" y="228" text-anchor="middle">24.1%</text>
 
       <text class="chart-label" fill="#4b5563" font-size="12" font-family="sans-serif" x="56" y="256" text-anchor="end">8</text>
-      <rect class="bar-gain" fill="#319795" x="64" y="242" width="409.2" height="20" />
-      <rect x="473.2" y="242" width="6.6" height="20" fill="#9ca3af" />
+      <rect class="bar-gain" fill="#026AA2" x="64" y="242" width="409.2" height="20" />
+      <rect x="473.2" y="242" width="6.6" height="20" fill="#9CA3AF" />
       <rect class="bar-loss" fill="#6B7280" x="479.8" y="242" width="184.2" height="20" />
       <text class="seg-label" fill="#ffffff" font-size="11" font-weight="600" font-family="sans-serif" x="268.6" y="256" text-anchor="middle">68.2%</text>
       <text class="seg-label" fill="#ffffff" font-size="11" font-weight="600" font-family="sans-serif" x="571.9" y="256" text-anchor="middle">30.7%</text>
 
       <text class="chart-label" fill="#4b5563" font-size="12" font-family="sans-serif" x="56" y="284" text-anchor="end">9</text>
-      <rect class="bar-gain" fill="#319795" x="64" y="270" width="278.4" height="20" />
-      <rect x="342.4" y="270" width="3.0" height="20" fill="#9ca3af" />
+      <rect class="bar-gain" fill="#026AA2" x="64" y="270" width="278.4" height="20" />
+      <rect x="342.4" y="270" width="3.0" height="20" fill="#9CA3AF" />
       <rect class="bar-loss" fill="#6B7280" x="345.4" y="270" width="318.6" height="20" />
       <text class="seg-label" fill="#ffffff" font-size="11" font-weight="600" font-family="sans-serif" x="203.2" y="284" text-anchor="middle">46.4%</text>
       <text class="seg-label" fill="#ffffff" font-size="11" font-weight="600" font-family="sans-serif" x="504.7" y="284" text-anchor="middle">53.1%</text>
 
       <text class="chart-label" fill="#4b5563" font-size="12" font-family="sans-serif" x="56" y="312" text-anchor="end">10</text>
-      <rect class="bar-gain" fill="#319795" x="64" y="298" width="286.2" height="20" />
-      <rect x="350.2" y="298" width="2.4" height="20" fill="#9ca3af" />
+      <rect class="bar-gain" fill="#026AA2" x="64" y="298" width="286.2" height="20" />
+      <rect x="350.2" y="298" width="2.4" height="20" fill="#9CA3AF" />
       <rect class="bar-loss" fill="#6B7280" x="352.6" y="298" width="311.4" height="20" />
       <text class="seg-label" fill="#ffffff" font-size="11" font-weight="600" font-family="sans-serif" x="207.1" y="312" text-anchor="middle">47.7%</text>
       <text class="seg-label" fill="#ffffff" font-size="11" font-weight="600" font-family="sans-serif" x="508.3" y="312" text-anchor="middle">51.9%</text>
 
       <text class="chart-axis-title" fill="#111827" font-size="12" font-weight="600" font-family="sans-serif" x="32" y="180" text-anchor="middle" transform="rotate(-90 32 180)">Income decile</text>
 
-      <rect class="bar-gain" fill="#319795" x="169" y="386" width="14" height="14" />
+      <rect class="bar-gain" fill="#026AA2" x="169" y="386" width="14" height="14" />
       <text class="chart-label" fill="#4b5563" font-size="12" font-family="sans-serif" x="187" y="398">Higher net income</text>
-      <rect x="325" y="386" width="14" height="14" fill="#9ca3af" />
+      <rect x="325" y="386" width="14" height="14" fill="#9CA3AF" />
       <text class="chart-label" fill="#4b5563" font-size="12" font-family="sans-serif" x="343" y="398">Unchanged</text>
       <rect class="bar-loss" fill="#6B7280" x="429" y="386" width="14" height="14" />
       <text class="chart-label" fill="#4b5563" font-size="12" font-family="sans-serif" x="447" y="398">Lower net income</text>
