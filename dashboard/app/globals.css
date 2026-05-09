@@ -1,4 +1,58 @@
-@import "@policyengine/design-system/tokens.css";
+/**
+ * Design tokens — inlined from @policyengine/design-system/tokens.css
+ * (matches ui-kit/legacy JS tokens). Inlined here because @policyengine/ui-kit
+ * 0.8.0 does not re-export the legacy `--pe-color-*` CSS custom properties.
+ */
+:root {
+  /* Colors — primary (teal) */
+  --pe-color-primary-50: #E6FFFA;
+  --pe-color-primary-100: #B2F5EA;
+  --pe-color-primary-200: #81E6D9;
+  --pe-color-primary-300: #4FD1C5;
+  --pe-color-primary-400: #38B2AC;
+  --pe-color-primary-500: #319795;
+  --pe-color-primary-600: #2C7A7B;
+  --pe-color-primary-700: #285E61;
+  --pe-color-primary-800: #234E52;
+  --pe-color-primary-900: #1D4044;
+  --pe-color-primary-alpha-40: #31979566;
+  --pe-color-primary-alpha-50: #31979580;
+  --pe-color-primary-alpha-60: #31979599;
+
+  /* Colors — gray */
+  --pe-color-gray-50: #F9FAFB;
+  --pe-color-gray-100: #F2F4F7;
+  --pe-color-gray-200: #E2E8F0;
+  --pe-color-gray-300: #D1D5DB;
+  --pe-color-gray-400: #9CA3AF;
+  --pe-color-gray-500: #6B7280;
+  --pe-color-gray-600: #4B5563;
+  --pe-color-gray-700: #344054;
+  --pe-color-gray-800: #1F2937;
+  --pe-color-gray-900: #101828;
+
+  /* Colors — semantic */
+  --pe-color-warning: #FEC601;
+
+  /* Colors — background */
+  --pe-color-bg-primary: #FFFFFF;
+  --pe-color-bg-secondary: #F5F9FF;
+
+  /* Colors — text */
+  --pe-color-text-inverse: #FFFFFF;
+  --pe-color-text-warning: #d9480f;
+
+  /* Colors — border */
+  --pe-color-border-light: #E2E8F0;
+
+  /* Typography */
+  --pe-font-family-body: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --pe-font-size-xs: 12px;
+  --pe-font-size-sm: 14px;
+  --pe-font-weight-medium: 500;
+  --pe-font-weight-semibold: 600;
+  --pe-font-weight-bold: 700;
+}
 
 @tailwind base;
 @tailwind components;
