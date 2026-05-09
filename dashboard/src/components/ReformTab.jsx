@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { colors } from "@policyengine/design-system/tokens/colors";
+import { colors } from "@policyengine/ui-kit/legacy/tokens/colors";
 import {
   Bar,
   BarChart,
