@@ -1,3 +1,6 @@
+@import "tailwindcss";
+@import "@policyengine/ui-kit/theme.css";
+
 /**
  * Design tokens — inlined from @policyengine/design-system/tokens.css
  * (matches ui-kit/legacy JS tokens). Inlined here because @policyengine/ui-kit
@@ -54,9 +57,54 @@
   --pe-font-weight-bold: 700;
 }
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@theme {
+  --color-primary-50: var(--pe-color-primary-50);
+  --color-primary-100: var(--pe-color-primary-100);
+  --color-primary-200: var(--pe-color-primary-200);
+  --color-primary-300: var(--pe-color-primary-300);
+  --color-primary-400: var(--pe-color-primary-400);
+  --color-primary-500: var(--pe-color-primary-500);
+  --color-primary-600: var(--pe-color-primary-600);
+  --color-primary-700: var(--pe-color-primary-700);
+  --color-primary-800: var(--pe-color-primary-800);
+  --color-primary-900: var(--pe-color-primary-900);
+
+  --color-slate-50: var(--pe-color-gray-50);
+  --color-slate-100: var(--pe-color-gray-100);
+  --color-slate-200: var(--pe-color-gray-200);
+  --color-slate-300: var(--pe-color-gray-300);
+  --color-slate-400: var(--pe-color-gray-400);
+  --color-slate-500: var(--pe-color-gray-500);
+  --color-slate-600: var(--pe-color-gray-600);
+  --color-slate-700: var(--pe-color-gray-700);
+  --color-slate-800: var(--pe-color-gray-800);
+  --color-slate-900: var(--pe-color-gray-900);
+
+  --color-gray-50: var(--pe-color-gray-50);
+  --color-gray-100: var(--pe-color-gray-100);
+  --color-gray-200: var(--pe-color-gray-200);
+  --color-gray-300: var(--pe-color-gray-300);
+  --color-gray-400: var(--pe-color-gray-400);
+  --color-gray-500: var(--pe-color-gray-500);
+  --color-gray-600: var(--pe-color-gray-600);
+  --color-gray-700: var(--pe-color-gray-700);
+  --color-gray-800: var(--pe-color-gray-800);
+  --color-gray-900: var(--pe-color-gray-900);
+
+  --color-white: var(--pe-color-bg-primary);
+  --color-black: var(--pe-color-text-primary);
+
+  --color-amber-50: color-mix(in srgb, var(--pe-color-warning) 12%, var(--pe-color-bg-primary));
+  --color-amber-400: var(--pe-color-warning);
+  --color-amber-700: var(--pe-color-text-warning);
+
+  --color-red-50: color-mix(in srgb, var(--pe-color-error) 12%, var(--pe-color-bg-primary));
+  --color-red-200: color-mix(in srgb, var(--pe-color-error) 28%, var(--pe-color-bg-primary));
+  --color-red-700: color-mix(in srgb, var(--pe-color-error) 72%, var(--pe-color-text-primary));
+
+  --font-sans: var(--pe-font-family-body);
+  --font-mono: var(--pe-font-family-mono);
+}
 
 @layer base {
   html {
