@@ -72,6 +72,8 @@
     border-bottom: 2px solid var(--ink);
   }
   td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+  td.gain { color: #026AA2; }
+  td.loss { color: #6B7280; }
   .fig-title { font-weight: 600; font-size: 15px; margin: 24px 0 8px; }
   .caption {
     font-size: 13px;
@@ -114,9 +116,9 @@
 
   <p>To meet the deadline, the Inland Revenue's Valuation <a href="https://en.wikipedia.org/wiki/Valuation_Office_Agency">Office</a> and the Scottish <a href="https://www.saa.gov.uk/council-tax/council-tax-bands/">Assessors</a> brought in estate agents who drove down streets <a href="https://www.moneysavingexpert.com/reclaim/council-tax-bands-change/">banding</a> houses without getting out of the car, a practice critics later called "second-gear valuations". Each property went into one of eight <a href="https://www.gov.uk/guidance/understand-how-council-tax-bands-are-assessed">bands</a>, with Band H, the top band in England, covering every home worth £320,000 or more in <a href="https://valuationoffice.blog.gov.uk/2023/06/05/how-properties-are-valued-for-council-tax/">1991 prices</a>.</p>
 
-  <p>That snapshot is still the law. England and Scotland have never been revalued; the government <a href="https://www.legislation.gov.uk/ukpga/2006/7/notes/division/2">cancelled</a> a planned 2007 review before it ran. <a href="https://www.legislation.gov.uk/wsi/2003/3046/made/data.html">Wales</a> rebanded in 2005 from a 2003 valuation date, and Northern Ireland uses a separate domestic <a href="https://www.nidirect.gov.uk/articles/how-rate-bills-are-calculated">rates</a> system based on 2005 valuations. Because the top band caps at £320,000 in 1991 prices, the council tax falls as a share of property value for higher-priced homes. That pattern has driven reform proposals to tie property taxation more closely to current property or land values from the <a href="https://www.nuffieldfoundation.org/news/mirrlees-review-of-tax-system-recommends-radical-changes">Mirrlees Review</a>, the <a href="https://ifs.org.uk/articles/council-tax-needs-urgent-reform-not-being-frozen-time-1991">IFS</a>, John <a href="https://www.inet.ox.ac.uk/news/property-tax-reform-proposal-gains-momentum-ahead-of-uk-budget">Muellbauer</a>, and the <a href="https://fairershare.org.uk/three-broken-taxes-one-simple-fix-a-proportional-property-tax-for-britain/">Fairer Share</a> campaign.</p>
+  <p>That snapshot is still the law. England and Scotland have never been revalued; the government <a href="https://www.legislation.gov.uk/ukpga/2006/7/notes/division/2">cancelled</a> a planned 2007 review before it ran. <a href="https://www.legislation.gov.uk/wsi/2003/3046/made/data.html">Wales</a> rebanded in 2005 from a 2003 valuation date, and Northern Ireland uses a separate domestic <a href="https://www.nidirect.gov.uk/articles/how-rate-bills-are-calculated">rates</a> system based on 2005 valuations. Because the top band caps at £320,000 in 1991 prices, the council tax falls as a share of property value for higher-priced homes. That pattern has driven reform proposals to tie property taxation more closely to current property or land values from the <a href="https://ifs.org.uk/publications/mirrlees-review">Mirrlees Review</a>, the <a href="https://ifs.org.uk/articles/council-tax-needs-urgent-reform-not-being-frozen-time-1991">IFS</a>, John <a href="https://www.inet.ox.ac.uk/news/property-tax-reform-proposal-gains-momentum-ahead-of-uk-budget">Muellbauer</a>, and the <a href="https://fairershare.org.uk/three-broken-taxes-one-simple-fix-a-proportional-property-tax-for-britain/">Fairer Share</a> campaign.</p>
 
-  <p>PolicyEngine UK estimates that councils bill UK households £61.5 billion in council tax for 2026-27. Lower-income households can apply for <a href="https://www.gov.uk/apply-council-tax-reduction">Council Tax Reduction</a> (CTR), a means-tested local scheme that lowers a household's bill against the council tax it would otherwise owe; CTR design varies by local authority in England, with separate national schemes in Scotland and Wales. After CTR, households actually pay <strong>£57.3 billion</strong> a year — around £2,000 per UK household on average, and what councils actually receive. The <a href="https://obr.uk/efo/economic-and-fiscal-outlook-march-2026/">OBR March 2026 forecast</a> puts net council tax receipts at £53.7 billion. Average post-CTR bills range from £1,445 in the bottom income decile to £2,467 in the top. We use the £57.3 billion net figure as the budget-neutral baseline the LVT replaces.</p>
+  <p>PolicyEngine UK estimates that councils across Great Britain bill households £61.5 billion in council tax for 2026-27. (Northern Ireland uses a separate domestic rates system and is not included in that figure.) Lower-income households can apply for <a href="https://www.gov.uk/apply-council-tax-reduction">Council Tax Reduction</a> (CTR), a means-tested local scheme that lowers a household's bill against the council tax it would otherwise owe; CTR design varies by local authority in England, with separate national schemes in Scotland and Wales. After CTR, households actually pay <strong>£57.3 billion</strong> a year — what councils actually receive, around £2,100 per GB household on average. The <a href="https://obr.uk/efo/economic-and-fiscal-outlook-march-2026/">OBR March 2026 forecast</a> puts net council tax receipts at £53.7 billion. Average post-CTR bills range from £1,445 in the bottom income decile to £2,467 in the top. We use the £57.3 billion net figure as the budget-neutral baseline the LVT replaces.</p>
 
   <p>This post uses <a href="https://policyengine.org/uk">PolicyEngine UK</a>, an open-source household-level microsimulation, to model one option researchers have put forward: replacing council tax with a flat land value tax (LVT). The model runs at any rate.</p>
 
@@ -124,7 +126,7 @@
 
   <ul>
     <li>At a budget-neutral 0.77% rate, 72% of households have higher net income. The bottom income decile gains £774 a year on average; the ninth decile pays £980 more (the largest average cash loss), and the top decile pays £941 more.</li>
-    <li>0.77% on all UK land value raises the same £57.3 billion that council tax (net of Council Tax Reduction) brings in today, holding aggregate revenue constant.</li>
+    <li>0.77% on all UK land value raises about £57.3 billion (£57.2bn precisely), matching what council tax (net of Council Tax Reduction) brings in today within rounding.</li>
     <li>Before housing costs relative poverty falls by 0.84 percentage points; the Gini coefficient on income rises by 0.13%.</li>
   </ul>
 
@@ -325,7 +327,7 @@
 
   <h3>Impact by income decile</h3>
 
-  <p>Table 2 reports the average household impact at the budget-neutral 0.77% rate: average council tax today, the LVT replacement bill, the net change in pounds, and the change as a share of household net income (post-tax-and-benefit, not equivalised).</p>
+  <p>Table 2 reports the average household impact at the budget-neutral 0.77% rate: average council tax today, the LVT replacement bill, the change in household net income, and the same change as a share of household net income (post-tax-and-benefit, not equivalised). The change in net income exceeds the simple LVT−council-tax difference because abolishing council tax also clears the means-tested benefit interactions that current bills create — the columns therefore won't subtract exactly.</p>
 
   <div class="fig-title">Table 2: Average household impact by income decile, 0.77% LVT replacing council tax, 2026-27</div>
   <div class="table-wrap">
@@ -335,7 +337,7 @@
           <th>Decile</th>
           <th class="num">Council tax (baseline)</th>
           <th class="num">LVT replacement (0.77%)</th>
-          <th class="num">Net change</th>
+          <th class="num">Change in net income</th>
           <th class="num">% of net income</th>
         </tr>
       </thead>
@@ -473,9 +475,9 @@
     </svg>
   </figure>
 
-  <p>The wealth-decile picture is cleaner than the income-decile one. Wealth deciles 2–7 all gain (between £509 and £1,537 a year on average); only deciles 8, 9, and 10 lose, with the top wealth decile paying £5,533 more on average, a far larger swing than the £941 average loss for the top income decile. (Decile 1 is absent: many households there hold no land or housing wealth at all and tie at the floor of the wealth distribution, so the decile binning collapses them into the next bin.) The reform is, by construction, a tax on land wealth. It lands progressively along the wealth distribution even when the income-decile pattern is noisier.</p>
+  <p>The wealth-decile picture is cleaner than the income-decile one. Wealth deciles 2–7 all gain (between £509 and £1,537 a year on average); only deciles 8, 9, and 10 lose, with the top wealth decile paying £5,533 more on average, a far larger swing than the £941 average loss for the top income decile. (Decile 1 is empty in this chart: roughly 10% of households hold no land or housing wealth at all and fall outside PolicyEngine UK's wealth-decile binning, which starts at decile 2 in this dataset. Those households would gain under the reform — they pay no LVT and save their council tax — but they sit outside the chart.) The reform is, by construction, a tax on land wealth. It lands progressively along the wealth distribution even when the income-decile pattern is noisier.</p>
 
-  <p>The <a href="https://www.nuffieldfoundation.org/news/mirrlees-review-of-tax-system-recommends-radical-changes">Mirrlees Review</a> and the <a href="https://fairershare.org.uk/three-broken-taxes-one-simple-fix-a-proportional-property-tax-for-britain/">Fairer Share</a> proposal both discuss deferral mechanisms (letting households accrue the LVT charge against the property until sale or inheritance) as one design response for the income-poor, land-rich households the income-decile averages obscure. PolicyEngine UK can score any of these designs (deferrals, transitional caps, age-based reliefs, or income-tested reductions) with the same distributional metrics; however, we exclude them for this analysis.</p>
+  <p>The <a href="https://ifs.org.uk/publications/mirrlees-review">Mirrlees Review</a> and the <a href="https://fairershare.org.uk/three-broken-taxes-one-simple-fix-a-proportional-property-tax-for-britain/">Fairer Share</a> proposal both discuss deferral mechanisms (letting households accrue the LVT charge against the property until sale or inheritance) as one design response for the income-poor, land-rich households the income-decile averages obscure. PolicyEngine UK can score any of these designs (deferrals, transitional caps, age-based reliefs, or income-tested reductions) with the same distributional metrics; however, we exclude them for this analysis.</p>
 
   <h3>Who gains and loses, within deciles</h3>
 
@@ -566,7 +568,7 @@
     </svg>
   </figure>
 
-  <p>In the top decile, 49% of households still have higher net income, despite the average loss of £941; in the bottom decile, 12% have lower net income, despite the average gain of £774. The share of losing households is around 12–25% in deciles 1–4 and rises through deciles 5–10, reaching half in deciles 9 and 10. The same high-land-value, lower-income households visible in the loss share across deciles 1–8 are the group most LVT designs target with deferrals or transitional protection.</p>
+  <p>In the top decile, 49% of households still have higher net income, despite the average loss of £941; in the bottom decile, 12% have lower net income, despite the average gain of £774. The share of losing households is around 12–25% in deciles 1–4 and climbs to roughly half by deciles 9 and 10, with non-monotonic dips in between. The same high-land-value, lower-income households visible in the loss share across deciles 1–8 are the group most LVT designs target with deferrals or transitional protection.</p>
 
   <h2>What this model doesn't capture</h2>
 
