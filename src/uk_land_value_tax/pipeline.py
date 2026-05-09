@@ -371,6 +371,8 @@ def build_results(
     baseline_in_poverty_ahc = household["in_poverty_ahc"]
     council_tax_baseline_values = np.asarray(household["council_tax_less_benefit"])
     council_tax_revenue_bn = float(household["council_tax_less_benefit"].sum()) / 1e9
+    council_tax_gross_bn = float(household["council_tax"].sum()) / 1e9
+    council_tax_benefit_bn = float(household["council_tax_benefit"].sum()) / 1e9
 
     # Revenue by rate (LVT-only, no abolition)
     rate_rows = []
@@ -490,6 +492,8 @@ def build_results(
 
     results["council_tax_replacement"] = {
         "council_tax_revenue_bn": round(council_tax_revenue_bn, 1),
+        "council_tax_gross_bn": round(council_tax_gross_bn, 1),
+        "council_tax_benefit_bn": round(council_tax_benefit_bn, 1),
         "total_land_bn": round(total_land_bn, 1),
         "required_lvt_rate_pct": round(required_rate * 100, 2),
     }

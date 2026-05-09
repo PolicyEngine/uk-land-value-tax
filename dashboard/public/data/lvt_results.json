@@ -1899,6 +1899,8 @@
   ],
   "council_tax_replacement": {
     "council_tax_revenue_bn": 57.3,
+    "council_tax_gross_bn": 61.5,
+    "council_tax_benefit_bn": 4.2,
     "total_land_bn": 7425.0,
     "required_lvt_rate_pct": 0.77
   },
