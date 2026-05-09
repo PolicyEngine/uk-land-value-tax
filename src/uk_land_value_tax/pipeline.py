@@ -239,7 +239,7 @@ def build_results(
         baseline_df, decile_col="wealth_decile"
     )
 
-    council_tax_revenue_bn = float(baseline.calculate("council_tax", year).sum()) / 1e9
+    council_tax_revenue_bn = float(baseline.calculate("council_tax_less_benefit", year).sum()) / 1e9
     rate_rows = []
     for rate in DEFAULT_LVT_RATES:
         reform = Scenario(
@@ -259,7 +259,7 @@ def build_results(
     )
 
     baseline_net_income = baseline.calculate("household_net_income", year)
-    council_tax_baseline = baseline.calculate("council_tax", year)
+    council_tax_baseline = baseline.calculate("council_tax_less_benefit", year)
     total_land_bn = float(land_value.sum()) / 1e9
     required_rate = council_tax_revenue_bn / total_land_bn
     impact_rates = make_rate_grid(required_rate)
