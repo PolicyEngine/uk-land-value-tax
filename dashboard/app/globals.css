@@ -132,6 +132,11 @@
 }
 
 @layer components {
+  .policyengine-site-header a,
+  .policyengine-site-header a:hover {
+    border-bottom: 0;
+  }
+
   .app-shell {
     background: linear-gradient(
       135deg,

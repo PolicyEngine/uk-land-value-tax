@@ -63,13 +63,11 @@ function Dashboard() {
 
   return (
     <div className="app-shell min-h-screen">
-      <header className="title-row">
-        <div className="mx-auto flex max-w-[1400px] items-center justify-between px-6 py-4 md:px-8">
-          <h1>Council tax to land value tax reform dashboard</h1>
-        </div>
-      </header>
-
       <main className="relative z-[1] mx-auto max-w-[1400px] px-6 py-10 md:px-8 md:py-12">
+        <h1 className="mb-4 text-3xl font-bold leading-tight text-slate-900 md:text-4xl">
+          Council tax to land value tax reform dashboard
+        </h1>
+
         <div className="animate-[fadeIn_0.4s_ease-out]">
           <p className="mb-3 text-[1.05rem] leading-relaxed text-slate-600">
             PolicyEngine estimates the revenue and distributional effects of
