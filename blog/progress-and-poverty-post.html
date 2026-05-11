@@ -74,6 +74,11 @@
   td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
   td.gain { color: #026AA2; }
   td.loss { color: #6B7280; }
+  sup { font-size: 0.75em; line-height: 0; }
+  sup a { text-decoration: none; }
+  ol.notes { font-size: 15px; color: var(--muted); padding-left: 1.35em; margin: 12px 0 24px; }
+  ol.notes li { margin-bottom: 8px; }
+  ol.notes li a { color: var(--link); }
   .fig-title { font-weight: 600; font-size: 15px; margin: 24px 0 8px; }
   .caption {
     font-size: 13px;
@@ -132,9 +137,9 @@
 
   <h2>The model</h2>
 
-  <p>We run this analysis with <a href="https://github.com/PolicyEngine/policyengine-uk">PolicyEngine UK</a> (version 2.88.10), an open-source microsimulation, on <a href="https://github.com/PolicyEngine/policyengine-uk-data">Enhanced Family Resources Survey 2023-24</a> microdata. On the land side, the model gives each household a directly held land-value component and distributes aggregate corporate land to households in proportion to their corporate wealth. We calibrate the total to the <a href="https://www.ons.gov.uk/economy/nationalaccounts/uksectoraccounts/bulletins/nationalbalancesheet/2025">Office for National Statistics (ONS) National Balance Sheet</a> series AN.211 (2024 target: £7.10 trillion) and uprate to 2026-27 using per-capita nominal GDP growth from the <a href="https://obr.uk/efo/economic-and-fiscal-outlook-march-2025/">OBR March 2025 Economic and Fiscal Outlook</a>, producing a £7.43 trillion total: £5.37tn held directly by households and £2.06tn through the corporate sector.</p>
+  <p>We run this analysis with <a href="https://github.com/PolicyEngine/policyengine-uk">PolicyEngine UK</a>, an open-source microsimulation, on <a href="https://github.com/PolicyEngine/policyengine-uk-data">Enhanced Family Resources Survey 2023-24</a> microdata.<sup><a href="#note-versions" id="ref-versions">1</a></sup> On the land side, the model gives each household a directly held land-value component and distributes aggregate corporate land to households in proportion to their corporate wealth. We calibrate the total to the <a href="https://www.ons.gov.uk/economy/nationalaccounts/uksectoraccounts/bulletins/nationalbalancesheet/2025">Office for National Statistics (ONS) National Balance Sheet</a><sup><a href="#note-ons" id="ref-ons">2</a></sup> (2024 target: £7.10 trillion) and uprate to 2026-27 using per-capita nominal GDP growth from the <a href="https://obr.uk/efo/economic-and-fiscal-outlook-march-2025/">OBR March 2025 Economic and Fiscal Outlook</a>, producing a £7.43 trillion total: £5.37tn held directly by households and £2.06tn through the corporate sector.</p>
 
-  <p>On the council tax side, each household has a council tax band (A&ndash;H, plus I in Wales) from the Family Resources Survey. About a quarter of Family Resources Survey households report their annual bill directly; for the rest, we impute the mean reported bill for the household's region &times; band &times; single-person-status cell. We model Northern Ireland's domestic rates separately, and they remain in place under this reform. We then calibrate household weights against the <a href="https://www.gov.uk/government/statistics/council-tax-stock-of-properties-2025">Valuation Office Agency</a> stock-of-properties counts of dwellings by band and region (Scotland from the <a href="https://www.gov.scot/publications/council-tax-datasets/">Scottish Government</a> chargeable-dwellings dataset) and against <a href="https://obr.uk/efo/economic-and-fiscal-outlook-march-2026/">Office for Budget Responsibility</a> council tax receipts. The 2026-27 baseline this post replaces — gross billing minus Council Tax Reduction — is £57.3 billion, modestly above the OBR's £53.7 billion accruals-basis forecast because PolicyEngine's billing-side calibration matches dwelling stock counts and modelled Council Tax Reduction uptake rather than realised receipts.</p>
+  <p>On the council tax side, each household has a council tax band (A&ndash;H, plus I in Wales) from the Family Resources Survey. About a quarter of Family Resources Survey households report their annual bill directly; for the rest, we impute the mean reported bill for the household's region &times; band &times; single-person-status cell. Self-reported council tax in the Family Resources Survey is known to understate billed amounts — partly because households misremember the gross-versus-net distinction and partly because the discount and exemption fields are noisy — so we calibrate household weights against the <a href="https://www.gov.uk/government/statistics/council-tax-stock-of-properties-2025">Valuation Office Agency</a> stock-of-properties counts of dwellings by band and region (Scotland from the <a href="https://www.gov.scot/publications/council-tax-datasets/">Scottish Government</a> chargeable-dwellings dataset) and against <a href="https://obr.uk/efo/economic-and-fiscal-outlook-march-2026/">Office for Budget Responsibility</a> council tax receipts. We model Northern Ireland's domestic rates separately, and they remain in place under this reform. The 2026-27 baseline this post replaces — gross billing minus Council Tax Reduction — is £57.3 billion, modestly above the OBR's £53.7 billion accruals-basis forecast because PolicyEngine's billing-side calibration matches dwelling stock counts and modelled Council Tax Reduction uptake rather than realised receipts.</p>
 
   <p>The model reports revenue, distributional, poverty, and inequality outcomes at any LVT rate, for every income decile and family type. All figures cover the 2026-27 financial year.</p>
 
@@ -579,6 +584,13 @@
   <h2>Using the model</h2>
 
   <p>PolicyEngine UK is open source. The model scores specific designs (phased introduction, pensioner deferrals, multi-rate by region, alternative bases) in the same format as this analysis. The code and underlying data are public, and anyone can reproduce these results.</p>
+
+  <h2>Notes</h2>
+
+  <ol class="notes">
+    <li id="note-versions">PolicyEngine UK version 2.88.10; PolicyEngine Python client v4.4.2; Enhanced Family Resources Survey 2023-24, calibrated as of May 2026. <a href="#ref-versions">↩</a></li>
+    <li id="note-ons">ONS National Balance Sheet series AN.211 (non-financial assets &mdash; land). <a href="#ref-ons">↩</a></li>
+  </ol>
 
   <hr />
 
