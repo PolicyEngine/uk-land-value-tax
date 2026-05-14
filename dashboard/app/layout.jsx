@@ -1,5 +1,4 @@
 import "./globals.css";
-import PolicyEngineHeader from "../src/components/PolicyEngineHeader";
 
 export const metadata = {
   title: "Council tax to land value tax reform dashboard | PolicyEngine",
@@ -10,10 +9,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body>
-        <PolicyEngineHeader />
-        {children}
-      </body>
+      <body>{children}</body>
     </html>
   );
 }
