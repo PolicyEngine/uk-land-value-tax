@@ -16,7 +16,6 @@
     "@policyengine/ui-kit": "^0.12.0"
   },
   "devDependencies": {
-    "@policyengine/ui-kit": "^0.9.0",
     "@tailwindcss/postcss": "^4.2.4",
     "eslint": "^9.39.1",
     "eslint-config-next": "^16.2.6",
