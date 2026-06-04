@@ -401,6 +401,14 @@ def build_results(
     baseline_poverty_bhc = float(baseline_in_poverty_bhc.mean()) * 100
     baseline_poverty_ahc = float(baseline_in_poverty_ahc.mean()) * 100
     baseline_gini = float(baseline_net_income_microseries.gini())
+    # Wealth Gini is reported "after tax": each household's wealth is adjusted
+    # by the reform's net cash impact (council tax removed, LVT added). A static
+    # one-year model never feeds the tax flow back into the wealth stock, so the
+    # gross wealth Gini is mechanically unchanged by any income-side reform; the
+    # after-tax measure nets the payment off the balance sheet, the natural
+    # accounting for a wealth statistic and symmetric across the two taxes. The
+    # baseline (no reform) carries no adjustment, so its after-tax wealth Gini
+    # equals the gross figure.
     baseline_wealth_gini = float(baseline_total_wealth_microseries.gini())
     baseline_net_income_values = np.asarray(baseline_net_income_microseries)
 
@@ -409,8 +417,8 @@ def build_results(
     results["poverty_gini"] = {
         "baseline_poverty_bhc": round(baseline_poverty_bhc, 2),
         "baseline_poverty_ahc": round(baseline_poverty_ahc, 2),
-        "baseline_gini": round(baseline_gini, 4),
-        "baseline_wealth_gini": round(baseline_wealth_gini, 4),
+        "baseline_gini": round(baseline_gini, 5),
+        "baseline_wealth_gini": round(baseline_wealth_gini, 5),
         "scenarios": {},
     }
 
@@ -434,7 +442,13 @@ def build_results(
         reform_poverty_rate_bhc = float(reformed_in_poverty_bhc.mean()) * 100
         reform_poverty_rate_ahc = float(reformed_in_poverty_ahc.mean()) * 100
         reform_gini = float(reformed_net_income.gini())
-        reform_wealth_gini = float(reformed_total_wealth.gini())
+        # After-tax wealth Gini (default): net the reform's first-year cash
+        # change into each household's wealth.
+        after_tax_wealth = baseline_total_wealth_microseries + income_change
+        reform_wealth_gini = float(after_tax_wealth.gini())
+        # Gross wealth Gini (stock unchanged by an income-side reform); kept for
+        # transparency — its change is mechanically ~0.
+        reform_wealth_gini_gross = float(reformed_total_wealth.gini())
         results["poverty_gini"]["scenarios"][rate_label] = {
             "poverty_bhc": round(reform_poverty_rate_bhc, 2),
             "poverty_ahc": round(reform_poverty_rate_ahc, 2),
@@ -444,10 +458,14 @@ def build_results(
             "poverty_ahc_change": round(
                 reform_poverty_rate_ahc - baseline_poverty_ahc, 2
             ),
-            "gini": round(reform_gini, 4),
-            "gini_change": round(reform_gini - baseline_gini, 4),
-            "wealth_gini": round(reform_wealth_gini, 4),
-            "wealth_gini_change": round(reform_wealth_gini - baseline_wealth_gini, 4),
+            "gini": round(reform_gini, 5),
+            "gini_change": round(reform_gini - baseline_gini, 5),
+            "wealth_gini": round(reform_wealth_gini, 5),
+            "wealth_gini_change": round(reform_wealth_gini - baseline_wealth_gini, 5),
+            "wealth_gini_gross": round(reform_wealth_gini_gross, 5),
+            "wealth_gini_gross_change": round(
+                reform_wealth_gini_gross - baseline_wealth_gini, 5
+            ),
         }
 
         impact_df = pd.DataFrame(
