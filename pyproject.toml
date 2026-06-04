@@ -15,7 +15,8 @@ dependencies = [
 
 [project.optional-dependencies]
 simulation = [
-  "policyengine-uk>=2.75.2",
+  "policyengine>=4.4.0",
+  "policyengine-uk>=2.88.10",
 ]
 dev = [
   "pytest>=8.0",

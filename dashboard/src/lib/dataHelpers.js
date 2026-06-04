@@ -137,7 +137,7 @@ export function deriveAggregateOutcomeRows(data) {
       pct_winners: summary.pct_winners,
       poverty_bhc_change: poverty.poverty_bhc_change,
       poverty_ahc_change: poverty.poverty_ahc_change,
-      gini_change_pct: poverty.gini_change_pct,
+      gini_change: poverty.gini_change,
     };
   });
 }
