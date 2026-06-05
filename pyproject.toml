@@ -17,6 +17,12 @@ dependencies = [
 simulation = [
   "policyengine>=4.4.0",
   "policyengine-uk>=2.88.10",
+  "microdf-python>=0.4",
+]
+charts = [
+  "plotly>=5,<6",
+  "pillow>=10",
+  "kaleido==0.2.1",
 ]
 dev = [
   "pytest>=8.0",

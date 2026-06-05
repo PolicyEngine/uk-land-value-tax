@@ -21,6 +21,7 @@ from typing import Iterable
 
 import numpy as np
 import pandas as pd
+from microdf import MicroSeries
 
 from .analysis import (
     DEFAULT_LVT_RATES,
@@ -120,8 +121,8 @@ HOUSEHOLD_BASE_VARS = (
     "corporate_land_value",
     "property_wealth",
     "total_wealth",
-    "household_income_decile",
-    "household_wealth_decile",
+    "equiv_hbai_household_net_income",
+    "household_count_people",
     "in_poverty_bhc",
     "in_poverty_ahc",
     "country",
@@ -320,8 +321,30 @@ def build_results(
 
     weight_values = np.asarray(household["household_weight"])
     land_values = np.asarray(household["land_value"])
-    income_decile = np.asarray(household["household_income_decile"])
-    wealth_decile = np.asarray(household["household_wealth_decile"])
+    # Rank households into income and wealth deciles over the FULL population,
+    # including negative-income and negative-wealth households. The model's
+    # household_income_decile / household_wealth_decile push negatives to -1 to
+    # keep the web app's *percentage* change charts well-defined; this study
+    # reports absolute £ changes, where those households belong in the bottom
+    # decile like any other. Person-weight to match the model's convention.
+    person_weight = weight_values * np.asarray(household["household_count_people"])
+    income_decile = (
+        MicroSeries(
+            np.asarray(household["equiv_hbai_household_net_income"]),
+            weights=person_weight,
+        )
+        .decile_rank()
+        .values.astype(int)
+    )
+    wealth_decile = (
+        MicroSeries(np.asarray(household["total_wealth"]), weights=person_weight)
+        .decile_rank()
+        .values.astype(int)
+    )
+    # Quintile bins (two deciles each). With every household ranked 1-10 the bins
+    # are equal-population: deciles 1-2 -> Q1, 3-4 -> Q2, ... 9-10 -> Q5.
+    income_quintile = np.ceil(income_decile / 2).astype(int)
+    wealth_quintile = np.ceil(wealth_decile / 2).astype(int)
 
     baseline_df = pd.DataFrame(
         {
@@ -333,6 +356,8 @@ def build_results(
             "income": np.asarray(household["household_net_income"]),
             "income_decile": income_decile,
             "wealth_decile": wealth_decile,
+            "income_quintile": income_quintile,
+            "wealth_quintile": wealth_quintile,
             "weight": weight_values,
         }
     )
@@ -362,6 +387,12 @@ def build_results(
     results["distribution_by_decile"] = build_distribution_by_decile(baseline_df)
     results["distribution_by_wealth_decile"] = build_distribution_by_decile(
         baseline_df, decile_col="wealth_decile"
+    )
+    results["distribution_by_quintile"] = build_distribution_by_decile(
+        baseline_df, decile_col="income_quintile"
+    )
+    results["distribution_by_wealth_quintile"] = build_distribution_by_decile(
+        baseline_df, decile_col="wealth_quintile"
     )
 
     # Use the MicroSeries weights so .gini() / .mean() are weighted correctly.
@@ -472,6 +503,8 @@ def build_results(
             {
                 "income_decile": income_decile,
                 "wealth_decile": wealth_decile,
+                "income_quintile": income_quintile,
+                "wealth_quintile": wealth_quintile,
                 "lvt": np.asarray(reformed_lvt),
                 "council_tax_saved": council_tax_baseline_values,
                 "income_change": income_change,
@@ -483,6 +516,12 @@ def build_results(
         results["impact_scenarios"][rate_label] = build_impact_scenario_table(impact_df)
         results["impact_scenarios_by_wealth"][rate_label] = build_impact_scenario_table(
             impact_df, decile_col="wealth_decile"
+        )
+        results.setdefault("impact_scenarios_quintile", {})[rate_label] = (
+            build_impact_scenario_table(impact_df, decile_col="income_quintile")
+        )
+        results.setdefault("impact_scenarios_by_wealth_quintile", {})[rate_label] = (
+            build_impact_scenario_table(impact_df, decile_col="wealth_quintile")
         )
 
     # Scope sensitivity at 1% (all / household-only / corporate-only)
