@@ -167,8 +167,8 @@ value_bar(
 value_bar(
     q_rows(data["impact_scenarios_by_wealth_quintile"][RATE]),
     "avg_net_change",
-    title=f"Net income change by wealth quintile, {RATE} LVT, {YEAR}",
-    xtitle="Wealth quintile",
+    title=f"Net income change by net wealth quintile, {RATE} LVT, {YEAR}",
+    xtitle="Net wealth quintile",
     step=1000,
     name="fig5_netchange_by_wealth_quintile",
     signed_labels=True,
