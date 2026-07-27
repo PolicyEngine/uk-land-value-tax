@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LVT impact explorer — who gains from replacing council tax?</title>
+<style>
+  :root {
+    color-scheme: light;
+    /* PolicyEngine design-system tokens */
+    --pe-primary-50: #E6FFFA; --pe-primary-300: #4FD1C5; --pe-primary-500: #319795;
+    --pe-primary-600: #2C7A7B; --pe-primary-700: #285E61; --pe-primary-900: #1D4044;
+    --pe-gray-50: #F9FAFB; --pe-gray-100: #F2F4F7; --pe-gray-200: #E2E8F0;
+    --pe-gray-300: #D1D5DB; --pe-gray-400: #9CA3AF; --pe-gray-500: #6B7280;
+    --pe-gray-700: #344054; --pe-gray-900: #101828;
+    --pe-error: #EF4444;
+    --surface: #FFFFFF;
+    --page: #F5F9FF;
+    --ink: #101828;
+    --ink-2: #344054;
+    --muted: #6B7280;
+    --grid: #E2E8F0;
+    --baseline: #9CA3AF;
+    --pos: var(--pe-primary-700);
+    --neg: var(--pe-error);
+    --pos-text: var(--pe-primary-700);
+    --neg-text: #B91C1C;
+    --chip-bg: #FFFFFF;
+    --chip-active: var(--pe-primary-700);
+    --border: #E2E8F0;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; color: var(--ink);
+    background: linear-gradient(135deg, var(--pe-gray-50), var(--page), var(--pe-gray-50));
+    font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    padding: 0 0 40px;
+  }
+  .title-row {
+    position: sticky; top: 0; z-index: 100; width: 100%;
+    background: color-mix(in srgb, var(--pe-primary-700) 94%, transparent);
+    backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+    box-shadow: 0 2px 12px color-mix(in srgb, var(--pe-gray-900) 16%, transparent);
+  }
+  .title-row .bar {
+    max-width: 1100px; margin: 0 auto; padding: 14px 24px;
+    display: flex; align-items: center; justify-content: space-between; gap: 16px;
+  }
+  .title-row h1 {
+    font-size: clamp(1.05rem, 2.5vw, 1.4rem); font-weight: 700;
+    letter-spacing: -0.03em; line-height: 1.15; color: #fff; margin: 0;
+  }
+  .title-row img { height: 26px; display: block; filter: brightness(0) invert(1); opacity: .95; }
+  .wrap { max-width: 1100px; margin: 0 auto; padding: 28px 24px 0; }
+  .sub { color: var(--ink-2); font-size: 17px; line-height: 1.6; margin: 0 0 20px; }
+  .fignote:empty { display: none; }
+  .controls { display: flex; flex-direction: column; gap: 14px; margin-bottom: 18px; }
+  .control label { display: block; font-size: 12.5px; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; }
+  .chips { display: flex; flex-wrap: wrap; gap: 6px; }
+  .chip {
+    border: 1px solid var(--border); background: var(--chip-bg); color: var(--ink-2);
+    border-radius: 999px; padding: 6px 14px; font-size: 14.5px; cursor: pointer;
+    font-family: inherit;
+  }
+  .chip:hover { border-color: var(--pe-primary-500); color: var(--pe-primary-700); }
+  .chip.active { background: var(--chip-active); border-color: var(--chip-active); color: #fff; font-weight: 600; }
+  .legend { display: flex; justify-content: center; gap: 22px; padding: 4px 0 2px; font-size: 14.5px; color: var(--ink-2); }
+  .legend:empty { display: none; }
+  .legend .leg { display: inline-flex; align-items: center; gap: 6px; }
+  .legend .sw { width: 11px; height: 11px; border-radius: 3px; display: inline-block; }
+  .chart-logo { display: flex; justify-content: flex-end; margin-top: 8px; }
+  .chart-logo img { width: 80px; opacity: .8; display: block; }
+  .spot-grid { display: grid; grid-template-columns: 1fr; gap: 28px; }
+  .spot-col h3 { font-size: 15.5px; font-weight: 650; margin: 6px 0 12px; color: var(--ink); }
+  .spot-row { display: grid; grid-template-columns: 172px 1fr 76px; align-items: center; gap: 10px; margin: 7px 0; font-size: 14px; color: var(--ink-2); }
+  .spot-row .bartrack { position: relative; height: 20px; }
+  .spot-row .bartrack .zero { position: absolute; left: 50%; top: -2px; bottom: -2px; width: 1px; background: var(--baseline); }
+  .spot-row .bartrack .b { position: absolute; top: 2px; height: 16px; border-radius: 3px; }
+  .spot-row .val { text-align: right; font-weight: 600; font-variant-numeric: tabular-nums; }
+  .spot-text { font-size: 14.5px; color: var(--ink-2); line-height: 1.55; margin: 14px 0 0; }
+  .spot .figtitle { margin-bottom: 12px; }
+  .card {
+    background: var(--surface); border: 1px solid var(--border); border-radius: 24px;
+    box-shadow: 0 10px 24px color-mix(in srgb, var(--pe-gray-900) 8%, transparent);
+    padding: 24px 24px 14px;
+  }
+  .foot a { color: var(--pe-primary-600); }
+  .figtitle { font-size: 17px; font-weight: 650; margin: 0 0 2px; }
+  .fignote { font-size: 12.5px; color: var(--muted); margin: 0 0 10px; }
+  .chartbox { position: relative; overflow-x: auto; }
+  svg text { font-family: inherit; }
+  .tooltip {
+    position: absolute; pointer-events: none; z-index: 5; display: none;
+    background: var(--surface); border: 1px solid var(--border); border-radius: 8px;
+    box-shadow: 0 4px 16px rgba(0,0,0,.15); padding: 8px 10px; font-size: 13.5px;
+    min-width: 190px;
+  }
+  .tooltip .tt-title { font-weight: 650; margin-bottom: 4px; }
+  .tooltip .tt-row { display: flex; justify-content: space-between; gap: 14px; color: var(--ink-2); }
+  .tooltip .tt-row b { color: var(--ink); font-variant-numeric: tabular-nums; }
+  .foot { font-size: 13.5px; color: var(--muted); margin-top: 10px; line-height: 1.5; }
+  details { margin-top: 14px; }
+  summary { font-size: 14.5px; color: var(--ink-2); cursor: pointer; }
+  table { border-collapse: collapse; font-size: 14px; margin-top: 8px; width: 100%; }
+  th, td { text-align: right; padding: 4px 10px; border-bottom: 1px solid var(--grid); font-variant-numeric: tabular-nums; }
+  th:first-child, td:first-child { text-align: left; }
+  th { color: var(--muted); font-weight: 600; }
+</style>
+</head>
+<body>
+<header class="title-row">
+  <div class="bar">
+    <h1>Replacing council tax with a land value tax: who gains and who pays?</h1>
+    <img src="assets/policyengine-teal.png" alt="PolicyEngine">
+  </div>
+</header>
+<div class="wrap">
+  <p class="sub">Average change in household net income in 2026-27 if council tax were abolished and replaced with an annual tax on all land value, simulated with PolicyEngine UK on the Enhanced FRS 2023-24 (policyengine 4.22.3, policyengine-uk 2.89.2). Land values are calibrated to the ONS national balance sheet. Toggle the breakdown, the LVT rate, and the measure — a 0.77% rate is revenue-neutral (raises the same £57.6bn council tax nets today). For more, see <a href="https://www.policyengine.org/uk/uk-land-value-tax" target="_blank" rel="noreferrer">the dashboard</a> and <a href="https://progressandpoverty.substack.com/p/how-replacing-council-tax-with-a" target="_blank" rel="noreferrer">the Progress &amp; Poverty post</a>.</p>
+
+  <div class="controls">
+    <div class="control"><label>Group by</label><div class="chips" id="groupChips"></div></div>
+    <div class="control"><label>LVT rate</label><div class="chips" id="rateChips"></div></div>
+    <div class="control"><label>Measure</label><div class="chips" id="metricChips"></div></div>
+  </div>
+
+  <div class="card">
+    <p class="figtitle" id="figTitle"></p>
+    <p class="fignote" id="figNote"></p>
+    <div class="chartbox">
+      <svg id="chart" width="940" height="440" role="img"></svg>
+      <div class="tooltip" id="tooltip"></div>
+    </div>
+    <div id="legend" class="legend"></div>
+    <div class="chart-logo"><img src="assets/policyengine-teal.png" alt="PolicyEngine"></div>
+    <details><summary>View as table</summary><div id="tableBox"></div></details>
+  </div>
+
+  <div class="card spot" id="spotCard" style="margin-top: 24px; display: none;">
+    <p class="figtitle" id="spotTitle"></p>
+    <div class="spot-grid">
+      <div class="spot-col">
+        <h3>How are older homeowners affected?</h3>
+        <p class="spot-text" style="margin: 0 0 10px;">"Pensioner" households are those where every adult has reached State Pension age (66 in 2026-27); "homeowners" own outright or with a mortgage.</p>
+        <div id="spotAge"></div>
+        <p class="spot-text" id="spotAgeText"></p>
+      </div>
+      <div class="spot-col">
+        <h3>How does London compare?</h3>
+        <div id="spotLondon"></div>
+        <p class="spot-text" id="spotLondonText"></p>
+      </div>
+    </div>
+    <div class="chart-logo"><img src="assets/policyengine-teal.png" alt="PolicyEngine"></div>
+  </div>
+</div>
+
+<script>
+const DATA = {"year": 2026, "rates": ["0.5%", "0.77%", "1.0%", "1.5%", "2.0%"], "scenarios": {"0.5%": {"income_decile": [{"group": 1, "avg_net_change": 879, "avg_lvt": 614, "avg_council_tax_saved": 1508, "pct_winners": 81.7, "pct_losers": 14.4, "pct_no_change": 3.9, "n_households": 3867027}, {"group": 2, "avg_net_change": 590, "avg_lvt": 983, "avg_council_tax_saved": 1589, "pct_winners": 81.9, "pct_losers": 15.6, "pct_no_change": 2.5, "n_households": 2886072}, {"group": 3, "avg_net_change": 588, "avg_lvt": 901, "avg_council_tax_saved": 1505, "pct_winners": 70.2, "pct_losers": 19.2, "pct_no_change": 10.6, "n_households": 3327583}, {"group": 4, "avg_net_change": 795, "avg_lvt": 762, "avg_council_tax_saved": 1567, "pct_winners": 78.1, "pct_losers": 20.6, "pct_no_change": 1.3, "n_households": 3090257}, {"group": 5, "avg_net_change": 719, "avg_lvt": 895, "avg_council_tax_saved": 1625, "pct_winners": 79.2, "pct_losers": 17.3, "pct_no_change": 3.6, "n_households": 3585922}, {"group": 6, "avg_net_change": 735, "avg_lvt": 1154, "avg_council_tax_saved": 1892, "pct_winners": 85.4, "pct_losers": 11.9, "pct_no_change": 2.8, "n_households": 2937153}, {"group": 7, "avg_net_change": 989, "avg_lvt": 888, "avg_council_tax_saved": 1878, "pct_winners": 86.7, "pct_losers": 12.5, "pct_no_change": 0.8, "n_households": 3202913}, {"group": 8, "avg_net_change": 833, "avg_lvt": 1324, "avg_council_tax_saved": 2158, "pct_winners": 82.8, "pct_losers": 15.5, "pct_no_change": 1.7, "n_households": 2994949}, {"group": 9, "avg_net_change": 396, "avg_lvt": 1833, "avg_council_tax_saved": 2229, "pct_winners": 69.9, "pct_losers": 29.4, "pct_no_change": 0.7, "n_households": 3026838}, {"group": 10, "avg_net_change": -8, "avg_lvt": 2487, "avg_council_tax_saved": 2481, "pct_winners": 58.8, "pct_losers": 40.4, "pct_no_change": 0.8, "n_households": 3092874}], "wealth_decile": [{"group": 1, "avg_net_change": 980, "avg_lvt": 0, "avg_council_tax_saved": 1011, "pct_winners": 80.9, "pct_losers": 9.3, "pct_no_change": 9.8, "n_households": 3504344}, {"group": 2, "avg_net_change": 909, "avg_lvt": 0, "avg_council_tax_saved": 928, "pct_winners": 78.9, "pct_losers": 5.6, "pct_no_change": 15.5, "n_households": 3746710}, {"group": 3, "avg_net_change": 1336, "avg_lvt": 14, "avg_council_tax_saved": 1362, "pct_winners": 86.6, "pct_losers": 12.7, "pct_no_change": 0.7, "n_households": 2983935}, {"group": 4, "avg_net_change": 1562, "avg_lvt": 173, "avg_council_tax_saved": 1748, "pct_winners": 94.0, "pct_losers": 6.0, "pct_no_change": -0.0, "n_households": 3169299}, {"group": 5, "avg_net_change": 1413, "avg_lvt": 461, "avg_council_tax_saved": 1874, "pct_winners": 95.3, "pct_losers": 4.7, "pct_no_change": 0.0, "n_households": 3172572}, {"group": 6, "avg_net_change": 1358, "avg_lvt": 706, "avg_council_tax_saved": 2065, "pct_winners": 96.1, "pct_losers": 3.9, "pct_no_change": -0.0, "n_households": 2984259}, {"group": 7, "avg_net_change": 1101, "avg_lvt": 1099, "avg_council_tax_saved": 2201, "pct_winners": 92.4, "pct_losers": 7.6, "pct_no_change": 0.0, "n_households": 3065928}, {"group": 8, "avg_net_change": 635, "avg_lvt": 1626, "avg_council_tax_saved": 2261, "pct_winners": 80.8, "pct_losers": 19.2, "pct_no_change": -0.0, "n_households": 3015588}, {"group": 9, "avg_net_change": 179, "avg_lvt": 2232, "avg_council_tax_saved": 2412, "pct_winners": 64.3, "pct_losers": 35.7, "pct_no_change": 0.0, "n_households": 3034794}, {"group": 10, "avg_net_change": -2667, "avg_lvt": 5328, "avg_council_tax_saved": 2661, "pct_winners": 11.3, "pct_losers": 88.7, "pct_no_change": -0.0, "n_households": 3397969}], "region": [{"group": "North East", "avg_net_change": 857, "avg_lvt": 768, "avg_council_tax_saved": 1643, "pct_winners": 86.0, "pct_losers": 13.0, "pct_no_change": 1.0, "n_households": 1348505}, {"group": "North West", "avg_net_change": 652, "avg_lvt": 928, "avg_council_tax_saved": 1593, "pct_winners": 76.3, "pct_losers": 17.8, "pct_no_change": 5.9, "n_households": 3634333}, {"group": "Yorkshire and the Humber", "avg_net_change": 877, "avg_lvt": 847, "avg_council_tax_saved": 1733, "pct_winners": 91.9, "pct_losers": 6.9, "pct_no_change": 1.2, "n_households": 2682854}, {"group": "East Midlands", "avg_net_change": 834, "avg_lvt": 1043, "avg_council_tax_saved": 1887, "pct_winners": 87.8, "pct_losers": 11.4, "pct_no_change": 0.8, "n_households": 2333824}, {"group": "West Midlands", "avg_net_change": 833, "avg_lvt": 970, "avg_council_tax_saved": 1809, "pct_winners": 85.3, "pct_losers": 13.4, "pct_no_change": 1.3, "n_households": 2762180}, {"group": "East of England", "avg_net_change": 682, "avg_lvt": 1360, "avg_council_tax_saved": 2054, "pct_winners": 82.0, "pct_losers": 17.7, "pct_no_change": 0.4, "n_households": 2999532}, {"group": "London", "avg_net_change": -68, "avg_lvt": 1849, "avg_council_tax_saved": 1785, "pct_winners": 57.0, "pct_losers": 41.2, "pct_no_change": 1.8, "n_households": 4046121}, {"group": "South East", "avg_net_change": 735, "avg_lvt": 1432, "avg_council_tax_saved": 2180, "pct_winners": 75.5, "pct_losers": 23.6, "pct_no_change": 0.9, "n_households": 4348654}, {"group": "South West", "avg_net_change": 846, "avg_lvt": 1229, "avg_council_tax_saved": 2081, "pct_winners": 81.3, "pct_losers": 17.8, "pct_no_change": 1.0, "n_households": 2840106}, {"group": "Wales", "avg_net_change": 1124, "avg_lvt": 901, "avg_council_tax_saved": 2025, "pct_winners": 88.2, "pct_losers": 11.4, "pct_no_change": 0.4, "n_households": 1578884}, {"group": "Scotland", "avg_net_change": 888, "avg_lvt": 798, "avg_council_tax_saved": 1686, "pct_winners": 83.6, "pct_losers": 10.6, "pct_no_change": 5.9, "n_households": 2745761}, {"group": "Northern Ireland", "avg_net_change": -831, "avg_lvt": 831, "avg_council_tax_saved": 0, "pct_winners": 0.0, "pct_losers": 58.4, "pct_no_change": 41.6, "n_households": 754644}], "country": [{"group": "England", "avg_net_change": 648, "avg_lvt": 1225, "avg_council_tax_saved": 1883, "pct_winners": 78.4, "pct_losers": 19.9, "pct_no_change": 1.7, "n_households": 26996109}, {"group": "Scotland", "avg_net_change": 888, "avg_lvt": 798, "avg_council_tax_saved": 1686, "pct_winners": 83.6, "pct_losers": 10.6, "pct_no_change": 5.9, "n_households": 2745761}, {"group": "Wales", "avg_net_change": 1124, "avg_lvt": 901, "avg_council_tax_saved": 2025, "pct_winners": 88.2, "pct_losers": 11.4, "pct_no_change": 0.4, "n_households": 1578884}, {"group": "Northern Ireland", "avg_net_change": -831, "avg_lvt": 831, "avg_council_tax_saved": 0, "pct_winners": 0.0, "pct_losers": 58.4, "pct_no_change": 41.6, "n_households": 754644}], "family_type": [{"group": "Single, no children", "avg_net_change": 521, "avg_lvt": 688, "avg_council_tax_saved": 1227, "pct_winners": 82.4, "pct_losers": 15.4, "pct_no_change": 2.2, "n_households": 5431981}, {"group": "Couple, no children", "avg_net_change": 661, "avg_lvt": 1517, "avg_council_tax_saved": 2180, "pct_winners": 76.0, "pct_losers": 23.1, "pct_no_change": 0.9, "n_households": 10554000}, {"group": "Lone parent", "avg_net_change": 872, "avg_lvt": 39, "avg_council_tax_saved": 950, "pct_winners": 84.8, "pct_losers": 12.4, "pct_no_change": 2.9, "n_households": 2185647}, {"group": "Couple with children", "avg_net_change": 912, "avg_lvt": 1127, "avg_council_tax_saved": 2048, "pct_winners": 83.0, "pct_losers": 15.8, "pct_no_change": 1.1, "n_households": 6771403}, {"group": "Single pensioner", "avg_net_change": 590, "avg_lvt": 779, "avg_council_tax_saved": 1369, "pct_winners": 71.2, "pct_losers": 15.5, "pct_no_change": 13.2, "n_households": 4017553}, {"group": "Pensioner couple", "avg_net_change": 265, "avg_lvt": 2157, "avg_council_tax_saved": 2422, "pct_winners": 64.7, "pct_losers": 33.2, "pct_no_change": 2.0, "n_households": 3114814}], "tenure": [{"group": "Owned outright", "avg_net_change": 334, "avg_lvt": 1919, "avg_council_tax_saved": 2253, "pct_winners": 70.9, "pct_losers": 28.1, "pct_no_change": 1.0, "n_households": 10991809}, {"group": "Owned with mortgage", "avg_net_change": 762, "avg_lvt": 1298, "avg_council_tax_saved": 2060, "pct_winners": 85.4, "pct_losers": 14.0, "pct_no_change": 0.6, "n_households": 8559153}, {"group": "Private renter", "avg_net_change": 1084, "avg_lvt": 556, "avg_council_tax_saved": 1652, "pct_winners": 80.0, "pct_losers": 17.4, "pct_no_change": 2.5, "n_households": 6864607}, {"group": "Council renter", "avg_net_change": 756, "avg_lvt": 40, "avg_council_tax_saved": 812, "pct_winners": 80.8, "pct_losers": 10.7, "pct_no_change": 8.6, "n_households": 2824512}, {"group": "Housing assoc. renter", "avg_net_change": 464, "avg_lvt": 418, "avg_council_tax_saved": 923, "pct_winners": 69.6, "pct_losers": 17.5, "pct_no_change": 12.9, "n_households": 2835316}], "age_tenure": [{"group": "Pensioner homeowners", "avg_net_change": 398, "avg_lvt": 1799, "avg_council_tax_saved": 2197, "pct_winners": 73.4, "pct_losers": 25.4, "pct_no_change": 1.2, "n_households": 5172056}, {"group": "Pensioner renters", "avg_net_change": 579, "avg_lvt": 278, "avg_council_tax_saved": 857, "pct_winners": 55.1, "pct_losers": 17.7, "pct_no_change": 27.2, "n_households": 1960312}, {"group": "Working-age homeowners", "avg_net_change": 565, "avg_lvt": 1593, "avg_council_tax_saved": 2159, "pct_winners": 78.6, "pct_losers": 20.7, "pct_no_change": 0.7, "n_households": 14378906}, {"group": "Working-age renters", "avg_net_change": 924, "avg_lvt": 432, "avg_council_tax_saved": 1379, "pct_winners": 82.1, "pct_losers": 15.6, "pct_no_change": 2.4, "n_households": 10564124}], "london": [{"group": "London", "avg_net_change": -68, "avg_lvt": 1849, "avg_council_tax_saved": 1785, "pct_winners": 57.0, "pct_losers": 41.2, "pct_no_change": 1.8, "n_households": 4046121}, {"group": "Rest of UK", "avg_net_change": 762, "avg_lvt": 1064, "avg_council_tax_saved": 1835, "pct_winners": 80.4, "pct_losers": 16.5, "pct_no_change": 3.1, "n_households": 28029277}], "london_pensioner": [{"group": "London pensioner homeowners", "avg_net_change": -1054, "avg_lvt": 3493, "avg_council_tax_saved": 2439, "pct_winners": 33.3, "pct_losers": 66.6, "pct_no_change": 0.1, "n_households": 436274}, {"group": "Pensioner homeowners elsewhere", "avg_net_change": 532, "avg_lvt": 1643, "avg_council_tax_saved": 2175, "pct_winners": 77.1, "pct_losers": 21.6, "pct_no_change": 1.3, "n_households": 4735782}]}, "0.77%": {"income_decile": [{"group": 1, "avg_net_change": 548, "avg_lvt": 946, "avg_council_tax_saved": 1508, "pct_winners": 78.1, "pct_losers": 18.1, "pct_no_change": 3.8, "n_households": 3867027}, {"group": 2, "avg_net_change": 59, "avg_lvt": 1514, "avg_council_tax_saved": 1589, "pct_winners": 76.4, "pct_losers": 21.1, "pct_no_change": 2.4, "n_households": 2886072}, {"group": 3, "avg_net_change": 101, "avg_lvt": 1388, "avg_council_tax_saved": 1505, "pct_winners": 64.0, "pct_losers": 25.9, "pct_no_change": 10.1, "n_households": 3327583}, {"group": 4, "avg_net_change": 384, "avg_lvt": 1173, "avg_council_tax_saved": 1567, "pct_winners": 72.9, "pct_losers": 25.9, "pct_no_change": 1.3, "n_households": 3090257}, {"group": 5, "avg_net_change": 236, "avg_lvt": 1378, "avg_council_tax_saved": 1625, "pct_winners": 70.4, "pct_losers": 26.0, "pct_no_change": 3.7, "n_households": 3585922}, {"group": 6, "avg_net_change": 112, "avg_lvt": 1777, "avg_council_tax_saved": 1892, "pct_winners": 68.0, "pct_losers": 29.2, "pct_no_change": 2.8, "n_households": 2937153}, {"group": 7, "avg_net_change": 509, "avg_lvt": 1367, "avg_council_tax_saved": 1878, "pct_winners": 77.4, "pct_losers": 21.7, "pct_no_change": 0.8, "n_households": 3202913}, {"group": 8, "avg_net_change": 118, "avg_lvt": 2039, "avg_council_tax_saved": 2158, "pct_winners": 69.2, "pct_losers": 29.1, "pct_no_change": 1.7, "n_households": 2994949}, {"group": 9, "avg_net_change": -594, "avg_lvt": 2822, "avg_council_tax_saved": 2229, "pct_winners": 50.8, "pct_losers": 48.6, "pct_no_change": 0.7, "n_households": 3026838}, {"group": 10, "avg_net_change": -1351, "avg_lvt": 3830, "avg_council_tax_saved": 2481, "pct_winners": 46.1, "pct_losers": 53.2, "pct_no_change": 0.8, "n_households": 3092874}], "wealth_decile": [{"group": 1, "avg_net_change": 980, "avg_lvt": 0, "avg_council_tax_saved": 1011, "pct_winners": 80.9, "pct_losers": 9.3, "pct_no_change": 9.8, "n_households": 3504344}, {"group": 2, "avg_net_change": 909, "avg_lvt": 1, "avg_council_tax_saved": 928, "pct_winners": 78.5, "pct_losers": 6.4, "pct_no_change": 15.0, "n_households": 3746710}, {"group": 3, "avg_net_change": 1329, "avg_lvt": 22, "avg_council_tax_saved": 1362, "pct_winners": 86.6, "pct_losers": 12.7, "pct_no_change": 0.6, "n_households": 2983935}, {"group": 4, "avg_net_change": 1469, "avg_lvt": 266, "avg_council_tax_saved": 1748, "pct_winners": 93.9, "pct_losers": 6.1, "pct_no_change": -0.0, "n_households": 3169299}, {"group": 5, "avg_net_change": 1164, "avg_lvt": 709, "avg_council_tax_saved": 1874, "pct_winners": 94.0, "pct_losers": 6.0, "pct_no_change": 0.0, "n_households": 3172572}, {"group": 6, "avg_net_change": 977, "avg_lvt": 1087, "avg_council_tax_saved": 2065, "pct_winners": 90.0, "pct_losers": 10.0, "pct_no_change": -0.0, "n_households": 2984259}, {"group": 7, "avg_net_change": 507, "avg_lvt": 1693, "avg_council_tax_saved": 2201, "pct_winners": 82.5, "pct_losers": 17.5, "pct_no_change": 0.0, "n_households": 3065928}, {"group": 8, "avg_net_change": -244, "avg_lvt": 2504, "avg_council_tax_saved": 2261, "pct_winners": 48.1, "pct_losers": 51.9, "pct_no_change": 0.0, "n_households": 3015588}, {"group": 9, "avg_net_change": -1027, "avg_lvt": 3438, "avg_council_tax_saved": 2412, "pct_winners": 20.9, "pct_losers": 79.1, "pct_no_change": 0.0, "n_households": 3034794}, {"group": 10, "avg_net_change": -5544, "avg_lvt": 8206, "avg_council_tax_saved": 2661, "pct_winners": 1.7, "pct_losers": 98.3, "pct_no_change": 0.0, "n_households": 3397969}], "region": [{"group": "North East", "avg_net_change": 442, "avg_lvt": 1183, "avg_council_tax_saved": 1643, "pct_winners": 82.0, "pct_losers": 17.0, "pct_no_change": 1.0, "n_households": 1348505}, {"group": "North West", "avg_net_change": 151, "avg_lvt": 1430, "avg_council_tax_saved": 1593, "pct_winners": 68.2, "pct_losers": 25.8, "pct_no_change": 6.0, "n_households": 3634333}, {"group": "Yorkshire and the Humber", "avg_net_change": 420, "avg_lvt": 1305, "avg_council_tax_saved": 1733, "pct_winners": 82.4, "pct_losers": 16.4, "pct_no_change": 1.2, "n_households": 2682854}, {"group": "East Midlands", "avg_net_change": 271, "avg_lvt": 1606, "avg_council_tax_saved": 1887, "pct_winners": 64.1, "pct_losers": 35.1, "pct_no_change": 0.8, "n_households": 2333824}, {"group": "West Midlands", "avg_net_change": 309, "avg_lvt": 1494, "avg_council_tax_saved": 1809, "pct_winners": 78.2, "pct_losers": 20.5, "pct_no_change": 1.3, "n_households": 2762180}, {"group": "East of England", "avg_net_change": -53, "avg_lvt": 2095, "avg_council_tax_saved": 2054, "pct_winners": 68.2, "pct_losers": 31.4, "pct_no_change": 0.4, "n_households": 2999532}, {"group": "London", "avg_net_change": -1066, "avg_lvt": 2847, "avg_council_tax_saved": 1785, "pct_winners": 44.7, "pct_losers": 53.5, "pct_no_change": 1.8, "n_households": 4046121}, {"group": "South East", "avg_net_change": -38, "avg_lvt": 2205, "avg_council_tax_saved": 2180, "pct_winners": 63.4, "pct_losers": 35.8, "pct_no_change": 0.9, "n_households": 4348654}, {"group": "South West", "avg_net_change": 183, "avg_lvt": 1893, "avg_council_tax_saved": 2081, "pct_winners": 74.4, "pct_losers": 24.6, "pct_no_change": 1.0, "n_households": 2840106}, {"group": "Wales", "avg_net_change": 637, "avg_lvt": 1388, "avg_council_tax_saved": 2025, "pct_winners": 84.4, "pct_losers": 15.2, "pct_no_change": 0.4, "n_households": 1578884}, {"group": "Scotland", "avg_net_change": 457, "avg_lvt": 1228, "avg_council_tax_saved": 1686, "pct_winners": 79.0, "pct_losers": 15.2, "pct_no_change": 5.8, "n_households": 2745761}, {"group": "Northern Ireland", "avg_net_change": -1280, "avg_lvt": 1279, "avg_council_tax_saved": 0, "pct_winners": 0.0, "pct_losers": 61.1, "pct_no_change": 38.9, "n_households": 754644}], "country": [{"group": "England", "avg_net_change": -13, "avg_lvt": 1887, "avg_council_tax_saved": 1883, "pct_winners": 67.3, "pct_losers": 30.9, "pct_no_change": 1.7, "n_households": 26996109}, {"group": "Scotland", "avg_net_change": 457, "avg_lvt": 1228, "avg_council_tax_saved": 1686, "pct_winners": 79.0, "pct_losers": 15.2, "pct_no_change": 5.8, "n_households": 2745761}, {"group": "Wales", "avg_net_change": 637, "avg_lvt": 1388, "avg_council_tax_saved": 2025, "pct_winners": 84.4, "pct_losers": 15.2, "pct_no_change": 0.4, "n_households": 1578884}, {"group": "Northern Ireland", "avg_net_change": -1280, "avg_lvt": 1279, "avg_council_tax_saved": 0, "pct_winners": 0.0, "pct_losers": 61.1, "pct_no_change": 38.9, "n_households": 754644}], "family_type": [{"group": "Single, no children", "avg_net_change": 150, "avg_lvt": 1060, "avg_council_tax_saved": 1227, "pct_winners": 76.4, "pct_losers": 21.2, "pct_no_change": 2.4, "n_households": 5431981}, {"group": "Couple, no children", "avg_net_change": -159, "avg_lvt": 2336, "avg_council_tax_saved": 2180, "pct_winners": 62.7, "pct_losers": 36.6, "pct_no_change": 0.7, "n_households": 10554000}, {"group": "Lone parent", "avg_net_change": 851, "avg_lvt": 60, "avg_council_tax_saved": 950, "pct_winners": 84.5, "pct_losers": 12.7, "pct_no_change": 2.8, "n_households": 2185647}, {"group": "Couple with children", "avg_net_change": 304, "avg_lvt": 1736, "avg_council_tax_saved": 2048, "pct_winners": 71.9, "pct_losers": 27.0, "pct_no_change": 1.1, "n_households": 6771403}, {"group": "Single pensioner", "avg_net_change": 170, "avg_lvt": 1199, "avg_council_tax_saved": 1369, "pct_winners": 64.5, "pct_losers": 22.5, "pct_no_change": 13.0, "n_households": 4017553}, {"group": "Pensioner couple", "avg_net_change": -900, "avg_lvt": 3322, "avg_council_tax_saved": 2422, "pct_winners": 51.2, "pct_losers": 46.7, "pct_no_change": 2.0, "n_households": 3114814}], "tenure": [{"group": "Owned outright", "avg_net_change": -702, "avg_lvt": 2955, "avg_council_tax_saved": 2253, "pct_winners": 57.6, "pct_losers": 41.5, "pct_no_change": 0.9, "n_households": 10991809}, {"group": "Owned with mortgage", "avg_net_change": 61, "avg_lvt": 1999, "avg_council_tax_saved": 2060, "pct_winners": 69.7, "pct_losers": 29.8, "pct_no_change": 0.6, "n_households": 8559153}, {"group": "Private renter", "avg_net_change": 784, "avg_lvt": 856, "avg_council_tax_saved": 1652, "pct_winners": 76.8, "pct_losers": 20.6, "pct_no_change": 2.6, "n_households": 6864607}, {"group": "Council renter", "avg_net_change": 734, "avg_lvt": 61, "avg_council_tax_saved": 812, "pct_winners": 80.6, "pct_losers": 10.9, "pct_no_change": 8.5, "n_households": 2824512}, {"group": "Housing assoc. renter", "avg_net_change": 238, "avg_lvt": 644, "avg_council_tax_saved": 923, "pct_winners": 64.6, "pct_losers": 22.5, "pct_no_change": 12.9, "n_households": 2835316}], "age_tenure": [{"group": "Pensioner homeowners", "avg_net_change": -573, "avg_lvt": 2770, "avg_council_tax_saved": 2197, "pct_winners": 60.5, "pct_losers": 38.3, "pct_no_change": 1.2, "n_households": 5172056}, {"group": "Pensioner renters", "avg_net_change": 429, "avg_lvt": 428, "avg_council_tax_saved": 857, "pct_winners": 54.1, "pct_losers": 19.3, "pct_no_change": 26.7, "n_households": 1960312}, {"group": "Working-age homeowners", "avg_net_change": -295, "avg_lvt": 2453, "avg_council_tax_saved": 2159, "pct_winners": 63.7, "pct_losers": 35.7, "pct_no_change": 0.6, "n_households": 14378906}, {"group": "Working-age renters", "avg_net_change": 690, "avg_lvt": 666, "avg_council_tax_saved": 1379, "pct_winners": 78.8, "pct_losers": 18.8, "pct_no_change": 2.5, "n_households": 10564124}], "london": [{"group": "London", "avg_net_change": -1066, "avg_lvt": 2847, "avg_council_tax_saved": 1785, "pct_winners": 44.7, "pct_losers": 53.5, "pct_no_change": 1.8, "n_households": 4046121}, {"group": "Rest of UK", "avg_net_change": 187, "avg_lvt": 1639, "avg_council_tax_saved": 1835, "pct_winners": 70.9, "pct_losers": 26.1, "pct_no_change": 3.0, "n_households": 28029277}], "london_pensioner": [{"group": "London pensioner homeowners", "avg_net_change": -2940, "avg_lvt": 5379, "avg_council_tax_saved": 2439, "pct_winners": 9.3, "pct_losers": 90.6, "pct_no_change": 0.1, "n_households": 436274}, {"group": "Pensioner homeowners elsewhere", "avg_net_change": -355, "avg_lvt": 2529, "avg_council_tax_saved": 2175, "pct_winners": 65.2, "pct_losers": 33.5, "pct_no_change": 1.3, "n_households": 4735782}]}, "1.0%": {"income_decile": [{"group": 1, "avg_net_change": 265, "avg_lvt": 1228, "avg_council_tax_saved": 1508, "pct_winners": 74.7, "pct_losers": 21.5, "pct_no_change": 3.8, "n_households": 3867027}, {"group": 2, "avg_net_change": -393, "avg_lvt": 1966, "avg_council_tax_saved": 1589, "pct_winners": 72.9, "pct_losers": 24.6, "pct_no_change": 2.4, "n_households": 2886072}, {"group": 3, "avg_net_change": -313, "avg_lvt": 1802, "avg_council_tax_saved": 1505, "pct_winners": 62.4, "pct_losers": 27.5, "pct_no_change": 10.0, "n_households": 3327583}, {"group": 4, "avg_net_change": 33, "avg_lvt": 1524, "avg_council_tax_saved": 1567, "pct_winners": 69.6, "pct_losers": 29.1, "pct_no_change": 1.3, "n_households": 3090257}, {"group": 5, "avg_net_change": -176, "avg_lvt": 1789, "avg_council_tax_saved": 1625, "pct_winners": 64.0, "pct_losers": 32.3, "pct_no_change": 3.7, "n_households": 3585922}, {"group": 6, "avg_net_change": -418, "avg_lvt": 2307, "avg_council_tax_saved": 1892, "pct_winners": 58.9, "pct_losers": 38.4, "pct_no_change": 2.7, "n_households": 2937153}, {"group": 7, "avg_net_change": 101, "avg_lvt": 1776, "avg_council_tax_saved": 1878, "pct_winners": 66.7, "pct_losers": 32.4, "pct_no_change": 0.8, "n_households": 3202913}, {"group": 8, "avg_net_change": -491, "avg_lvt": 2648, "avg_council_tax_saved": 2158, "pct_winners": 58.9, "pct_losers": 39.5, "pct_no_change": 1.7, "n_households": 2994949}, {"group": 9, "avg_net_change": -1437, "avg_lvt": 3665, "avg_council_tax_saved": 2229, "pct_winners": 40.2, "pct_losers": 59.1, "pct_no_change": 0.7, "n_households": 3026838}, {"group": 10, "avg_net_change": -2495, "avg_lvt": 4974, "avg_council_tax_saved": 2481, "pct_winners": 33.9, "pct_losers": 65.3, "pct_no_change": 0.8, "n_households": 3092874}], "wealth_decile": [{"group": 1, "avg_net_change": 980, "avg_lvt": 0, "avg_council_tax_saved": 1011, "pct_winners": 80.9, "pct_losers": 9.3, "pct_no_change": 9.8, "n_households": 3504344}, {"group": 2, "avg_net_change": 909, "avg_lvt": 1, "avg_council_tax_saved": 928, "pct_winners": 78.5, "pct_losers": 6.5, "pct_no_change": 15.0, "n_households": 3746710}, {"group": 3, "avg_net_change": 1322, "avg_lvt": 29, "avg_council_tax_saved": 1362, "pct_winners": 86.6, "pct_losers": 12.8, "pct_no_change": 0.6, "n_households": 2983935}, {"group": 4, "avg_net_change": 1390, "avg_lvt": 346, "avg_council_tax_saved": 1748, "pct_winners": 93.7, "pct_losers": 6.3, "pct_no_change": 0.0, "n_households": 3169299}, {"group": 5, "avg_net_change": 953, "avg_lvt": 921, "avg_council_tax_saved": 1874, "pct_winners": 89.6, "pct_losers": 10.4, "pct_no_change": 0.0, "n_households": 3172572}, {"group": 6, "avg_net_change": 653, "avg_lvt": 1412, "avg_council_tax_saved": 2065, "pct_winners": 84.6, "pct_losers": 15.4, "pct_no_change": -0.0, "n_households": 2984259}, {"group": 7, "avg_net_change": 1, "avg_lvt": 2199, "avg_council_tax_saved": 2201, "pct_winners": 58.2, "pct_losers": 41.7, "pct_no_change": 0.0, "n_households": 3065928}, {"group": 8, "avg_net_change": -992, "avg_lvt": 3253, "avg_council_tax_saved": 2261, "pct_winners": 23.1, "pct_losers": 76.9, "pct_no_change": -0.0, "n_households": 3015588}, {"group": 9, "avg_net_change": -2053, "avg_lvt": 4465, "avg_council_tax_saved": 2412, "pct_winners": 8.5, "pct_losers": 91.5, "pct_no_change": 0.0, "n_households": 3034794}, {"group": 10, "avg_net_change": -7995, "avg_lvt": 10657, "avg_council_tax_saved": 2661, "pct_winners": 0.2, "pct_losers": 99.8, "pct_no_change": -0.0, "n_households": 3397969}], "region": [{"group": "North East", "avg_net_change": 89, "avg_lvt": 1536, "avg_council_tax_saved": 1643, "pct_winners": 63.9, "pct_losers": 35.1, "pct_no_change": 1.0, "n_households": 1348505}, {"group": "North West", "avg_net_change": -276, "avg_lvt": 1857, "avg_council_tax_saved": 1593, "pct_winners": 64.5, "pct_losers": 29.5, "pct_no_change": 6.0, "n_households": 3634333}, {"group": "Yorkshire and the Humber", "avg_net_change": 30, "avg_lvt": 1694, "avg_council_tax_saved": 1733, "pct_winners": 75.5, "pct_losers": 23.3, "pct_no_change": 1.2, "n_households": 2682854}, {"group": "East Midlands", "avg_net_change": -209, "avg_lvt": 2086, "avg_council_tax_saved": 1887, "pct_winners": 61.7, "pct_losers": 37.5, "pct_no_change": 0.8, "n_households": 2333824}, {"group": "West Midlands", "avg_net_change": -138, "avg_lvt": 1941, "avg_council_tax_saved": 1809, "pct_winners": 75.3, "pct_losers": 23.4, "pct_no_change": 1.3, "n_households": 2762180}, {"group": "East of England", "avg_net_change": -678, "avg_lvt": 2720, "avg_council_tax_saved": 2054, "pct_winners": 54.3, "pct_losers": 45.3, "pct_no_change": 0.4, "n_households": 2999532}, {"group": "London", "avg_net_change": -1917, "avg_lvt": 3698, "avg_council_tax_saved": 1785, "pct_winners": 39.1, "pct_losers": 59.1, "pct_no_change": 1.8, "n_households": 4046121}, {"group": "South East", "avg_net_change": -696, "avg_lvt": 2863, "avg_council_tax_saved": 2180, "pct_winners": 59.6, "pct_losers": 39.5, "pct_no_change": 0.9, "n_households": 4348654}, {"group": "South West", "avg_net_change": -383, "avg_lvt": 2459, "avg_council_tax_saved": 2081, "pct_winners": 59.4, "pct_losers": 39.6, "pct_no_change": 1.0, "n_households": 2840106}, {"group": "Wales", "avg_net_change": 222, "avg_lvt": 1803, "avg_council_tax_saved": 2025, "pct_winners": 78.8, "pct_losers": 20.8, "pct_no_change": 0.4, "n_households": 1578884}, {"group": "Scotland", "avg_net_change": 91, "avg_lvt": 1595, "avg_council_tax_saved": 1686, "pct_winners": 71.4, "pct_losers": 22.8, "pct_no_change": 5.8, "n_households": 2745761}, {"group": "Northern Ireland", "avg_net_change": -1662, "avg_lvt": 1662, "avg_council_tax_saved": 0, "pct_winners": 0.0, "pct_losers": 61.5, "pct_no_change": 38.5, "n_households": 754644}], "country": [{"group": "England", "avg_net_change": -577, "avg_lvt": 2450, "avg_council_tax_saved": 1883, "pct_winners": 60.2, "pct_losers": 38.1, "pct_no_change": 1.7, "n_households": 26996109}, {"group": "Scotland", "avg_net_change": 91, "avg_lvt": 1595, "avg_council_tax_saved": 1686, "pct_winners": 71.4, "pct_losers": 22.8, "pct_no_change": 5.8, "n_households": 2745761}, {"group": "Wales", "avg_net_change": 222, "avg_lvt": 1803, "avg_council_tax_saved": 2025, "pct_winners": 78.8, "pct_losers": 20.8, "pct_no_change": 0.4, "n_households": 1578884}, {"group": "Northern Ireland", "avg_net_change": -1662, "avg_lvt": 1662, "avg_council_tax_saved": 0, "pct_winners": 0.0, "pct_losers": 61.5, "pct_no_change": 38.5, "n_households": 754644}], "family_type": [{"group": "Single, no children", "avg_net_change": -167, "avg_lvt": 1376, "avg_council_tax_saved": 1227, "pct_winners": 72.0, "pct_losers": 25.6, "pct_no_change": 2.4, "n_households": 5431981}, {"group": "Couple, no children", "avg_net_change": -857, "avg_lvt": 3034, "avg_council_tax_saved": 2180, "pct_winners": 54.2, "pct_losers": 45.1, "pct_no_change": 0.7, "n_households": 10554000}, {"group": "Lone parent", "avg_net_change": 833, "avg_lvt": 78, "avg_council_tax_saved": 950, "pct_winners": 84.3, "pct_losers": 13.0, "pct_no_change": 2.8, "n_households": 2185647}, {"group": "Couple with children", "avg_net_change": -215, "avg_lvt": 2254, "avg_council_tax_saved": 2048, "pct_winners": 63.7, "pct_losers": 35.2, "pct_no_change": 1.1, "n_households": 6771403}, {"group": "Single pensioner", "avg_net_change": -189, "avg_lvt": 1558, "avg_council_tax_saved": 1369, "pct_winners": 61.0, "pct_losers": 26.0, "pct_no_change": 13.0, "n_households": 4017553}, {"group": "Pensioner couple", "avg_net_change": -1892, "avg_lvt": 4314, "avg_council_tax_saved": 2422, "pct_winners": 38.9, "pct_losers": 59.1, "pct_no_change": 2.0, "n_households": 3114814}], "tenure": [{"group": "Owned outright", "avg_net_change": -1585, "avg_lvt": 3838, "avg_council_tax_saved": 2253, "pct_winners": 48.2, "pct_losers": 50.9, "pct_no_change": 0.9, "n_households": 10991809}, {"group": "Owned with mortgage", "avg_net_change": -536, "avg_lvt": 2596, "avg_council_tax_saved": 2060, "pct_winners": 58.9, "pct_losers": 40.6, "pct_no_change": 0.6, "n_households": 8559153}, {"group": "Private renter", "avg_net_change": 529, "avg_lvt": 1112, "avg_council_tax_saved": 1652, "pct_winners": 73.8, "pct_losers": 23.7, "pct_no_change": 2.5, "n_households": 6864607}, {"group": "Council renter", "avg_net_change": 716, "avg_lvt": 80, "avg_council_tax_saved": 812, "pct_winners": 80.4, "pct_losers": 11.1, "pct_no_change": 8.5, "n_households": 2824512}, {"group": "Housing assoc. renter", "avg_net_change": 46, "avg_lvt": 836, "avg_council_tax_saved": 923, "pct_winners": 62.6, "pct_losers": 24.6, "pct_no_change": 12.9, "n_households": 2835316}], "age_tenure": [{"group": "Pensioner homeowners", "avg_net_change": -1400, "avg_lvt": 3597, "avg_council_tax_saved": 2197, "pct_winners": 50.5, "pct_losers": 48.3, "pct_no_change": 1.2, "n_households": 5172056}, {"group": "Pensioner renters", "avg_net_change": 302, "avg_lvt": 556, "avg_council_tax_saved": 857, "pct_winners": 53.6, "pct_losers": 19.8, "pct_no_change": 26.6, "n_households": 1960312}, {"group": "Working-age homeowners", "avg_net_change": -1027, "avg_lvt": 3185, "avg_council_tax_saved": 2159, "pct_winners": 53.7, "pct_losers": 45.7, "pct_no_change": 0.6, "n_households": 14378906}, {"group": "Working-age renters", "avg_net_change": 491, "avg_lvt": 865, "avg_council_tax_saved": 1379, "pct_winners": 76.3, "pct_losers": 21.3, "pct_no_change": 2.4, "n_households": 10564124}], "london": [{"group": "London", "avg_net_change": -1917, "avg_lvt": 3698, "avg_council_tax_saved": 1785, "pct_winners": 39.1, "pct_losers": 59.1, "pct_no_change": 1.8, "n_households": 4046121}, {"group": "Rest of UK", "avg_net_change": -302, "avg_lvt": 2129, "avg_council_tax_saved": 1835, "pct_winners": 63.7, "pct_losers": 33.2, "pct_no_change": 3.0, "n_households": 28029277}], "london_pensioner": [{"group": "London pensioner homeowners", "avg_net_change": -4547, "avg_lvt": 6986, "avg_council_tax_saved": 2439, "pct_winners": 6.4, "pct_losers": 93.5, "pct_no_change": 0.1, "n_households": 436274}, {"group": "Pensioner homeowners elsewhere", "avg_net_change": -1110, "avg_lvt": 3285, "avg_council_tax_saved": 2175, "pct_winners": 54.6, "pct_losers": 44.1, "pct_no_change": 1.3, "n_households": 4735782}]}, "1.5%": {"income_decile": [{"group": 1, "avg_net_change": -349, "avg_lvt": 1842, "avg_council_tax_saved": 1508, "pct_winners": 65.6, "pct_losers": 30.6, "pct_no_change": 3.8, "n_households": 3867027}, {"group": 2, "avg_net_change": -1376, "avg_lvt": 2949, "avg_council_tax_saved": 1589, "pct_winners": 60.6, "pct_losers": 37.0, "pct_no_change": 2.4, "n_households": 2886072}, {"group": 3, "avg_net_change": -1214, "avg_lvt": 2703, "avg_council_tax_saved": 1505, "pct_winners": 57.9, "pct_losers": 32.5, "pct_no_change": 9.6, "n_households": 3327583}, {"group": 4, "avg_net_change": -729, "avg_lvt": 2286, "avg_council_tax_saved": 1567, "pct_winners": 65.7, "pct_losers": 33.0, "pct_no_change": 1.2, "n_households": 3090257}, {"group": 5, "avg_net_change": -1070, "avg_lvt": 2684, "avg_council_tax_saved": 1625, "pct_winners": 56.8, "pct_losers": 40.0, "pct_no_change": 3.2, "n_households": 3585922}, {"group": 6, "avg_net_change": -1572, "avg_lvt": 3461, "avg_council_tax_saved": 1892, "pct_winners": 44.1, "pct_losers": 53.2, "pct_no_change": 2.7, "n_households": 2937153}, {"group": 7, "avg_net_change": -787, "avg_lvt": 2663, "avg_council_tax_saved": 1878, "pct_winners": 60.1, "pct_losers": 39.1, "pct_no_change": 0.8, "n_households": 3202913}, {"group": 8, "avg_net_change": -1814, "avg_lvt": 3971, "avg_council_tax_saved": 2158, "pct_winners": 41.8, "pct_losers": 56.5, "pct_no_change": 1.7, "n_households": 2994949}, {"group": 9, "avg_net_change": -3270, "avg_lvt": 5498, "avg_council_tax_saved": 2229, "pct_winners": 28.3, "pct_losers": 70.9, "pct_no_change": 0.8, "n_households": 3026838}, {"group": 10, "avg_net_change": -4982, "avg_lvt": 7462, "avg_council_tax_saved": 2481, "pct_winners": 20.1, "pct_losers": 79.2, "pct_no_change": 0.8, "n_households": 3092874}], "wealth_decile": [{"group": 1, "avg_net_change": 980, "avg_lvt": 0, "avg_council_tax_saved": 1011, "pct_winners": 80.9, "pct_losers": 9.3, "pct_no_change": 9.8, "n_households": 3504344}, {"group": 2, "avg_net_change": 908, "avg_lvt": 1, "avg_council_tax_saved": 928, "pct_winners": 78.5, "pct_losers": 7.4, "pct_no_change": 14.1, "n_households": 3746710}, {"group": 3, "avg_net_change": 1308, "avg_lvt": 43, "avg_council_tax_saved": 1362, "pct_winners": 86.4, "pct_losers": 13.0, "pct_no_change": 0.6, "n_households": 2983935}, {"group": 4, "avg_net_change": 1217, "avg_lvt": 519, "avg_council_tax_saved": 1748, "pct_winners": 93.4, "pct_losers": 6.6, "pct_no_change": 0.0, "n_households": 3169299}, {"group": 5, "avg_net_change": 492, "avg_lvt": 1382, "avg_council_tax_saved": 1874, "pct_winners": 81.5, "pct_losers": 18.5, "pct_no_change": 0.0, "n_households": 3172572}, {"group": 6, "avg_net_change": -53, "avg_lvt": 2117, "avg_council_tax_saved": 2065, "pct_winners": 59.9, "pct_losers": 39.9, "pct_no_change": 0.2, "n_households": 2984259}, {"group": 7, "avg_net_change": -1098, "avg_lvt": 3298, "avg_council_tax_saved": 2201, "pct_winners": 16.1, "pct_losers": 83.9, "pct_no_change": 0.0, "n_households": 3065928}, {"group": 8, "avg_net_change": -2618, "avg_lvt": 4879, "avg_council_tax_saved": 2261, "pct_winners": 2.2, "pct_losers": 97.8, "pct_no_change": 0.0, "n_households": 3015588}, {"group": 9, "avg_net_change": -4286, "avg_lvt": 6697, "avg_council_tax_saved": 2412, "pct_winners": 0.4, "pct_losers": 99.6, "pct_no_change": -0.0, "n_households": 3034794}, {"group": 10, "avg_net_change": -13324, "avg_lvt": 15985, "avg_council_tax_saved": 2661, "pct_winners": 0.0, "pct_losers": 100.0, "pct_no_change": 0.0, "n_households": 3397969}], "region": [{"group": "North East", "avg_net_change": -679, "avg_lvt": 2304, "avg_council_tax_saved": 1643, "pct_winners": 55.0, "pct_losers": 44.1, "pct_no_change": 0.9, "n_households": 1348505}, {"group": "North West", "avg_net_change": -1205, "avg_lvt": 2785, "avg_council_tax_saved": 1593, "pct_winners": 55.4, "pct_losers": 39.0, "pct_no_change": 5.6, "n_households": 3634333}, {"group": "Yorkshire and the Humber", "avg_net_change": -817, "avg_lvt": 2541, "avg_council_tax_saved": 1733, "pct_winners": 66.8, "pct_losers": 32.0, "pct_no_change": 1.2, "n_households": 2682854}, {"group": "East Midlands", "avg_net_change": -1252, "avg_lvt": 3129, "avg_council_tax_saved": 1887, "pct_winners": 48.3, "pct_losers": 50.9, "pct_no_change": 0.8, "n_households": 2333824}, {"group": "West Midlands", "avg_net_change": -1108, "avg_lvt": 2911, "avg_council_tax_saved": 1809, "pct_winners": 62.7, "pct_losers": 36.0, "pct_no_change": 1.3, "n_households": 2762180}, {"group": "East of England", "avg_net_change": -2039, "avg_lvt": 4080, "avg_council_tax_saved": 2054, "pct_winners": 47.1, "pct_losers": 52.5, "pct_no_change": 0.4, "n_households": 2999532}, {"group": "London", "avg_net_change": -3766, "avg_lvt": 5547, "avg_council_tax_saved": 1785, "pct_winners": 34.7, "pct_losers": 63.5, "pct_no_change": 1.8, "n_households": 4046121}, {"group": "South East", "avg_net_change": -2128, "avg_lvt": 4295, "avg_council_tax_saved": 2180, "pct_winners": 46.3, "pct_losers": 53.2, "pct_no_change": 0.5, "n_households": 4348654}, {"group": "South West", "avg_net_change": -1612, "avg_lvt": 3688, "avg_council_tax_saved": 2081, "pct_winners": 45.3, "pct_losers": 53.6, "pct_no_change": 1.1, "n_households": 2840106}, {"group": "Wales", "avg_net_change": -679, "avg_lvt": 2704, "avg_council_tax_saved": 2025, "pct_winners": 70.2, "pct_losers": 29.4, "pct_no_change": 0.4, "n_households": 1578884}, {"group": "Scotland", "avg_net_change": -707, "avg_lvt": 2393, "avg_council_tax_saved": 1686, "pct_winners": 59.4, "pct_losers": 34.8, "pct_no_change": 5.8, "n_households": 2745761}, {"group": "Northern Ireland", "avg_net_change": -2493, "avg_lvt": 2492, "avg_council_tax_saved": 0, "pct_winners": 0.0, "pct_losers": 62.2, "pct_no_change": 37.8, "n_households": 754644}], "country": [{"group": "England", "avg_net_change": -1802, "avg_lvt": 3676, "avg_council_tax_saved": 1883, "pct_winners": 50.1, "pct_losers": 48.3, "pct_no_change": 1.6, "n_households": 26996109}, {"group": "Scotland", "avg_net_change": -707, "avg_lvt": 2393, "avg_council_tax_saved": 1686, "pct_winners": 59.4, "pct_losers": 34.8, "pct_no_change": 5.8, "n_households": 2745761}, {"group": "Wales", "avg_net_change": -679, "avg_lvt": 2704, "avg_council_tax_saved": 2025, "pct_winners": 70.2, "pct_losers": 29.4, "pct_no_change": 0.4, "n_households": 1578884}, {"group": "Northern Ireland", "avg_net_change": -2493, "avg_lvt": 2492, "avg_council_tax_saved": 0, "pct_winners": 0.0, "pct_losers": 62.2, "pct_no_change": 37.8, "n_households": 754644}], "family_type": [{"group": "Single, no children", "avg_net_change": -855, "avg_lvt": 2064, "avg_council_tax_saved": 1227, "pct_winners": 68.4, "pct_losers": 29.5, "pct_no_change": 2.1, "n_households": 5431981}, {"group": "Couple, no children", "avg_net_change": -2374, "avg_lvt": 4552, "avg_council_tax_saved": 2180, "pct_winners": 41.7, "pct_losers": 57.6, "pct_no_change": 0.7, "n_households": 10554000}, {"group": "Lone parent", "avg_net_change": 794, "avg_lvt": 117, "avg_council_tax_saved": 950, "pct_winners": 83.8, "pct_losers": 13.5, "pct_no_change": 2.7, "n_households": 2185647}, {"group": "Couple with children", "avg_net_change": -1342, "avg_lvt": 3381, "avg_council_tax_saved": 2048, "pct_winners": 54.9, "pct_losers": 43.9, "pct_no_change": 1.2, "n_households": 6771403}, {"group": "Single pensioner", "avg_net_change": -967, "avg_lvt": 2337, "avg_council_tax_saved": 1369, "pct_winners": 47.3, "pct_losers": 40.1, "pct_no_change": 12.6, "n_households": 4017553}, {"group": "Pensioner couple", "avg_net_change": -4049, "avg_lvt": 6471, "avg_council_tax_saved": 2422, "pct_winners": 22.5, "pct_losers": 75.5, "pct_no_change": 2.0, "n_households": 3114814}], "tenure": [{"group": "Owned outright", "avg_net_change": -3504, "avg_lvt": 5756, "avg_council_tax_saved": 2253, "pct_winners": 31.3, "pct_losers": 67.8, "pct_no_change": 0.9, "n_households": 10991809}, {"group": "Owned with mortgage", "avg_net_change": -1834, "avg_lvt": 3895, "avg_council_tax_saved": 2060, "pct_winners": 46.0, "pct_losers": 53.3, "pct_no_change": 0.6, "n_households": 8559153}, {"group": "Private renter", "avg_net_change": -27, "avg_lvt": 1667, "avg_council_tax_saved": 1652, "pct_winners": 71.6, "pct_losers": 26.1, "pct_no_change": 2.3, "n_households": 6864607}, {"group": "Council renter", "avg_net_change": 676, "avg_lvt": 120, "avg_council_tax_saved": 812, "pct_winners": 79.9, "pct_losers": 12.1, "pct_no_change": 8.0, "n_households": 2824512}, {"group": "Housing assoc. renter", "avg_net_change": -372, "avg_lvt": 1254, "avg_council_tax_saved": 923, "pct_winners": 60.2, "pct_losers": 27.0, "pct_no_change": 12.8, "n_households": 2835316}], "age_tenure": [{"group": "Pensioner homeowners", "avg_net_change": -3199, "avg_lvt": 5396, "avg_council_tax_saved": 2197, "pct_winners": 30.7, "pct_losers": 68.1, "pct_no_change": 1.2, "n_households": 5172056}, {"group": "Pensioner renters", "avg_net_change": 24, "avg_lvt": 834, "avg_council_tax_saved": 857, "pct_winners": 51.7, "pct_losers": 22.5, "pct_no_change": 25.9, "n_households": 1960312}, {"group": "Working-age homeowners", "avg_net_change": -2620, "avg_lvt": 4778, "avg_council_tax_saved": 2159, "pct_winners": 40.3, "pct_losers": 59.1, "pct_no_change": 0.6, "n_households": 14378906}, {"group": "Working-age renters", "avg_net_change": 59, "avg_lvt": 1297, "avg_council_tax_saved": 1379, "pct_winners": 74.5, "pct_losers": 23.3, "pct_no_change": 2.3, "n_households": 10564124}], "london": [{"group": "London", "avg_net_change": -3766, "avg_lvt": 5547, "avg_council_tax_saved": 1785, "pct_winners": 34.7, "pct_losers": 63.5, "pct_no_change": 1.8, "n_households": 4046121}, {"group": "Rest of UK", "avg_net_change": -1367, "avg_lvt": 3193, "avg_council_tax_saved": 1835, "pct_winners": 53.0, "pct_losers": 44.1, "pct_no_change": 2.9, "n_households": 28029277}], "london_pensioner": [{"group": "London pensioner homeowners", "avg_net_change": -8040, "avg_lvt": 10479, "avg_council_tax_saved": 2439, "pct_winners": 4.6, "pct_losers": 95.3, "pct_no_change": 0.1, "n_households": 436274}, {"group": "Pensioner homeowners elsewhere", "avg_net_change": -2753, "avg_lvt": 4928, "avg_council_tax_saved": 2175, "pct_winners": 33.1, "pct_losers": 65.6, "pct_no_change": 1.3, "n_households": 4735782}]}, "2.0%": {"income_decile": [{"group": 1, "avg_net_change": -963, "avg_lvt": 2456, "avg_council_tax_saved": 1508, "pct_winners": 59.7, "pct_losers": 36.4, "pct_no_change": 3.8, "n_households": 3867027}, {"group": 2, "avg_net_change": -2359, "avg_lvt": 3932, "avg_council_tax_saved": 1589, "pct_winners": 56.5, "pct_losers": 41.0, "pct_no_change": 2.4, "n_households": 2886072}, {"group": 3, "avg_net_change": -2116, "avg_lvt": 3605, "avg_council_tax_saved": 1505, "pct_winners": 49.8, "pct_losers": 40.6, "pct_no_change": 9.6, "n_households": 3327583}, {"group": 4, "avg_net_change": -1490, "avg_lvt": 3047, "avg_council_tax_saved": 1567, "pct_winners": 58.9, "pct_losers": 39.9, "pct_no_change": 1.2, "n_households": 3090257}, {"group": 5, "avg_net_change": -1965, "avg_lvt": 3578, "avg_council_tax_saved": 1625, "pct_winners": 51.4, "pct_losers": 45.3, "pct_no_change": 3.3, "n_households": 3585922}, {"group": 6, "avg_net_change": -2726, "avg_lvt": 4615, "avg_council_tax_saved": 1892, "pct_winners": 36.6, "pct_losers": 60.8, "pct_no_change": 2.6, "n_households": 2937153}, {"group": 7, "avg_net_change": -1675, "avg_lvt": 3551, "avg_council_tax_saved": 1878, "pct_winners": 53.4, "pct_losers": 45.7, "pct_no_change": 0.8, "n_households": 3202913}, {"group": 8, "avg_net_change": -3138, "avg_lvt": 5295, "avg_council_tax_saved": 2158, "pct_winners": 32.6, "pct_losers": 66.2, "pct_no_change": 1.3, "n_households": 2994949}, {"group": 9, "avg_net_change": -5102, "avg_lvt": 7331, "avg_council_tax_saved": 2229, "pct_winners": 20.0, "pct_losers": 79.3, "pct_no_change": 0.7, "n_households": 3026838}, {"group": 10, "avg_net_change": -7470, "avg_lvt": 9949, "avg_council_tax_saved": 2481, "pct_winners": 14.7, "pct_losers": 84.5, "pct_no_change": 0.7, "n_households": 3092874}], "wealth_decile": [{"group": 1, "avg_net_change": 980, "avg_lvt": 0, "avg_council_tax_saved": 1011, "pct_winners": 80.9, "pct_losers": 9.3, "pct_no_change": 9.8, "n_households": 3504344}, {"group": 2, "avg_net_change": 908, "avg_lvt": 2, "avg_council_tax_saved": 928, "pct_winners": 78.5, "pct_losers": 7.7, "pct_no_change": 13.7, "n_households": 3746710}, {"group": 3, "avg_net_change": 1293, "avg_lvt": 58, "avg_council_tax_saved": 1362, "pct_winners": 86.4, "pct_losers": 13.0, "pct_no_change": 0.6, "n_households": 2983935}, {"group": 4, "avg_net_change": 1044, "avg_lvt": 692, "avg_council_tax_saved": 1748, "pct_winners": 92.5, "pct_losers": 7.4, "pct_no_change": 0.1, "n_households": 3169299}, {"group": 5, "avg_net_change": 31, "avg_lvt": 1843, "avg_council_tax_saved": 1874, "pct_winners": 61.7, "pct_losers": 38.3, "pct_no_change": 0.0, "n_households": 3172572}, {"group": 6, "avg_net_change": -759, "avg_lvt": 2823, "avg_council_tax_saved": 2065, "pct_winners": 26.4, "pct_losers": 73.6, "pct_no_change": 0.0, "n_households": 2984259}, {"group": 7, "avg_net_change": -2198, "avg_lvt": 4398, "avg_council_tax_saved": 2201, "pct_winners": 2.4, "pct_losers": 97.6, "pct_no_change": 0.0, "n_households": 3065928}, {"group": 8, "avg_net_change": -4244, "avg_lvt": 6505, "avg_council_tax_saved": 2261, "pct_winners": 0.2, "pct_losers": 99.8, "pct_no_change": 0.0, "n_households": 3015588}, {"group": 9, "avg_net_change": -6518, "avg_lvt": 8930, "avg_council_tax_saved": 2412, "pct_winners": 0.0, "pct_losers": 100.0, "pct_no_change": 0.0, "n_households": 3034794}, {"group": 10, "avg_net_change": -18652, "avg_lvt": 21313, "avg_council_tax_saved": 2661, "pct_winners": 0.0, "pct_losers": 100.0, "pct_no_change": 0.0, "n_households": 3397969}], "region": [{"group": "North East", "avg_net_change": -1448, "avg_lvt": 3073, "avg_council_tax_saved": 1643, "pct_winners": 44.2, "pct_losers": 54.9, "pct_no_change": 0.9, "n_households": 1348505}, {"group": "North West", "avg_net_change": -2133, "avg_lvt": 3714, "avg_council_tax_saved": 1593, "pct_winners": 45.0, "pct_losers": 49.4, "pct_no_change": 5.6, "n_households": 3634333}, {"group": "Yorkshire and the Humber", "avg_net_change": -1664, "avg_lvt": 3388, "avg_council_tax_saved": 1733, "pct_winners": 57.9, "pct_losers": 40.9, "pct_no_change": 1.2, "n_households": 2682854}, {"group": "East Midlands", "avg_net_change": -2295, "avg_lvt": 4172, "avg_council_tax_saved": 1887, "pct_winners": 40.2, "pct_losers": 59.0, "pct_no_change": 0.8, "n_households": 2333824}, {"group": "West Midlands", "avg_net_change": -2078, "avg_lvt": 3881, "avg_council_tax_saved": 1809, "pct_winners": 49.4, "pct_losers": 49.3, "pct_no_change": 1.3, "n_households": 2762180}, {"group": "East of England", "avg_net_change": -3399, "avg_lvt": 5440, "avg_council_tax_saved": 2054, "pct_winners": 40.9, "pct_losers": 58.7, "pct_no_change": 0.4, "n_households": 2999532}, {"group": "London", "avg_net_change": -5615, "avg_lvt": 7396, "avg_council_tax_saved": 1785, "pct_winners": 34.5, "pct_losers": 63.7, "pct_no_change": 1.8, "n_households": 4046121}, {"group": "South East", "avg_net_change": -3559, "avg_lvt": 5726, "avg_council_tax_saved": 2180, "pct_winners": 42.2, "pct_losers": 57.3, "pct_no_change": 0.5, "n_households": 4348654}, {"group": "South West", "avg_net_change": -2842, "avg_lvt": 4917, "avg_council_tax_saved": 2081, "pct_winners": 39.7, "pct_losers": 59.2, "pct_no_change": 1.1, "n_households": 2840106}, {"group": "Wales", "avg_net_change": -1580, "avg_lvt": 3605, "avg_council_tax_saved": 2025, "pct_winners": 61.8, "pct_losers": 37.8, "pct_no_change": 0.4, "n_households": 1578884}, {"group": "Scotland", "avg_net_change": -1505, "avg_lvt": 3191, "avg_council_tax_saved": 1686, "pct_winners": 53.4, "pct_losers": 40.8, "pct_no_change": 5.8, "n_households": 2745761}, {"group": "Northern Ireland", "avg_net_change": -3323, "avg_lvt": 3323, "avg_council_tax_saved": 0, "pct_winners": 0.0, "pct_losers": 63.9, "pct_no_change": 36.1, "n_households": 754644}], "country": [{"group": "England", "avg_net_change": -3027, "avg_lvt": 4901, "avg_council_tax_saved": 1883, "pct_winners": 43.2, "pct_losers": 55.1, "pct_no_change": 1.6, "n_households": 26996109}, {"group": "Scotland", "avg_net_change": -1505, "avg_lvt": 3191, "avg_council_tax_saved": 1686, "pct_winners": 53.4, "pct_losers": 40.8, "pct_no_change": 5.8, "n_households": 2745761}, {"group": "Wales", "avg_net_change": -1580, "avg_lvt": 3605, "avg_council_tax_saved": 2025, "pct_winners": 61.8, "pct_losers": 37.8, "pct_no_change": 0.4, "n_households": 1578884}, {"group": "Northern Ireland", "avg_net_change": -3323, "avg_lvt": 3323, "avg_council_tax_saved": 0, "pct_winners": 0.0, "pct_losers": 63.9, "pct_no_change": 36.1, "n_households": 754644}], "family_type": [{"group": "Single, no children", "avg_net_change": -1543, "avg_lvt": 2752, "avg_council_tax_saved": 1227, "pct_winners": 63.8, "pct_losers": 34.0, "pct_no_change": 2.2, "n_households": 5431981}, {"group": "Couple, no children", "avg_net_change": -3891, "avg_lvt": 6069, "avg_council_tax_saved": 2180, "pct_winners": 34.1, "pct_losers": 65.3, "pct_no_change": 0.6, "n_households": 10554000}, {"group": "Lone parent", "avg_net_change": 755, "avg_lvt": 156, "avg_council_tax_saved": 950, "pct_winners": 83.4, "pct_losers": 13.9, "pct_no_change": 2.7, "n_households": 2185647}, {"group": "Couple with children", "avg_net_change": -2469, "avg_lvt": 4509, "avg_council_tax_saved": 2048, "pct_winners": 45.9, "pct_losers": 52.9, "pct_no_change": 1.1, "n_households": 6771403}, {"group": "Single pensioner", "avg_net_change": -1746, "avg_lvt": 3115, "avg_council_tax_saved": 1369, "pct_winners": 40.1, "pct_losers": 47.3, "pct_no_change": 12.7, "n_households": 4017553}, {"group": "Pensioner couple", "avg_net_change": -6206, "avg_lvt": 8628, "avg_council_tax_saved": 2422, "pct_winners": 16.0, "pct_losers": 81.9, "pct_no_change": 2.0, "n_households": 3114814}], "tenure": [{"group": "Owned outright", "avg_net_change": -5422, "avg_lvt": 7675, "avg_council_tax_saved": 2253, "pct_winners": 22.3, "pct_losers": 76.9, "pct_no_change": 0.9, "n_households": 10991809}, {"group": "Owned with mortgage", "avg_net_change": -3133, "avg_lvt": 5193, "avg_council_tax_saved": 2060, "pct_winners": 34.5, "pct_losers": 64.9, "pct_no_change": 0.6, "n_households": 8559153}, {"group": "Private renter", "avg_net_change": -583, "avg_lvt": 2223, "avg_council_tax_saved": 1652, "pct_winners": 70.4, "pct_losers": 27.3, "pct_no_change": 2.3, "n_households": 6864607}, {"group": "Council renter", "avg_net_change": 636, "avg_lvt": 160, "avg_council_tax_saved": 812, "pct_winners": 78.5, "pct_losers": 14.0, "pct_no_change": 7.6, "n_households": 2824512}, {"group": "Housing assoc. renter", "avg_net_change": -790, "avg_lvt": 1672, "avg_council_tax_saved": 923, "pct_winners": 58.6, "pct_losers": 28.5, "pct_no_change": 12.9, "n_households": 2835316}], "age_tenure": [{"group": "Pensioner homeowners", "avg_net_change": -4997, "avg_lvt": 7194, "avg_council_tax_saved": 2197, "pct_winners": 21.7, "pct_losers": 77.0, "pct_no_change": 1.2, "n_households": 5172056}, {"group": "Pensioner renters", "avg_net_change": -254, "avg_lvt": 1112, "avg_council_tax_saved": 857, "pct_winners": 50.3, "pct_losers": 23.9, "pct_no_change": 25.9, "n_households": 1960312}, {"group": "Working-age homeowners", "avg_net_change": -4212, "avg_lvt": 6370, "avg_council_tax_saved": 2159, "pct_winners": 29.8, "pct_losers": 69.7, "pct_no_change": 0.6, "n_households": 14378906}, {"group": "Working-age renters", "avg_net_change": -374, "avg_lvt": 1730, "avg_council_tax_saved": 1379, "pct_winners": 73.1, "pct_losers": 24.7, "pct_no_change": 2.2, "n_households": 10564124}], "london": [{"group": "London", "avg_net_change": -5615, "avg_lvt": 7396, "avg_council_tax_saved": 1785, "pct_winners": 34.5, "pct_losers": 63.7, "pct_no_change": 1.8, "n_households": 4046121}, {"group": "Rest of UK", "avg_net_change": -2431, "avg_lvt": 4258, "avg_council_tax_saved": 1835, "pct_winners": 45.4, "pct_losers": 51.7, "pct_no_change": 2.9, "n_households": 28029277}], "london_pensioner": [{"group": "London pensioner homeowners", "avg_net_change": -11533, "avg_lvt": 13973, "avg_council_tax_saved": 2439, "pct_winners": 3.6, "pct_losers": 96.3, "pct_no_change": 0.1, "n_households": 436274}, {"group": "Pensioner homeowners elsewhere", "avg_net_change": -4395, "avg_lvt": 6570, "avg_council_tax_saved": 2175, "pct_winners": 23.4, "pct_losers": 75.2, "pct_no_change": 1.3, "n_households": 4735782}]}}};
+
+const GROUPS = {
+  income_decile: { label: "Income decile", axis: "Income decile", note: "" },
+  wealth_decile: { label: "Wealth decile", axis: "Wealth decile", note: "" },
+  region:        { label: "Region", axis: "", note: "" },
+  family_type:   { label: "Household type", axis: "", note: "" },
+  tenure:        { label: "Tenure", axis: "", note: "" },
+};
+const METRICS = {
+  avg_net_change: { label: "Avg net change (£/yr)", fmt: fmtGBPSigned, title: g => `Average net income change by ${g.toLowerCase()}`, unit: "£/year", diverging: true },
+  winners_losers: { label: "Winners & losers", fmt: v => v.toFixed(0) + "%", title: g => `Share of households better off, unchanged, and worse off, by ${g.toLowerCase()}`, unit: "% of households", diverging: false, stacked: true },
+  avg_lvt:        { label: "Avg LVT bill (£/yr)", fmt: v => "£" + Math.round(v).toLocaleString(), title: g => `Average LVT liability by ${g.toLowerCase()}`, unit: "£/year", diverging: false },
+};
+
+const qs = new URLSearchParams(location.search);
+let state = {
+  group: GROUPS[qs.get("group")] ? qs.get("group") : "income_decile",
+  rate: DATA && DATA.rates.includes(qs.get("rate")) ? qs.get("rate") : "0.77%",
+  metric: METRICS[qs.get("metric")] ? qs.get("metric") : "avg_net_change",
+};
+
+function fmtGBPSigned(v) {
+  const a = "£" + Math.abs(Math.round(v)).toLocaleString();
+  return v > 0 ? "+" + a : v < 0 ? "−" + a : a;
+}
+
+function chips(el, items, current, onpick) {
+  el.innerHTML = "";
+  for (const [key, label] of items) {
+    const b = document.createElement("button");
+    b.className = "chip" + (key === current ? " active" : "");
+    b.textContent = label;
+    b.onclick = () => onpick(key);
+    el.appendChild(b);
+  }
+}
+
+function renderControls() {
+  chips(document.getElementById("groupChips"),
+    Object.entries(GROUPS).map(([k, g]) => [k, g.label]), state.group,
+    k => { state.group = k; render(); });
+  chips(document.getElementById("rateChips"),
+    DATA.rates.map(r => [r, r + (r === "0.77%" ? " (rev-neutral)" : "")]), state.rate,
+    k => { state.rate = k; render(); });
+  chips(document.getElementById("metricChips"),
+    Object.entries(METRICS).map(([k, m]) => [k, m.label]), state.metric,
+    k => { state.metric = k; render(); });
+}
+
+function niceStep(range) {
+  const raw = range / 6;
+  const pow = Math.pow(10, Math.floor(Math.log10(raw)));
+  for (const m of [1, 2, 2.5, 5, 10]) if (raw <= m * pow) return m * pow;
+  return 10 * pow;
+}
+
+function render() {
+  renderControls();
+  const gInfo = GROUPS[state.group], mInfo = METRICS[state.metric];
+  let rows = DATA.scenarios[state.rate][state.group];
+  if (state.group === "region") {
+    const nonEngland = ["Wales", "Scotland", "Northern Ireland"];
+    rows = rows.filter(r => !nonEngland.includes(r.group));
+  }
+  const isCatSort = !["income_decile", "wealth_decile"].includes(state.group);
+  const sortKey = METRICS[state.metric].stacked ? "pct_winners" : state.metric;
+  if (isCatSort) rows = [...rows].sort((a, b) => b[sortKey] - a[sortKey]);
+  document.getElementById("figTitle").textContent =
+    mInfo.title(gInfo.label) + `, council tax → ${state.rate} LVT, 2026-27 (${mInfo.unit})`;
+  document.getElementById("figNote").textContent = gInfo.note;
+
+  const svg = document.getElementById("chart");
+  const isCat = !["income_decile", "wealth_decile"].includes(state.group);
+  const W = 940, H = 440, mL = 64, mR = 16, mT = 16, mB = isCat ? 84 : 64;
+  const iw = W - mL - mR, ih = H - mT - mB;
+
+  let lo, hi, step;
+  if (mInfo.stacked) {
+    lo = 0; hi = 100; step = 20;
+  } else {
+    const vals = rows.map(r => r[state.metric]);
+    lo = Math.min(0, ...vals); hi = Math.max(0, ...vals);
+    const pad = (hi - lo) * 0.15 || 1; hi += pad; if (lo < 0) lo -= pad;
+    step = niceStep(hi - lo);
+    lo = Math.floor(lo / step) * step; hi = Math.ceil(hi / step) * step;
+  }
+  const y = v => mT + ih * (1 - (v - lo) / (hi - lo));
+
+  const n = rows.length;
+  const bandW = iw / n, barW = Math.min(64, bandW * 0.62);
+  let s = "";
+
+  for (let t = lo; t <= hi + 1e-9; t += step) {
+    const yy = y(t);
+    s += `<line x1="${mL}" x2="${W - mR}" y1="${yy}" y2="${yy}" stroke="var(--grid)" stroke-width="1"/>`;
+    s += `<text x="${mL - 8}" y="${yy + 4}" text-anchor="end" font-size="13" fill="var(--muted)" style="font-variant-numeric:tabular-nums">${mInfo.diverging ? fmtGBPSigned(t) : (state.metric === "avg_lvt" ? "£" + t.toLocaleString() : t + "%")}</text>`;
+  }
+  s += `<line x1="${mL}" x2="${W - mR}" y1="${y(0)}" y2="${y(0)}" stroke="var(--baseline)" stroke-width="1.5"/>`;
+
+  rows.forEach((r, i) => {
+    const cx = mL + bandW * (i + 0.5);
+    const x0 = cx - barW / 2;
+    if (mInfo.stacked) {
+      const segs = [
+        { v: r.pct_winners, fill: "var(--pos)", lab: true },
+        { v: r.pct_no_change, fill: "var(--pe-gray-300)", lab: false },
+        { v: r.pct_losers, fill: "var(--neg)", lab: true },
+      ];
+      let acc = 0;
+      segs.forEach(seg => {
+        const yTop = y(acc + seg.v), yBot = y(acc);
+        const h = Math.max(yBot - yTop - 2, 0.5);
+        s += `<rect x="${x0}" y="${yTop}" width="${barW}" height="${h}" rx="3" fill="${seg.fill}"/>`;
+        if (seg.lab && seg.v >= 7)
+          s += `<text x="${cx}" y="${(yTop + yBot) / 2 + 4}" text-anchor="middle" font-size="13" font-weight="600" fill="${seg.fill === "var(--neg)" ? "#fff" : "#fff"}" style="font-variant-numeric:tabular-nums">${seg.v.toFixed(0)}%</text>`;
+        acc += seg.v;
+      });
+      const lab0 = String(r.group).replace("Yorkshire and the Humber", "Yorkshire & Humber");
+      if (isCat) {
+        const ly = H - mB + 16;
+        s += `<text x="${cx}" y="${ly}" text-anchor="end" font-size="13" fill="var(--ink-2)" transform="rotate(-30 ${cx} ${ly})">${lab0}</text>`;
+      } else {
+        s += `<text x="${cx}" y="${H - mB + 20}" text-anchor="middle" font-size="13" fill="var(--ink-2)">${lab0}</text>`;
+      }
+      s += `<rect x="${mL + bandW * i}" y="${mT}" width="${bandW}" height="${ih}" fill="transparent" data-hit="${i}"/>`;
+      return;
+    }
+    const v = r[state.metric];
+    const yv = y(v), y0 = y(0);
+    const top = Math.min(yv, y0), h = Math.max(Math.abs(yv - y0), 1);
+    const neg = mInfo.diverging && v < 0;
+    const fill = neg ? "var(--neg)" : "var(--pos)";
+    const rx = 4;
+    const path = v >= 0
+      ? `M${x0},${top + h} L${x0},${top + rx} Q${x0},${top} ${x0 + rx},${top} L${x0 + barW - rx},${top} Q${x0 + barW},${top} ${x0 + barW},${top + rx} L${x0 + barW},${top + h} Z`
+      : `M${x0},${top} L${x0 + barW},${top} L${x0 + barW},${top + h - rx} Q${x0 + barW},${top + h} ${x0 + barW - rx},${top + h} L${x0 + rx},${top + h} Q${x0},${top + h} ${x0},${top + h - rx} Z`;
+    s += `<path d="${path}" fill="${fill}" data-i="${i}"/>`;
+    const labY = v >= 0 ? top - 7 : top + h + 15;
+    s += `<text x="${cx}" y="${labY}" text-anchor="middle" font-size="13.5" font-weight="600" fill="${neg ? "var(--neg-text)" : "var(--pos-text)"}" style="font-variant-numeric:tabular-nums">${mInfo.fmt(v)}</text>`;
+
+    const lab = String(r.group).replace("Yorkshire and the Humber", "Yorkshire & Humber");
+    if (isCat) {
+      const ly = H - mB + 16;
+      s += `<text x="${cx}" y="${ly}" text-anchor="end" font-size="13" fill="var(--ink-2)" transform="rotate(-30 ${cx} ${ly})">${lab}</text>`;
+    } else {
+      s += `<text x="${cx}" y="${H - mB + 20}" text-anchor="middle" font-size="13" fill="var(--ink-2)">${lab}</text>`;
+    }
+    s += `<rect x="${mL + bandW * i}" y="${mT}" width="${bandW}" height="${ih}" fill="transparent" data-hit="${i}"/>`;
+  });
+
+  if (gInfo.axis) s += `<text x="${mL + iw / 2}" y="${H - 12}" text-anchor="middle" font-size="14" font-weight="600" fill="var(--ink-2)">${gInfo.axis}</text>`;
+  svg.innerHTML = s;
+  document.getElementById("legend").innerHTML = mInfo.stacked
+    ? [["Better off", "var(--pos)"], ["No change (±£1)", "var(--pe-gray-300)"], ["Worse off", "var(--neg)"]]
+        .map(([t, c]) => `<span class="leg"><span class="sw" style="background:${c}"></span>${t}</span>`).join("")
+    : "";
+
+  const tt = document.getElementById("tooltip");
+  svg.querySelectorAll("[data-hit]").forEach(hit => {
+    hit.addEventListener("mousemove", e => {
+      const r = rows[+hit.dataset.hit];
+      tt.innerHTML = `<div class="tt-title">${isCat ? r.group : gInfo.label + " " + r.group}</div>` +
+        `<div class="tt-row"><span>Avg net change</span><b>${fmtGBPSigned(r.avg_net_change)}</b></div>` +
+        `<div class="tt-row"><span>Avg LVT bill</span><b>£${r.avg_lvt.toLocaleString()}</b></div>` +
+        `<div class="tt-row"><span>Council tax saved</span><b>£${r.avg_council_tax_saved.toLocaleString()}</b></div>` +
+        `<div class="tt-row"><span>Better off</span><b>${r.pct_winners}%</b></div>` +
+        `<div class="tt-row"><span>No change (±£1)</span><b>${(r.pct_no_change ?? (100 - r.pct_winners - r.pct_losers)).toFixed(1)}%</b></div>` +
+        `<div class="tt-row"><span>Worse off</span><b>${r.pct_losers}%</b></div>`;
+      tt.style.display = "block";
+      const box = svg.parentElement.getBoundingClientRect();
+      let tx = e.clientX - box.left + 14, ty = e.clientY - box.top + 10;
+      if (tx + 210 > box.width) tx -= 230;
+      tt.style.left = tx + "px"; tt.style.top = ty + "px";
+    });
+    hit.addEventListener("mouseleave", () => { tt.style.display = "none"; });
+  });
+
+  const cols = [["Avg net change", r => fmtGBPSigned(r.avg_net_change)], ["Avg LVT", r => "£" + r.avg_lvt.toLocaleString()], ["CT saved", r => "£" + r.avg_council_tax_saved.toLocaleString()], ["% better off", r => r.pct_winners + "%"], ["% no change", r => (r.pct_no_change ?? (100 - r.pct_winners - r.pct_losers)).toFixed(1) + "%"], ["% worse off", r => r.pct_losers + "%"]];
+  document.getElementById("tableBox").innerHTML =
+    `<table><thead><tr><th>${gInfo.label}</th>${cols.map(c => `<th>${c[0]}</th>`).join("")}</tr></thead><tbody>` +
+    rows.map(r => `<tr><td>${r.group}</td>${cols.map(c => `<td>${c[1](r)}</td>`).join("")}</tr>`).join("") +
+    `</tbody></table>`;
+  renderSpotlight();
+}
+
+function spotRows(el, rows, maxAbs) {
+  el.innerHTML = rows.map(r => {
+    const v = r.avg_net_change;
+    const wPct = Math.min(Math.abs(v) / maxAbs * 50, 50);
+    const left = v >= 0 ? 50 : 50 - wPct;
+    const color = v >= 0 ? "var(--pos)" : "var(--neg)";
+    return `<div class="spot-row"><span>${r.group}</span>` +
+      `<span class="bartrack"><span class="zero"></span><span class="b" style="left:${left}%;width:${wPct}%;background:${color}"></span></span>` +
+      `<span class="val" style="color:${v >= 0 ? "var(--pos-text)" : "var(--neg-text)"}">${fmtGBPSigned(v)}</span></div>`;
+  }).join("");
+}
+
+function renderSpotlight() {
+  const sc = DATA.scenarios[state.rate];
+  const card = document.getElementById("spotCard");
+  if (!sc.age_tenure || !sc.london) { card.style.display = "none"; return; }
+  card.style.display = "block";
+  document.getElementById("spotTitle").textContent =
+    `Spotlight: older homeowners and London, council tax → ${state.rate} LVT, 2026-27`;
+
+  const age = sc.age_tenure, lon = sc.london_pensioner || [];
+  const maxAbs = Math.max(...[...age, ...lon].map(r => Math.abs(r.avg_net_change)), 1);
+  spotRows(document.getElementById("spotAge"), age, maxAbs);
+  spotRows(document.getElementById("spotLondon"), lon, maxAbs);
+
+  const pens = age.find(r => r.group === "Pensioner homeowners");
+  const pensRent = age.find(r => r.group === "Pensioner renters");
+  document.getElementById("spotAgeText").textContent =
+    `At ${state.rate}, pensioner homeowners ${pens.avg_net_change < 0 ? "lose" : "gain"} £${Math.abs(pens.avg_net_change).toLocaleString()} a year on average (${pens.pct_losers}% worse off) — they own more land than the average household. Pensioner renters ${pensRent.avg_net_change >= 0 ? "gain" : "lose"} £${Math.abs(pensRent.avg_net_change).toLocaleString()}: they pay no LVT and keep the council tax saving.`;
+
+  const london = sc.london.find(r => r.group === "London"), rest = sc.london.find(r => r.group === "Rest of UK");
+  const lonPens = (sc.london_pensioner || []).find(r => r.group === "London pensioner homeowners");
+  document.getElementById("spotLondonText").textContent =
+    `London land is worth far more than elsewhere: the average London household ${london.avg_net_change >= 0 ? "gains" : "loses"} £${Math.abs(london.avg_net_change).toLocaleString()} a year (${london.pct_losers}% worse off), versus a £${Math.abs(rest.avg_net_change).toLocaleString()} average ${rest.avg_net_change >= 0 ? "gain" : "loss"} in the rest of the UK.` +
+    (lonPens ? ` London pensioner homeowners ${lonPens.avg_net_change >= 0 ? "gain" : "lose"} most: £${Math.abs(lonPens.avg_net_change).toLocaleString()} on average (${lonPens.pct_losers}% worse off).` : "");
+}
+
+if (DATA) render();
+else document.getElementById("figTitle").textContent = "Data not injected yet — run scripts/build_impact_by_group.py";
+</script>
+</body>
+</html>
