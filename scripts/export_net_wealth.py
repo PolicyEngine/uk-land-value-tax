@@ -1,12 +1,12 @@
 """Export net wealth per household_id for the LVT blog analysis (interim bridge).
 
-Imputes mortgage and consumer debt onto the enhanced FRS with the WAS-trained
-QRF and writes household_id -> net_wealth (and components) to a parquet the LVT
-pipeline joins on. This is a bridge until net_wealth ships in a released
+Imputes mortgage, consumer and student-loan debt onto the enhanced FRS with the
+WAS-trained QRF and writes household_id -> net_wealth (and components) to a CSV
+the LVT pipeline joins on. This is a bridge until net_wealth ships in a released
 policyengine-uk + dataset, after which the pipeline can request it directly.
 
-Run from the policyengine-uk-data venv:
-  uv run --no-sync python export_net_wealth.py <out.parquet>
+Run from the policyengine-uk-data venv (the script lives in this repo):
+  uv run --no-sync python uk-land-value-tax/scripts/export_net_wealth.py <out.csv> [dataset.h5]
 """
 import sys
 import numpy as np
@@ -30,9 +30,12 @@ input_df["region"] = input_df["region"].replace("NORTHERN_IRELAND", "WALES")
 out = model.predict(input_df)
 mortgage_debt = np.clip(out["mortgage_debt"].values, 0, None)
 consumer_debt = np.clip(out["consumer_debt"].values, 0, None)
+# Use the QRF-imputed student-loan balance, not sim.calculate: the published
+# enhanced FRS predates the student_loan_balance imputation, so reading it from
+# the dataset returns all zeros and would silently drop the term from net wealth.
+student_loan = np.clip(out["student_loan_balance"].values, 0, None)
 
 total_wealth = sim.calculate("total_wealth", YEAR).values
-student_loan = sim.calculate("student_loan_balance", YEAR, map_to="household").values
 net_wealth = total_wealth - mortgage_debt - consumer_debt - student_loan
 household_id = sim.calculate("household_id", YEAR).values
 
