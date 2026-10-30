@@ -27,6 +27,7 @@ import {
   formatBn,
   formatCompactCurrency,
   formatCurrency,
+  formatGiniChange,
   formatPct,
   formatPercentagePointChange,
   formatSignedBn,
@@ -423,7 +424,7 @@ export default function ReformTab({ data }) {
                   <th>Gaining</th>
                   <th>BHC poverty</th>
                   <th>AHC poverty</th>
-                  <th>Gini</th>
+                  <th>Gini change</th>
                 </tr>
               </thead>
               <tbody>
@@ -437,12 +438,17 @@ export default function ReformTab({ data }) {
                     <td>{formatPct(row.pct_winners)}</td>
                     <td>{formatPercentagePointChange(row.poverty_bhc_change)}</td>
                     <td>{formatPercentagePointChange(row.poverty_ahc_change)}</td>
-                    <td>{formatSignedPct(row.gini_change_pct, 2)}</td>
+                    <td>{formatGiniChange(row.gini_change)}</td>
                   </tr>
                 ))}
               </tbody>
             </table>
           </div>
+          <p className="mt-3 text-xs text-slate-500">
+            Baseline Gini coefficients (2026-27): equivalised household net income {data.poverty_gini.baseline_gini.toFixed(4)};
+            household total wealth {data.poverty_gini.baseline_wealth_gini.toFixed(4)}. The wealth Gini is unchanged
+            under the static reform.
+          </p>
         </div>
       </div>
 

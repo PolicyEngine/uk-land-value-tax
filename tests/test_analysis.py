@@ -196,7 +196,7 @@ def test_build_ons_comparison_uses_upstream_targets():
 
     assert comparison == {
         "target_year": 2024,
-        "target_label": "2024-25",
+        "target_label": "2024",
         "target_household_tn": 5.04,
         "target_corporate_tn": 2.06,
         "target_total_tn": 7.1,

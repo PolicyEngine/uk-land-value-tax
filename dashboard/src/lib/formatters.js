@@ -39,6 +39,10 @@ export function formatPercentagePointChange(value, digits = 2) {
   return `${getSignedPrefix(value)}${Math.abs(Number(value)).toFixed(digits)}pp`;
 }
 
+export function formatGiniChange(value) {
+  return `${getSignedPrefix(value)}${Math.abs(Number(value)).toFixed(4)}`;
+}
+
 export function formatTn(value) {
   return `£${Number(value).toFixed(1)}tn`;
 }
